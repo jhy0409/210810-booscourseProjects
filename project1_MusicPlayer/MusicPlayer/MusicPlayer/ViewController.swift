@@ -17,7 +17,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
+        print("button tapped")
+    }
+    
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        print("slider value changed")
+    }
 }
 
