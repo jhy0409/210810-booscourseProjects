@@ -11,7 +11,39 @@ class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\n1. SecondViewController의 view가 메모리에 로드 됨\t\t-viewDidLoad")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("2. SecondViewController의 view가 화면에 보여질 예정\t-viewWillAppear")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("3. SecondViewController의 view가 화면에 보여짐\t\t-viewDidAppear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("4. SecondViewController의 view가 화면에서 사라질 예정\t-viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("5. SecondViewController의 view가 화면에서 사라짐\t\t-viewDidDisappear")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("6. SecondViewController의 view가 레이아웃 하려함\t\t-viewWillLayoutSubviews")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print("7. SecondViewController의 subview를 레이아웃 함\t\t-viewDidLayoutSubviews")
+    }
+    
     
     @IBAction func popToPrev() {
         self.navigationController?.popViewController(animated: true)
