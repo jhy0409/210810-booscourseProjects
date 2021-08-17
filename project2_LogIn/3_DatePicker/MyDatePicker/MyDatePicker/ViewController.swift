@@ -12,11 +12,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     let dateFormatter: DateFormatter = {
         let formatter: DateFormatter = DateFormatter()
-        // formatter.dateStyle = .medium // 지정스타일
-        // formatter.timeStyle = .medium
+         // formatter.dateStyle = .medium // 지정스타일
+         // formatter.timeStyle = .medium
         
         // formatter.dateFormat = "yyyy.mm.dd hh:mm:ss"
-        formatter.dateFormat = "yyyy.m.d h:m:s"
+         formatter.dateFormat = "yyyy.m.d h:m:s"
+        
+        // 현지화된 날짜 형식을 지정
+        // formatter.locale = Locale(identifier: "ko_KR")
+        // formatter.setLocalizedDateFormatFromTemplate("yyyyMMMd h:m:s")
         return formatter
     }()
     
