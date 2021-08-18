@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0FJ-pt-Ial">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -17,14 +17,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-HZ-XIB">
-                                <rect key="frame" x="127" y="147" width="160" height="114.5"/>
+                                <rect key="frame" x="127" y="191" width="160" height="114.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="i85-Vw-73B"/>
                                     <constraint firstAttribute="width" secondItem="bCX-HZ-XIB" secondAttribute="height" multiplier="4:3" id="yei-h0-FJ7"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7sn-K0-SPV">
-                                <rect key="frame" x="57" y="314" width="300" height="50"/>
+                                <rect key="frame" x="57" y="358" width="300" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="RdF-Qt-zW3"/>
                                     <constraint firstAttribute="width" constant="300" id="sHa-8W-o9f"/>
@@ -33,7 +33,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nKl-lM-RLa">
-                                <rect key="frame" x="57" y="379" width="300" height="50"/>
+                                <rect key="frame" x="57" y="423" width="300" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8UQ-ma-aSP"/>
                                     <constraint firstAttribute="width" constant="300" id="VBD-op-f6w"/>
@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlB-Ov-Z7F">
-                                <rect key="frame" x="57" y="453" width="150" height="34"/>
+                                <rect key="frame" x="57" y="497" width="150" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="RiK-0y-0ZD"/>
                                 </constraints>
@@ -50,7 +50,7 @@
                                 <state key="normal" title="Sign In"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgq-Xj-k12">
-                                <rect key="frame" x="207" y="452" width="150" height="34"/>
+                                <rect key="frame" x="207" y="496" width="150" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="4JU-bf-47c"/>
                                 </constraints>
@@ -78,10 +78,11 @@
                             <constraint firstItem="7sn-K0-SPV" firstAttribute="top" secondItem="bCX-HZ-XIB" secondAttribute="bottom" constant="50" id="ncb-u9-Hca"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="itL-b2-4J5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-25" y="73"/>
+            <point key="canvasLocation" x="884.05797101449286" y="72.991071428571431"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Yqr-yh-Xqg">
@@ -191,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dBN-wg-VAW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="785.50724637681162" y="72.991071428571431"/>
+            <point key="canvasLocation" x="1695.6521739130435" y="72.991071428571431"/>
         </scene>
         <!--Sign Up Third View Controller-->
         <scene sceneID="yXf-VD-jbB">
@@ -288,7 +289,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQY-ha-KZc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="73"/>
+            <point key="canvasLocation" x="2547.826086956522" y="72.991071428571431"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="HEC-Is-FHu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0FJ-pt-Ial" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EwV-3l-qYm">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5b0-h9-Qwv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4aM-r2-cfX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26.086956521739133" y="72.991071428571431"/>
         </scene>
     </scenes>
     <resources>
