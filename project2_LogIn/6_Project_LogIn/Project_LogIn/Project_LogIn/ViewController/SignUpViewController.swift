@@ -28,32 +28,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        세팅_델리게이트(textFieldArr)
+        settingDelegate(textFieldArr)
         imgViewSetting()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickPhoto))
         profileImg.addGestureRecognizer(tapGesture)
         profileImg.isUserInteractionEnabled = true
-    }
-    
-    
-    
-    
-    func imgViewSetting() {
-        profileImg.layer.borderWidth = 1
-        profileImg.layer.cornerRadius = 10
-        
-        if profileImg.image == nil {
-            profileImg.backgroundColor = .systemGray6
-            profileImg.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-            nextButton.isEnabled = false
-        }
-        else {
-            profileImg.backgroundColor = .systemBackground
-            profileImg.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-            nextButton.isEnabled = true
-        }
-        print("\n\n--> imgViewSetting func")
     }
     
     @objc func pickPhoto() {
@@ -72,6 +52,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         유효값검사()
     }
+    
     func 유효값검사() {
         if  idTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
             pwTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
@@ -82,7 +63,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             nextButton.isEnabled = true
         } else { print("알림 - 유효하지 않은 값, 모든 값을 채우십시오"); nextButton.isEnabled = false }
     }
-    func 세팅_델리게이트(_ textFieldArr: [UITextField]) {
+    func settingDelegate(_ textFieldArr: [UITextField]) {
         for i in textFieldArr {
             i.delegate = self
         }
@@ -92,9 +73,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    
+    @IBAction func submitButtonTapped(_ sender: UIButton) {
+    }
+    
 }
 
-// MARK: - UIImagePickerControllerDelegate
 /*
  [ㅇ] 상단 왼쪽의 이미지뷰를 탭하면 UIImagePickerController가 뜨고, 이미지를 간단히 편집해 프로필 사진으로 선택할 수 있습니다.
  [ㅇ] 프로필 이미지뷰는 정사각형이며, 이미지뷰 내부에 보이는 이미지는 이미지 원래의 비율을 유지합니다.
@@ -104,6 +89,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
  [ㅇ] 사용자가 모든 정보를 기입한 상태가 아니라면 화면 오른쪽 하단의 '다음' 버튼은 기본적으로 비활성화되어있으며,
  [ㅇ] 프로필 이미지, 아이디, 자기소개가 모두 채워지고, 패스워드가 일치하면 '다음' 버튼이 활성화됩니다.
  */
+// MARK: - UIImagePickerControllerDelegate
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     // 이미지 선택이 취소됐을 때
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -124,4 +110,24 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         유효값검사()
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func imgViewSetting() {
+        profileImg.layer.borderWidth = 1
+        profileImg.layer.cornerRadius = 10
+        
+        if profileImg.image == nil {
+            profileImg.backgroundColor = .systemGray6
+            profileImg.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+            nextButton.isEnabled = false
+        }
+        else {
+            profileImg.backgroundColor = .systemBackground
+            profileImg.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            nextButton.isEnabled = true
+        }
+        print("\n\n--> imgViewSetting func")
+    }
+    
+    
+    
 }
