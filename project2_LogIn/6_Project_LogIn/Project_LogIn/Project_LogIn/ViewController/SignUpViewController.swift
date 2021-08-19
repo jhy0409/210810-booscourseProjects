@@ -15,7 +15,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var AboutMe: UITextField!
     lazy var textFieldArr: [UITextField] = [idTextField, pwTextField, pwCheckTextField, AboutMe]
-    
     @IBOutlet weak var nextButton: UIButton!
     
     lazy var imagePicker: UIImagePickerController = {
@@ -43,26 +42,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // [ㅇ] 취소버튼 이전화면 전환
     @IBAction func cancleBtnTapped(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        
         resetUserInfo()
     }
-    /*
-     [ㅇ] 예외처리 - '다음' 버튼은 기본적으로 비활성화
-     - [ㅇ] 조건 1. 사용자가 모든 정보를 기입한 상태 (2~3)
-     - [ㅇ] 조건 2. 프로필 이미지
-     - [ㅇ] 조건 3. 아이디, 자기소개, 패스워드가 일치
-     */
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         checkValue()
     }
     
     func checkValue() {
         if  idTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-            pwTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-            pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-            AboutMe.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-            pwTextField.text == pwCheckTextField.text &&
-            profileImg.image != nil {
+                pwTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
+                pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
+                AboutMe.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
+                pwTextField.text == pwCheckTextField.text &&
+                profileImg.image != nil {
             nextButton.isEnabled = true
             
             // MARK: - 아이디값 저장
@@ -81,17 +74,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
 }
-
-/*
- // 동작확인  ----------
- [ㅇ] 상단 왼쪽의 이미지뷰를 탭하면 UIImagePickerController가 뜨고, 이미지를 간단히 편집해 프로필 사진으로 선택할 수 있습니다.
- [ㅇ] 프로필 이미지뷰는 정사각형이며, 이미지뷰 내부에 보이는 이미지는 이미지 원래의 비율을 유지합니다.
- [ㅇ] 화면 중간의 텍스트 뷰에서 자기소개를 작성할 수 있습니다.
- [ㅇ] 화면 왼쪽 하단의 '취소' 버튼을 누르면 모든 정보가 지워지고 이전 화면1로 되돌아갑니다.
- 
- [ㅇ] 사용자가 모든 정보를 기입한 상태가 아니라면 화면 오른쪽 하단의 '다음' 버튼은 기본적으로 비활성화되어있으며,
- [ㅇ] 프로필 이미지, 아이디, 자기소개가 모두 채워지고, 패스워드가 일치하면 '다음' 버튼이 활성화됩니다.
- */
 
 // MARK: - UIImagePickerControllerDelegate
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
