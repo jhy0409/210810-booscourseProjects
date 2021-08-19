@@ -226,10 +226,13 @@
                                     <constraint firstAttribute="height" constant="50" id="7ZM-42-2qo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="O8f-BN-dm7">
                                 <rect key="frame" x="0.0" y="186" width="414" height="216"/>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="S6x-Q3-eRD" eventType="valueChanged" id="KVe-N8-Ytp"/>
+                                </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-iU-sg8">
                                 <rect key="frame" x="20" y="432" width="100" height="50"/>
@@ -241,6 +244,9 @@
                                 <state key="normal" title="취소">
                                     <color key="titleColor" systemColor="systemPinkColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancleButtonTapped:" destination="S6x-Q3-eRD" eventType="touchUpInside" id="cgc-N0-oca"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKd-tB-bB3">
                                 <rect key="frame" x="157" y="432" width="100" height="50"/>
@@ -250,6 +256,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="이전"/>
+                                <connections>
+                                    <action selector="beforeButtonTapped:" destination="S6x-Q3-eRD" eventType="touchUpInside" id="Tu8-eb-kXM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1QF-dT-FmQ">
                                 <rect key="frame" x="294" y="432" width="100" height="50"/>
@@ -286,6 +295,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ib9-Te-Djo"/>
+                    <connections>
+                        <outlet property="birthLabel" destination="y1r-Ye-bpm" id="M6L-3H-aRe"/>
+                        <outlet property="dateLabel" destination="y1r-Ye-bpm" id="nwI-tz-MsO"/>
+                        <outlet property="datePicker" destination="O8f-BN-dm7" id="Mrz-2V-uMV"/>
+                        <outlet property="tellTextField" destination="crS-Dp-cd6" id="GiU-u9-n2f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQY-ha-KZc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

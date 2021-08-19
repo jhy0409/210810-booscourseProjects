@@ -15,6 +15,7 @@
 		685555C026CD18D200802F66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 685555BF26CD18D200802F66 /* Assets.xcassets */; };
 		685555C326CD18D200802F66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685555C126CD18D200802F66 /* LaunchScreen.storyboard */; };
 		685555CB26CD1F1100802F66 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685555CA26CD1F1100802F66 /* SignUpViewController.swift */; };
+		68ABF44026CDEC9500F5E399 /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ABF43F26CDEC9500F5E399 /* UserInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		685555C226CD18D200802F66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		685555C426CD18D200802F66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		685555CA26CD1F1100802F66 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		68ABF43F26CDEC9500F5E399 /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				685555BF26CD18D200802F66 /* Assets.xcassets */,
 				685555C126CD18D200802F66 /* LaunchScreen.storyboard */,
 				685555C426CD18D200802F66 /* Info.plist */,
+				68ABF43F26CDEC9500F5E399 /* UserInformation.swift */,
 			);
 			path = Project_LogIn;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				685555BB26CD18D100802F66 /* ViewController.swift in Sources */,
+				68ABF44026CDEC9500F5E399 /* UserInformation.swift in Sources */,
 				685555B726CD18D100802F66 /* AppDelegate.swift in Sources */,
 				685555CB26CD1F1100802F66 /* SignUpViewController.swift in Sources */,
 				685555B926CD18D100802F66 /* SceneDelegate.swift in Sources */,
