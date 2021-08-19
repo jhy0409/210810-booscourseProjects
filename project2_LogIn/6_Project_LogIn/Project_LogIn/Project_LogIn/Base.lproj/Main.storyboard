@@ -79,6 +79,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="itL-b2-4J5"/>
+                    <connections>
+                        <outlet property="idTextField" destination="7sn-K0-SPV" id="eZr-US-HZL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -268,6 +271,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="가입"/>
+                                <connections>
+                                    <action selector="joinButtonTapped:" destination="S6x-Q3-eRD" eventType="touchUpInside" id="xjA-9a-Dym"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JYB-G7-Pfq"/>
@@ -299,6 +305,7 @@
                         <outlet property="birthLabel" destination="y1r-Ye-bpm" id="M6L-3H-aRe"/>
                         <outlet property="dateLabel" destination="y1r-Ye-bpm" id="nwI-tz-MsO"/>
                         <outlet property="datePicker" destination="O8f-BN-dm7" id="Mrz-2V-uMV"/>
+                        <outlet property="joinButton" destination="1QF-dT-FmQ" id="qzh-Zb-a7V"/>
                         <outlet property="tellTextField" destination="crS-Dp-cd6" id="GiU-u9-n2f"/>
                     </connections>
                 </viewController>

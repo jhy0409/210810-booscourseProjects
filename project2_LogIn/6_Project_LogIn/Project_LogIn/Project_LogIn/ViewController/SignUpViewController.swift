@@ -50,10 +50,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     //  - [ㅇ] 조건 2. 프로필 이미지
     //  - [ㅇ] 조건 3. 아이디, 자기소개, 패스워드가 일치
     func textFieldDidEndEditing(_ textField: UITextField) {
-        유효값검사()
+        checkValue()
     }
     
-    func 유효값검사() {
+    func checkValue() {
         if  idTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
             pwTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
             pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
@@ -61,6 +61,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             pwTextField.text == pwCheckTextField.text &&
             profileImg.image != nil {
             nextButton.isEnabled = true
+            
+            // MARK: - 아이디값 저장
+            if let idString = idTextField.text { UserInformation.shared.userID = idString }
         } else { print("알림 - 유효하지 않은 값, 모든 값을 채우십시오"); nextButton.isEnabled = false }
     }
     func settingDelegate(_ textFieldArr: [UITextField]) {
@@ -94,7 +97,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     // 이미지 선택이 취소됐을 때
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("\nfunc -> imagePickerControllerDidCancel")
-        유효값검사()
+        checkValue()
         imgViewSetting()
         self.dismiss(animated: true, completion: nil)
     }
@@ -107,7 +110,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         print("\nfunc -> imagePickerController didFinishPickingMediaWithInfo")
         
         imgViewSetting()
-        유효값검사()
+        checkValue()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -127,7 +130,4 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         }
         print("\n\n--> imgViewSetting func")
     }
-    
-    
-    
 }
