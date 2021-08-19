@@ -12,7 +12,6 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var birthLabel: UILabel! // 생년월일
     @IBOutlet weak var joinButton: UIButton! // 가입버튼
     
-//    var DidDateLabelchange = false
     var DidDateLabelchange: Bool?
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
@@ -24,7 +23,6 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         formatter.dateFormat = "MMMM d, YYYY"
         return formatter
     }()
-    
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         DidDateLabelchange = true
@@ -45,7 +43,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
      
      [ㅇ] 사용자가 모든 정보를 기입한 상태가 아니라면 '가입' 버튼은 기본적으로 비활성화되어있습니다.
      [ㅇ] 전화번호와 생년월일이 채워지면 '가입' 버튼이 활성화됩니다.
-     [] 또, 활성화된 '가입' 버튼을 선택하면 화면1로 되돌아가고, 가입한 아이디가 화면1의 아이디 필드에 입력되어있습니다.
+     [ㅇ] 또, 활성화된 '가입' 버튼을 선택하면 화면1로 되돌아가고, 가입한 아이디가 화면1의 아이디 필드에 입력되어있습니다.
      [ㅇ] '이전' 버튼을 누르면 현재 정보를 저장해두고 화면2로 돌아가며,
      [ㅇ] '취소' 버튼을 누르면 모든 정보가 지워지고 화면1로 돌아갑니다.
      
@@ -66,7 +64,11 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         
         ImportUserInformation()
         checkValue()
+        
+        guard let tmpIDStr = UserInformation.shared.userID else { return }
+        NotificationCenter.default.post(name: NSNotification.Name("test"), object: nil, userInfo: ["id" : "\(tmpIDStr)"])
     }
+    
     
     @IBAction func joinButtonTapped(_ sender: Any) {
         dismissModal()
@@ -75,14 +77,13 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     func checkValue() {
         if tellTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 && DidDateLabelchange == true {
             guard let tellStr = tellTextField.text, let birthStr = birthLabel.text else { return }
+            
             UserInformation.shared.tellNum = tellStr
             UserInformation.shared.birthDay = birthStr
-            
             joinButton.isEnabled = true
-            
-             print("\n유효값검사() ----> tellTextField에 값이 있음")
+             print("\nThirdView checkValue() ----> tellTextField에 값이 있음")
         } else {
-            print("\n유효값검사() ----> tellTextField에 값이 없음")
+            print("\nThirdView checkValue() ----> tellTextField에 값이 없거나 생년월일이 변경되지 않음")
             joinButton.isEnabled = false
         }
     }
@@ -111,8 +112,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancleButtonTapped(_ sender: Any) {
         print("\n---> cancleButtonTapped")
         resetUserInfo() // 취소버튼을 누르면 저장값 모두 지움
-        
-        dismissModal()
+        dismissModal() // 모달 다 끄기
     }
     
     // MARK: - 키보드내리기
@@ -121,6 +121,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func resetUserInfo() {
+        NotificationCenter.default.post(name: NSNotification.Name("test"), object: nil, userInfo: ["id" : ""])
         UserInformation.shared.userID = nil
         UserInformation.shared.birthDay = nil
         UserInformation.shared.tellNum = nil
@@ -133,5 +134,4 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         }
         vc.dismiss(animated: true, completion: nil)
     }
-    
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-
     @IBOutlet weak var idTextField: UITextField!
     
     override func viewDidLoad() {
@@ -16,10 +15,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         idTextField.delegate = self
         
         print("\n\n -----> ViewController viewDidLoad()")
+        NotificationCenter.default.addObserver(self, selector: #selector(test(_:)), name: NSNotification.Name("test"), object: nil)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        print("\n\n -----> ViewController viewWillAppear()")
-//    }
+    @objc func test(_ notification: NSNotification) {
+        if UserInformation.shared.userID == nil {
+            idTextField.text = ""
+        }
+        else {
+            idTextField.text = notification.userInfo!["id"] as? String
+        }
+    }
+    
+    @IBAction func signUpNUserInfoReset(_ sender: UIButton) {
+        print("\n\n\n-------> signUpNUserInfoReset")
+        UserInformation.shared.userID = nil
+        UserInformation.shared.tellNum = nil
+        UserInformation.shared.birthDay = nil
+    }
 }
 

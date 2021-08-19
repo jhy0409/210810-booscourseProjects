@@ -59,6 +59,7 @@
                                     <color key="titleColor" systemColor="systemPinkColor"/>
                                 </state>
                                 <connections>
+                                    <action selector="signUpNUserInfoReset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eBd-Xi-5cZ"/>
                                     <segue destination="5ah-GV-HMa" kind="presentation" id="iNo-ZH-Pxh"/>
                                 </connections>
                             </button>
