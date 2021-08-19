@@ -21,6 +21,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
+        picker.allowsEditing = true
+        // picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+
         return picker
     }()
     
@@ -87,10 +90,14 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     // 이미지가 선택됐을 때
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImg.image = originalImage
+        
+        var tmpImg: UIImage?
+        if let editedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            tmpImg = editedImg
+        } else if let editedImg = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            tmpImg = editedImg
         }
-        print("\nfunc -> imagePickerController didFinishPickingMediaWithInfo")
+        profileImg.image = tmpImg
         
         imgViewSetting()
         checkValue()
