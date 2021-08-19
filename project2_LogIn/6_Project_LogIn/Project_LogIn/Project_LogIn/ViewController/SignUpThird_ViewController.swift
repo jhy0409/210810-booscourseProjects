@@ -11,6 +11,9 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tellTextField: UITextField! // 전화번호 텍스트필드
     @IBOutlet weak var birthLabel: UILabel! // 생년월일
     @IBOutlet weak var joinButton: UIButton! // 가입버튼
+    
+//    var DidDateLabelchange = false
+    var DidDateLabelchange: Bool?
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
     let dateFormatter: DateFormatter = {
@@ -24,10 +27,11 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        
+        DidDateLabelchange = true
         let date: Date = self.datePicker.date
         let dateStr: String = self.dateFormatter.string(from: date)
         self.dateLabel.text = dateStr
+        checkValue()
     }
     
     /*
@@ -69,7 +73,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkValue() {
-        if tellTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 {
+        if tellTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 && DidDateLabelchange == true {
             guard let tellStr = tellTextField.text, let birthStr = birthLabel.text else { return }
             UserInformation.shared.tellNum = tellStr
             UserInformation.shared.birthDay = birthStr
@@ -92,6 +96,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         if UserInformation.shared.birthDay != nil && UserInformation.shared.tellNum != nil {
             tellTextField.text = UserInformation.shared.tellNum
             dateLabel.text = UserInformation.shared.birthDay
+            DidDateLabelchange = true
         } else {
             dateLabel.text = dateFormatter.string(from: datePicker.date) // 라벨 초기값
         }
