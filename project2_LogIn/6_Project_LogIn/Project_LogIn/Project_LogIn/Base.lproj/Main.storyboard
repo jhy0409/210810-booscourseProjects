@@ -159,7 +159,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="다음"/>
                                 <connections>
-                                    <action selector="submitButtonTapped:" destination="5ah-GV-HMa" eventType="touchUpInside" id="2mf-3T-AVd"/>
                                     <segue destination="S6x-Q3-eRD" kind="presentation" id="umx-Eo-f2m"/>
                                 </connections>
                             </button>
