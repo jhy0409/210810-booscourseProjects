@@ -133,7 +133,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
     
     func resetUserInfo() {
-        NotificationCenter.default.post(name: NSNotification.Name("test"), object: nil, userInfo: ["id" : ""])
+        NotificationCenter.default.post(name: NSNotification.Name("setTextField"), object: nil, userInfo: ["id" : ""])
         UserInformation.shared.userID = nil
         UserInformation.shared.birthDay = nil
         UserInformation.shared.tellNum = nil

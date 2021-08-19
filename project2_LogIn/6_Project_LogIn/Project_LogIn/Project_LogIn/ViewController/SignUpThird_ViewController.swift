@@ -66,7 +66,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         checkValue()
         
         guard let tmpIDStr = UserInformation.shared.userID else { return }
-        NotificationCenter.default.post(name: NSNotification.Name("test"), object: nil, userInfo: ["id" : "\(tmpIDStr)"])
+        NotificationCenter.default.post(name: NSNotification.Name("setTextField"), object: nil, userInfo: ["id" : "\(tmpIDStr)"])
     }
     
     
@@ -121,7 +121,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func resetUserInfo() {
-        NotificationCenter.default.post(name: NSNotification.Name("test"), object: nil, userInfo: ["id" : ""])
+        NotificationCenter.default.post(name: NSNotification.Name("setTextField"), object: nil, userInfo: ["id" : ""])
         UserInformation.shared.userID = nil
         UserInformation.shared.birthDay = nil
         UserInformation.shared.tellNum = nil

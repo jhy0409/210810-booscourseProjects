@@ -18,10 +18,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         idTextField.delegate = self
         
         print("\n\n -----> ViewController viewDidLoad()")
-        NotificationCenter.default.addObserver(self, selector: #selector(test(_:)), name: NSNotification.Name("test"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setTextField(_:)), name: NSNotification.Name("setTextField"), object: nil)
     }
     
-    @objc func test(_ notification: NSNotification) {
+    @objc func setTextField(_ notification: NSNotification) {
         if UserInformation.shared.userID == nil {
             idTextField.text = ""
         }
