@@ -81,7 +81,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="itL-b2-4J5"/>
                     <connections>
+                        <outlet property="cloudButtonFromTop" destination="CdI-T5-Y1x" id="fdg-fU-zRf"/>
+                        <outlet property="cloudButtonWidth" destination="i85-Vw-73B" id="J03-3L-kyz"/>
                         <outlet property="idTextField" destination="7sn-K0-SPV" id="eZr-US-HZL"/>
+                        <outlet property="idTextFieldTop" destination="ncb-u9-Hca" id="oda-T6-yI5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -233,13 +236,16 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="O8f-BN-dm7">
-                                <rect key="frame" x="0.0" y="186" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="176" width="414" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="obA-KH-qjy"/>
+                                </constraints>
                                 <connections>
                                     <action selector="datePickerValueChanged:" destination="S6x-Q3-eRD" eventType="valueChanged" id="KVe-N8-Ytp"/>
                                 </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-iU-sg8">
-                                <rect key="frame" x="20" y="432" width="100" height="50"/>
+                                <rect key="frame" x="20" y="321" width="100" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="LCa-ac-hKs"/>
                                     <constraint firstAttribute="width" constant="100" id="UyK-Le-01q"/>
@@ -253,7 +259,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKd-tB-bB3">
-                                <rect key="frame" x="157" y="432" width="100" height="50"/>
+                                <rect key="frame" x="157" y="321" width="100" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Adp-9b-jue"/>
                                     <constraint firstAttribute="width" constant="100" id="sl9-in-5pf"/>
@@ -265,7 +271,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1QF-dT-FmQ">
-                                <rect key="frame" x="294" y="432" width="100" height="50"/>
+                                <rect key="frame" x="294" y="321" width="100" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="BRV-bv-tbB"/>
                                     <constraint firstAttribute="height" constant="50" id="z6w-So-dqp"/>
@@ -283,9 +289,9 @@
                             <constraint firstItem="JYB-G7-Pfq" firstAttribute="trailing" secondItem="yCj-Ls-KkT" secondAttribute="trailing" constant="20" id="1eW-tR-3Ne"/>
                             <constraint firstItem="y1r-Ye-bpm" firstAttribute="trailing" secondItem="crS-Dp-cd6" secondAttribute="trailing" id="60e-Dy-j7t"/>
                             <constraint firstItem="crS-Dp-cd6" firstAttribute="leading" secondItem="yCj-Ls-KkT" secondAttribute="leading" id="7vg-jc-cqK"/>
-                            <constraint firstItem="O8f-BN-dm7" firstAttribute="top" secondItem="fkB-uN-73t" secondAttribute="bottom" constant="30" id="COf-5x-fAL"/>
+                            <constraint firstItem="O8f-BN-dm7" firstAttribute="top" secondItem="fkB-uN-73t" secondAttribute="bottom" constant="20" id="COf-5x-fAL"/>
                             <constraint firstItem="crS-Dp-cd6" firstAttribute="trailing" secondItem="yCj-Ls-KkT" secondAttribute="trailing" id="EXD-bm-JlQ"/>
-                            <constraint firstItem="EwW-iU-sg8" firstAttribute="top" secondItem="O8f-BN-dm7" secondAttribute="bottom" constant="30" id="Fic-sL-CuW"/>
+                            <constraint firstItem="EwW-iU-sg8" firstAttribute="top" secondItem="O8f-BN-dm7" secondAttribute="bottom" constant="15" id="Fic-sL-CuW"/>
                             <constraint firstItem="XKd-tB-bB3" firstAttribute="centerX" secondItem="JYB-G7-Pfq" secondAttribute="centerX" id="HFu-eS-ZOu"/>
                             <constraint firstItem="XKd-tB-bB3" firstAttribute="top" secondItem="EwW-iU-sg8" secondAttribute="top" id="Q9Z-0t-L9P"/>
                             <constraint firstItem="yCj-Ls-KkT" firstAttribute="top" secondItem="JYB-G7-Pfq" secondAttribute="top" constant="30" id="Rdw-8z-wOp"/>
