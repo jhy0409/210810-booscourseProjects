@@ -1,5 +1,5 @@
-# ↗️ 바로가기
-[공부일지](https://github.com/jhy0409/210810-bstProjects#%EA%B3%B5%EB%B6%80%EC%9D%BC%EC%A7%80)
+## ↗️ 바로가기
+- [공부일지](https://github.com/jhy0409/210810-bstProjects#%EA%B3%B5%EB%B6%80%EC%9D%BC%EC%A7%80)
 ***
 ### 공부일지
 
