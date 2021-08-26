@@ -4,6 +4,11 @@
 ### 📖 공부일지
 
 
+> `210826 목` 
+> 
+> - [JSONEncoder / JSONDecoder까지 내용정리](https://www.notion.so/jhcode/210819-bst-Swift-3-18ea-3-8f66ba5824534903a062dee8400e1339#46d57d341de74ba2b857fe50a6a2d598)
+> ***
+> 
 > `210822 일` 
 > 
 > - [Object comparison 읽었음](https://www.notion.so/jhcode/210814-bst-Swift-2-21ea-2-0986ec77792e4badbdce48f934b8cefd#28d7812ed8604c38b163b621320454c0)
