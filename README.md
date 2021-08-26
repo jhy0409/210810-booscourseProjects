@@ -7,6 +7,7 @@
 > `210826 목` 
 > 
 > - [JSONEncoder / JSONDecoder까지 내용정리](https://www.notion.so/jhcode/210819-bst-Swift-3-18ea-3-8f66ba5824534903a062dee8400e1339#46d57d341de74ba2b857fe50a6a2d598)
+> - [참고링크 다 읽음](https://www.notion.so/jhcode/210819-bst-Swift-3-18ea-3-8f66ba5824534903a062dee8400e1339#a1614cf0213640da81463379b024dfb7)
 > ***
 > 
 > `210822 일` 
