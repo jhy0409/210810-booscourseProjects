@@ -12,11 +12,10 @@ class ViewController: UIViewController {
     let cellIdentifier: String = "cell"
     let customCellIdentifier: String = "customCell"
     
-    //    let korean: [String] = ["가", "나", "다", "라", "마",  "바", "사", "아", "자", "차", "카", "타", "파", "하"]
-    //    let english: [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-    //                             "U", "V", "W", "X", "Y", "Z"]
-    let korean: [String] = ["가", "나", "다"]
-    let english: [String] = ["A", "B"]
+    let korean: [String] = ["가", "나", "다", "라", "마",  "바", "사", "아", "자", "차", "카", "타", "파", "하"]
+    let english: [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    // let korean: [String] = ["가", "나", "다"]
+    // let english: [String] = ["A", "B"]
     
      var dates: [Date] = []
     // var dates: [String] = []
@@ -75,11 +74,20 @@ extension ViewController: UITableViewDataSource {
     // 셀 그리는 것
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
+        // dequeueReusableCell : 큐에 쌓여있던 재사용 가능한 셀 꺼내와서 쓴다는 뜻
+        // 화면 벗어난 셀을 다른 큐에 담아놓고 다시 사용
         if indexPath.section < 2 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath)
             let text: String = indexPath.section == 0 ? korean[indexPath.row] : english[indexPath.row]
             cell.textLabel?.text = text
+            
+            // 재사용 여부 확인
+            // let cell: UITableViewCell = UITableViewCell()
+            if indexPath.row == 1 {
+                cell.backgroundColor = .red
+            } else {
+                cell.backgroundColor = .systemBackground
+            }
             
             return cell
         } else {
