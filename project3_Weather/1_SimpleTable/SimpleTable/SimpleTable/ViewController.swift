@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     // let korean: [String] = ["가", "나", "다"]
     // let english: [String] = ["A", "B"]
     
-     var dates: [Date] = []
+    var dates: [Date] = []
     // var dates: [String] = []
     let dateFormatter: DateFormatter = {
-       let formatter = DateFormatter()
+        let formatter = DateFormatter()
         let today = Date()
         formatter.dateStyle = .medium
         formatter.locale = Locale(identifier: "ko_KR")
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     }()
     
     let timeFormatter: DateFormatter = {
-       let formatter = DateFormatter()
+        let formatter = DateFormatter()
         let today = Date()
         formatter.timeStyle = .medium
         formatter.locale = Locale(identifier: "ko_KR")
@@ -47,8 +47,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 코드로 하기
-         self.tableView.delegate = self
-         self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +104,6 @@ extension ViewController: UITableViewDataSource {
         } else {
             return "날짜"
         }
-        return nil
     }
     
     // 색변경 - 섹션 배경, 글자
@@ -113,6 +112,30 @@ extension ViewController: UITableViewDataSource {
             hdView.contentView.backgroundColor = .systemBlue
             hdView.textLabel?.textColor = .white
         }
+    }
+    
+    /*
+     In a storyboard-based application, you will often want to do a little preparation before navigation
+     스토리보드 기반 애플리케이션에서 탐색 전에 약간의 준비를 하고 싶을 때가 많습니다.
+     
+     Get the new view controller using segue.destination.
+     segue.destination을 사용하여 새 뷰 컨트롤러를 가져옵니다.
+     
+     Pass the selected object to the new view controller.
+     선택한 객체를 새 뷰 컨트롤러에 전달합니다.
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let nextViewController: SecondViewController = segue.destination as? SecondViewController else { return }
+        
+        // sender : navigation 흐름을 만드는 테이블뷰 셀
+        guard let cell: UITableViewCell = sender as? UITableViewCell else { return }
+        
+        nextViewController.textToSet = cell.textLabel?.text
+        // 런타임에러 : 메모리에 올라와 있지 않으므로 Exception 발생
+        // 명령어 : 메모리 올라왔는지 확인 -> 커맨드 창에서 po nextViewController, po nextViewController.textLabel = nil
+        // nextViewController.textLabel.text = cell.textLabel?.text
+        
+        // 세그가 여러개일 때 : segue.identifier
     }
 }
 
