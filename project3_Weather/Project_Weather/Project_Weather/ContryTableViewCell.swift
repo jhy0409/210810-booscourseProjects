@@ -10,6 +10,7 @@ import UIKit
 class ContryTableViewCell: UITableViewCell {
     @IBOutlet weak var ctryImg: UIImageView!
     @IBOutlet weak var countryNameLabel: UILabel!
+    var tmpC: Country?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +27,6 @@ class ContryTableViewCell: UITableViewCell {
         ctryImg.image = country.image
         ctryImg.layer.borderWidth = 1
         ctryImg.layer.borderColor = CGColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-        countryNameLabel.text = country.korean_name
+        countryNameLabel.text = country.contName
     }
-
 }

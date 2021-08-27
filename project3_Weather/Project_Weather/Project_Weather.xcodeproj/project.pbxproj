@@ -16,6 +16,9 @@
 		68BB245C26D3B38A0084D168 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68BB245A26D3B38A0084D168 /* Main.storyboard */; };
 		68BB245E26D3B38A0084D168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68BB245D26D3B38A0084D168 /* Assets.xcassets */; };
 		68BB246126D3B38A0084D168 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68BB245F26D3B38A0084D168 /* LaunchScreen.storyboard */; };
+		68BF903426D852600006AF2B /* CityArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF903326D852600006AF2B /* CityArea.swift */; };
+		68BF903626D85B190006AF2B /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF903526D85B190006AF2B /* CityTableViewCell.swift */; };
+		68BF903826D871C70006AF2B /* AreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF903726D871C70006AF2B /* AreaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		68BB245D26D3B38A0084D168 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68BB246026D3B38A0084D168 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68BB246226D3B38A0084D168 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68BF903326D852600006AF2B /* CityArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityArea.swift; sourceTree = "<group>"; };
+		68BF903526D85B190006AF2B /* CityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
+		68BF903726D871C70006AF2B /* AreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,7 @@
 			children = (
 				68BB245826D3B38A0084D168 /* ViewController.swift */,
 				68A4EEB926D7BA04005E899E /* CityListViewController.swift */,
+				68BF903726D871C70006AF2B /* AreaViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -71,17 +78,27 @@
 		68BB245326D3B38A0084D168 /* Project_Weather */ = {
 			isa = PBXGroup;
 			children = (
+				68BF903226D8524F0006AF2B /* Model */,
 				68A4EEB826D7B9A8005E899E /* ViewController */,
 				68A4EEB626D7B545005E899E /* ContryTableViewCell.swift */,
+				68BF903526D85B190006AF2B /* CityTableViewCell.swift */,
 				68BB245426D3B38A0084D168 /* AppDelegate.swift */,
 				68BB245626D3B38A0084D168 /* SceneDelegate.swift */,
-				68A4EEB426D7A8CA005E899E /* Country.swift */,
 				68BB245A26D3B38A0084D168 /* Main.storyboard */,
 				68BB245D26D3B38A0084D168 /* Assets.xcassets */,
 				68BB245F26D3B38A0084D168 /* LaunchScreen.storyboard */,
 				68BB246226D3B38A0084D168 /* Info.plist */,
 			);
 			path = Project_Weather;
+			sourceTree = "<group>";
+		};
+		68BF903226D8524F0006AF2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				68A4EEB426D7A8CA005E899E /* Country.swift */,
+				68BF903326D852600006AF2B /* CityArea.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,8 +174,11 @@
 				68A4EEB526D7A8CA005E899E /* Country.swift in Sources */,
 				68BB245926D3B38A0084D168 /* ViewController.swift in Sources */,
 				68A4EEB726D7B545005E899E /* ContryTableViewCell.swift in Sources */,
+				68BF903426D852600006AF2B /* CityArea.swift in Sources */,
 				68BB245526D3B38A0084D168 /* AppDelegate.swift in Sources */,
 				68BB245726D3B38A0084D168 /* SceneDelegate.swift in Sources */,
+				68BF903626D85B190006AF2B /* CityTableViewCell.swift in Sources */,
+				68BF903826D871C70006AF2B /* AreaViewController.swift in Sources */,
 				68A4EEBA26D7BA04005E899E /* CityListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

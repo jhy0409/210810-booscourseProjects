@@ -44,6 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let cell: ContryTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContryTableViewCell else { return UITableViewCell() }
         let country: Country = countries[indexPath.row]
         cell.update(country)
+        cell.tmpC = country
         
         return cell
     }
@@ -53,6 +54,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         guard let cell = sender as? ContryTableViewCell else { return }
         cityListVC.title = cell.countryNameLabel.text
+        cityListVC.tmpCountry = cell.tmpC
+        
+        print("\(cityListVC.tmpCountry?.contName)")
     }
 }
 
