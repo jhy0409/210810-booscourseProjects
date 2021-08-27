@@ -18,13 +18,8 @@ class AreaViewController: UIViewController {
     @IBOutlet weak var areaWeatherTop: NSLayoutConstraint!
     @IBOutlet weak var areaWeatherHeight: NSLayoutConstraint!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         settingView()
     }
     
@@ -36,17 +31,6 @@ class AreaViewController: UIViewController {
         rainfallLabel.textColor = tmpCityArea?.rainTxtColor
         areaNameLabel.text = tmpCityArea?.weatherStr
     }
-    
-    /*
-     [화면 3] - 날씨 세부 정보
-
-     [화면구성]
-     - [ㅇ] 내비게이션 아이템의 타이틀은 이전 화면에서 선택된 도시 이름입니다.
-     - [ㅇ] 화면 상단에는 날씨 이미지를 보여주고, 화면 하단에는 날씨 세부 정보를 문자열로 나타냅니다.
-     
-     [기능]
-     없음
-     */
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)

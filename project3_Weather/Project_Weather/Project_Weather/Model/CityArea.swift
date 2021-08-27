@@ -8,14 +8,6 @@
 import Foundation
 import UIKit
 
-/*
- {
- "city_name":"깐느",
- "state":13,
- "celsius":9.7,
- "rainfall_probability":60
- }
- */
 struct CityArea: Codable {
     let cityName: String
     let state: Int
@@ -67,12 +59,6 @@ struct CityArea: Codable {
         }
     }
     
-    enum CodingKeys: String, CodingKey {
-        case cityName = "city_name"
-        case state, celsius
-        case rainfall = "rainfall_probability"
-    }
-    
     var rainTxtColor: UIColor {
         var color: UIColor
         if rainfall >= 60 {
@@ -93,5 +79,11 @@ struct CityArea: Codable {
             color = .label
         }
         return color
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case cityName = "city_name"
+        case state, celsius
+        case rainfall = "rainfall_probability"
     }
 }

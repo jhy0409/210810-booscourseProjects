@@ -13,7 +13,6 @@ class CityTableViewCell: UITableViewCell {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var rainfallLabel: UILabel!
-    
     var tmpCity: CityArea?
     
     override func awakeFromNib() {
@@ -27,16 +26,6 @@ class CityTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    
-    /*
-     {
-     "city_name":"깐느",
-     "state":13,
-     "celsius":9.7, // 온도
-     "rainfall_probability":60
-     }
-     */
     func update(_ city: CityArea) {
         cityNameLabel.text = city.cityName
         temperatureLabel.text = city.celsiusAndFahrenheit
@@ -48,5 +37,4 @@ class CityTableViewCell: UITableViewCell {
         weatherImg.image = city.weatherImg
         tmpCity = city
     }
-
 }

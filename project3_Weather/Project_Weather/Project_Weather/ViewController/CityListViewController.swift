@@ -20,7 +20,7 @@ class CityListViewController: UIViewController, UITableViewDataSource,UITableVie
         - [ㅇ] 더불어 셀의 악세서리뷰를 표시해 다음 화면으로 이동 가능함을 나타냅니다.
      
      [기능]
-     - [] 내비게이션 이전 버튼을 누르면 이전 화면으로 되돌아가며, 테이블뷰 셀을 선택하면 화면3으로 전환됩니다.
+     - [ㅇ] 내비게이션 이전 버튼을 누르면 이전 화면으로 되돌아가며, 테이블뷰 셀을 선택하면 화면3으로 전환됩니다.
      */
     
     
@@ -50,10 +50,6 @@ class CityListViewController: UIViewController, UITableViewDataSource,UITableVie
         
     }
     
-    
-    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cities.count
     }
@@ -71,7 +67,5 @@ class CityListViewController: UIViewController, UITableViewDataSource,UITableVie
         guard let cell = sender as? CityTableViewCell else { return }
         areaVC.tmpCityArea = cell.tmpCity
         areaVC.title = cell.tmpCity?.cityName
-
     }
-
 }
