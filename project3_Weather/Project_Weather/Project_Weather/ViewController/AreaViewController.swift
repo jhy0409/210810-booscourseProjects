@@ -8,7 +8,7 @@
 import UIKit
 
 class AreaViewController: UIViewController {
-    var tmpCityArea: CityArea?
+    var tmpCityArea: CityArea? // 셀에서 받은 지역정보
     
     @IBOutlet weak var areaWhether_ImgView: UIImageView!
     @IBOutlet weak var areaNameLabel: UILabel!
@@ -24,12 +24,12 @@ class AreaViewController: UIViewController {
     }
     
     func settingView() {
-        areaWhether_ImgView.image = tmpCityArea?.weatherImg
-        temperatureLabel.text = tmpCityArea?.celsiusAndFahrenheit
-        temperatureLabel.textColor = tmpCityArea?.temperatureColor
-        rainfallLabel.text = tmpCityArea?.rainStr
-        rainfallLabel.textColor = tmpCityArea?.rainTxtColor
-        areaNameLabel.text = tmpCityArea?.weatherStr
+        areaWhether_ImgView.image = tmpCityArea?.weatherImg         // 그림   - 날씨
+        temperatureLabel.text = tmpCityArea?.celsiusAndFahrenheit   // 문자열  - 섭씨 화씨
+        temperatureLabel.textColor = tmpCityArea?.temperatureColor  // 글자색  - 섭씨 화씨
+        rainfallLabel.text = tmpCityArea?.rainStr                   // 문자열  - 강수확률
+        rainfallLabel.textColor = tmpCityArea?.rainTxtColor         // 글자색  - 강수확률
+        areaNameLabel.text = tmpCityArea?.weatherStr                // 문자열  - 비, 흐림 등..
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -39,8 +39,8 @@ class AreaViewController: UIViewController {
             print("------> 뷰가 가로")
             areaWeatherTop.constant = 50
             areaWeatherHeight.constant = 70
-        }
-        else if UIDevice.current.orientation.isLandscape == false {
+            return
+        } else {
             areaWeatherTop.constant = 80
             areaWeatherHeight.constant = 130
         }

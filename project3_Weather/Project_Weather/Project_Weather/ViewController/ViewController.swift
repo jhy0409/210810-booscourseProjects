@@ -43,9 +43,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         guard let cell = sender as? ContryTableViewCell else { return }
         cityListVC.title = cell.countryNameLabel.text
-        cityListVC.tmpCountry = cell.tmpC
+        cityListVC.tmpCountry = cell.tmpC // 개별 나라를 세팅 -> 독일, 한국, 일본... -> '한국'
         
-        print("\(cityListVC.tmpCountry?.contName)")
+        print("\(String(describing: cityListVC.tmpCountry?.contName))") // 네비게이션 타이틀 설정 -> '한국'
     }
 }
 

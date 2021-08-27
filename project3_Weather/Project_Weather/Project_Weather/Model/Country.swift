@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 struct Country: Codable {
-    let contName: String
-    let shortName: String
+    let contName: String // 나라 이름
+    let shortName: String // 나라이름 영어 약자 - ko
+    
+    // 국기
     var image: UIImage? {
         return UIImage(named: "flag_\(shortName).jpg")
     }

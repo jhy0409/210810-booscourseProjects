@@ -8,8 +8,8 @@
 import UIKit
 
 class ContryTableViewCell: UITableViewCell {
-    @IBOutlet weak var ctryImg: UIImageView!
-    @IBOutlet weak var countryNameLabel: UILabel!
+    @IBOutlet weak var ctryImg: UIImageView!      // 국기
+    @IBOutlet weak var countryNameLabel: UILabel! // 국가명
     var tmpC: Country?
     
     override func awakeFromNib() {

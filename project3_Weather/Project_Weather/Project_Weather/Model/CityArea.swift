@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 struct CityArea: Codable {
-    let cityName: String
-    let state: Int
-    let celsius: Double
-    let rainfall: Int
+    let cityName: String // 국가의 도시 : 한국 -> [서울]
+    let state: Int      // 날씨코드
+    let celsius: Double // 온도
+    let rainfall: Int   // 강수확률
     
     //화씨= (섭씨x1.8) + 32
     var celsiusAndFahrenheit: String {
@@ -21,6 +21,7 @@ struct CityArea: Codable {
         return "섭씨 \(celsius)도 / 화씨 \(fahStr)도"
     }
     
+    // 날씨 이미지
     var weatherImg: UIImage? {
         let tmpWeather: String
         
@@ -40,10 +41,9 @@ struct CityArea: Codable {
         return UIImage(named: tmpWeather)
     }
     
-    var rainStr: String {
-        "강수확률 \(rainfall)%"
-    }
+    var rainStr: String { "강수확률 \(rainfall)%" }
     
+    // 3번째 뷰용 - 날씨 텍스트
     var weatherStr: String {
         switch state {
         case 10:

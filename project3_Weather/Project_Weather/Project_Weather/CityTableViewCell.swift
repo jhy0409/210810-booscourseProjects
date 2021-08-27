@@ -9,10 +9,10 @@ import UIKit
 
 class CityTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var weatherImg: UIImageView!
-    @IBOutlet weak var cityNameLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var rainfallLabel: UILabel!
+    @IBOutlet weak var weatherImg: UIImageView!     // 이미지뷰 - 날씨
+    @IBOutlet weak var cityNameLabel: UILabel!      // 라벨    - 도시명
+    @IBOutlet weak var temperatureLabel: UILabel!   // 라벨    - 온도
+    @IBOutlet weak var rainfallLabel: UILabel!      // 라벨    - 강수확률
     var tmpCity: CityArea?
     
     override func awakeFromNib() {
@@ -22,7 +22,6 @@ class CityTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
