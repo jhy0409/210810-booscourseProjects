@@ -229,6 +229,8 @@
                     <navigationItem key="navigationItem" title="city area" id="Bf5-Yb-aEE"/>
                     <connections>
                         <outlet property="areaNameLabel" destination="daI-Cj-g5c" id="zxe-F8-hm2"/>
+                        <outlet property="areaWeatherHeight" destination="tnA-hP-hL1" id="rOi-lf-268"/>
+                        <outlet property="areaWeatherTop" destination="LQ3-WA-4lN" id="avU-lS-Mq5"/>
                         <outlet property="areaWhether_ImgView" destination="HBL-UI-nx9" id="MLS-E8-DkJ"/>
                         <outlet property="rainfallLabel" destination="lZm-wX-lO7" id="yoa-WA-rLG"/>
                         <outlet property="temperatureLabel" destination="TN6-wR-BIq" id="6LV-zJ-2eJ"/>

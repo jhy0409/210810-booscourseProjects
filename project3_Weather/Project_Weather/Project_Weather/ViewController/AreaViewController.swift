@@ -15,6 +15,11 @@ class AreaViewController: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var rainfallLabel: UILabel!
     
+    @IBOutlet weak var areaWeatherTop: NSLayoutConstraint!
+    @IBOutlet weak var areaWeatherHeight: NSLayoutConstraint!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,4 +47,18 @@ class AreaViewController: UIViewController {
      [기능]
      없음
      */
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        if UIDevice.current.orientation.isLandscape == true {
+            print("------> 뷰가 가로")
+            areaWeatherTop.constant = 50
+            areaWeatherHeight.constant = 70
+        }
+        else if UIDevice.current.orientation.isLandscape == false {
+            areaWeatherTop.constant = 80
+            areaWeatherHeight.constant = 130
+        }
+    }
 }
