@@ -6,7 +6,7 @@
 
 > `210829 일` 
 > 
-> - [4강 강의용 목차생성 및 정리](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#2187440d20e7430f8620bb4ec272c3fd)
+> - [4강 - 강의 목차생성 및 정리](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#2187440d20e7430f8620bb4ec272c3fd)
 > ***
 > 
 > `210826 목` 
