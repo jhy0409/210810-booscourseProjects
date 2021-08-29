@@ -4,6 +4,11 @@
 ### 📖 공부일지
 
 
+> `210829 일` 
+> 
+> - [4강 강의용 목차생성 및 정리](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#2187440d20e7430f8620bb4ec272c3fd)
+> ***
+> 
 > `210826 목` 
 > 
 > - [JSONEncoder / JSONDecoder까지 내용정리](https://www.notion.so/jhcode/210819-bst-Swift-3-18ea-3-8f66ba5824534903a062dee8400e1339#46d57d341de74ba2b857fe50a6a2d598)
