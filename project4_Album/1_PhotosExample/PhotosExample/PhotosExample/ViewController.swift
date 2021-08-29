@@ -95,10 +95,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell: UITableViewCell =  tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath)
         
         let asset: PHAsset = fetchResult.object(at: indexPath.row)
+        let options = PHImageRequestOptions()
+        options.resizeMode = .exact
         
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 30, height: 30),
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 60, height: 60),
                                   contentMode: .aspectFill,
-                                  options: nil,
+                                  options: options,
                                   resultHandler: {image, _ in
                                     cell.imageView?.image = image
         })
