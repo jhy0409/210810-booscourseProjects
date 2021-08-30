@@ -29,7 +29,7 @@
 > `210822 일` 
 > 
 > - [Object comparison 읽음](https://www.notion.so/jhcode/210814-bst-Swift-2-21ea-2-0986ec77792e4badbdce48f934b8cefd#28d7812ed8604c38b163b621320454c0)
-> - [참고링크 36개 읽고 8개 남음](https://www.notion.so/jhcode/210814-bst-Swift-2-21ea-2-_-0986ec77792e4badbdce48f934b8cefd#4d4ea7cb89f74ced9af7d3992b4ca02a)
+> - [참고링크 44개 읽음](https://www.notion.so/jhcode/210814-bst-Swift-2-21ea-2-_-0986ec77792e4badbdce48f934b8cefd#4d4ea7cb89f74ced9af7d3992b4ca02a)
 > ***
 > 
 > `210821 토` 
