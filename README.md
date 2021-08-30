@@ -6,7 +6,8 @@
 > `210830 월` 
 > 
 > - [4강 - OperationQueue 링크 읽음](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#429cc99907944ab6b48249591a7d80a4)
-> - [4강 - UIScrollView 링크 읽는 중](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#cbddcaa0300f4436b41358366db99836)
+> - [4강 - UIScrollView 링크 읽음](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#cbddcaa0300f4436b41358366db99836)
+> - [4강 - 5 UICollectionView 링크 읽는 중](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#5c3336b1333d41398e7713b3d0015723)
 > ***
 > 
 > `210829 일` 
