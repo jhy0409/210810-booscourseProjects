@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		684E685726DDFF5100B9F943 /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684E685626DDFF5100B9F943 /* FirstCollectionViewCell.swift */; };
 		6861544926DDF981009E67A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861544826DDF981009E67A9 /* AppDelegate.swift */; };
 		6861544B26DDF981009E67A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861544A26DDF981009E67A9 /* SceneDelegate.swift */; };
 		6861544D26DDF981009E67A9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861544C26DDF981009E67A9 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		684E685626DDFF5100B9F943 /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		6861544526DDF981009E67A9 /* Project_Album.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_Album.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6861544826DDF981009E67A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6861544A26DDF981009E67A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		6861544726DDF981009E67A9 /* Project_Album */ = {
 			isa = PBXGroup;
 			children = (
+				684E685626DDFF5100B9F943 /* FirstCollectionViewCell.swift */,
 				6861544826DDF981009E67A9 /* AppDelegate.swift */,
 				6861544A26DDF981009E67A9 /* SceneDelegate.swift */,
 				6861544C26DDF981009E67A9 /* ViewController.swift */,
@@ -140,6 +143,7 @@
 				6861544D26DDF981009E67A9 /* ViewController.swift in Sources */,
 				6861544926DDF981009E67A9 /* AppDelegate.swift in Sources */,
 				6861544B26DDF981009E67A9 /* SceneDelegate.swift in Sources */,
+				684E685726DDFF5100B9F943 /* FirstCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
