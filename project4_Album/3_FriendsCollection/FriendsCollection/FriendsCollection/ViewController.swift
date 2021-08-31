@@ -49,7 +49,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         flowLayout.minimumLineSpacing = 10
         
         let halfWidth: CGFloat = UIScreen.main.bounds.width / 2
-        flowLayout.estimatedItemSize = CGSize(width: halfWidth - 30, height: 90)
+        //flowLayout.estimatedItemSize = CGSize(width: halfWidth - 30, height: 90)
+        flowLayout.itemSize = CGSize(width: halfWidth - 5, height: 90)
         self.collectionView.collectionViewLayout = flowLayout
         
         let jsonDecoder: JSONDecoder = JSONDecoder()
