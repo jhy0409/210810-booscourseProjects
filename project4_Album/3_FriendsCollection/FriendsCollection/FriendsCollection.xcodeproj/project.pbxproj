@@ -13,6 +13,8 @@
 		6889CD5626DDC3800014ADB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6889CD5426DDC3800014ADB9 /* Main.storyboard */; };
 		6889CD5826DDC3810014ADB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6889CD5726DDC3810014ADB9 /* Assets.xcassets */; };
 		6889CD5B26DDC3810014ADB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6889CD5926DDC3810014ADB9 /* LaunchScreen.storyboard */; };
+		6889CD6326DDC8770014ADB9 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889CD6226DDC8770014ADB9 /* FriendsCollectionViewCell.swift */; };
+		6889CD6726DDCA1D0014ADB9 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889CD6626DDCA1D0014ADB9 /* Friend.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		6889CD5726DDC3810014ADB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6889CD5A26DDC3810014ADB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6889CD5C26DDC3810014ADB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6889CD6226DDC8770014ADB9 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
+		6889CD6626DDCA1D0014ADB9 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 		6889CD4D26DDC3800014ADB9 /* FriendsCollection */ = {
 			isa = PBXGroup;
 			children = (
+				6889CD6626DDCA1D0014ADB9 /* Friend.swift */,
 				6889CD4E26DDC3800014ADB9 /* AppDelegate.swift */,
 				6889CD5026DDC3800014ADB9 /* SceneDelegate.swift */,
 				6889CD5226DDC3800014ADB9 /* ViewController.swift */,
 				6889CD5426DDC3800014ADB9 /* Main.storyboard */,
+				6889CD6226DDC8770014ADB9 /* FriendsCollectionViewCell.swift */,
 				6889CD5726DDC3810014ADB9 /* Assets.xcassets */,
 				6889CD5926DDC3810014ADB9 /* LaunchScreen.storyboard */,
 				6889CD5C26DDC3810014ADB9 /* Info.plist */,
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6889CD6326DDC8770014ADB9 /* FriendsCollectionViewCell.swift in Sources */,
 				6889CD5326DDC3800014ADB9 /* ViewController.swift in Sources */,
+				6889CD6726DDCA1D0014ADB9 /* Friend.swift in Sources */,
 				6889CD4F26DDC3800014ADB9 /* AppDelegate.swift in Sources */,
 				6889CD5126DDC3800014ADB9 /* SceneDelegate.swift in Sources */,
 			);
