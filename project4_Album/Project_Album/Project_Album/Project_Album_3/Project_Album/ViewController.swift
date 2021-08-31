@@ -30,33 +30,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     var userCollections = PHFetchResult<PHAssetCollection>()
     
-    
-    
-    
-    
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
     var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
     
-    
-    
-    
-    
-    
-    
-    
     var fetchResults: [PHFetchResult<PHAsset>] = []    //앨범 정보
-    //let imageManager = PHCachingImageManager()    //앨범에서 사진 받아오기 위한 객체
     var fetchOptions: PHFetchOptions {
         let fetchOptions = PHFetchOptions()
        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
        return fetchOptions
     }    //앨범 정보에 대한 옵션
     
-    func requestImageCollection() {
+    func requestCollection() {
         let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         let favoriteList = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
         let albumList = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
@@ -78,56 +64,30 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
-    func requestCollection() {
-        let cameraRoll: PHFetchResult<PHAssetCollection> =
-            PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-        
-        guard let cameraRollCollection = cameraRoll.firstObject else { return }
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
-    }
-    
-    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         print("photoLibraryDidChange")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return userCollections.count
         return fetchResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-       
-        
         guard let cell: FirstCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? FirstCollectionViewCell else { return UICollectionViewCell()}
         
         guard let asset = fetchResults[indexPath.item].firstObject as? PHAsset else { return cell }
-        
-        
         let collection =  fetchResults[indexPath.item]
-        
         
         imageManager.requestImage(for: asset, targetSize: cell.bounds.size, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.imgView_thumbnail.image = image
         }
         
-//        cell.update(title: collection.localizedTitle, count: fetchedAssets.count)
         print("\(fetchResults[indexPath.item].description)")
-//        cell.update(title: fetchResults[indexPath.item].description, count: fetchResults[indexPath.item].count)
-        
         cell.update(title: albumTitle[indexPath.item], count: fetchResults[indexPath.item].count)
         
         return cell
     }
-    
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,9 +97,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         switch photoAuthorizationStatus {
         case .authorized:
             print("접근 허가 됨")
-            //self.requestCollection()
-            //self.requestCollection2()
-            self.requestImageCollection()
+            self.requestCollection()
             self.collectionView.reloadData()
             
         case .denied:
@@ -151,9 +109,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 switch status {
                 case .authorized:
                     print("사용자가 허용함")
-                    //self.requestCollection2()
-                    //self.requestCollection()
-                    self.requestImageCollection()
+                    self.requestCollection()
                     OperationQueue.main.addOperation {
                         self.collectionView.reloadData()
                     }
@@ -168,27 +124,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             break
         }
         PHPhotoLibrary.shared().register(self)
-        
-        self.fetchAssets()
-    }
-    
-    
-    
-    
-    
-    
-    func fetchAssets() {
-        // 1
-      let allPhotosOptions = PHFetchOptions()
-      allPhotosOptions.sortDescriptors = [
-        NSSortDescriptor(
-          key: "creationDate",
-          ascending: false)
-      ]
-      userCollections = PHAssetCollection.fetchAssetCollections(
-        with: .album,
-        subtype: .albumRegular,
-        options: nil)
     }
 }
 
@@ -200,26 +135,4 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let height = width + 70
         return CGSize(width: width, height: height)
     }
-}
-
-extension UIImageView {
-  func fetchImageAsset(_ asset: PHAsset?, targetSize size: CGSize, contentMode: PHImageContentMode = .aspectFill, options: PHImageRequestOptions? = nil, completionHandler: ((Bool) -> Void)?) {
-    // 1
-    guard let asset = asset else {
-      completionHandler?(false)
-      return
-    }
-    // 2
-    let resultHandler: (UIImage?, [AnyHashable: Any]?) -> Void = { image, info in
-      self.image = image
-      completionHandler?(true)
-    }
-    // 3
-    PHImageManager.default().requestImage(
-      for: asset,
-      targetSize: size,
-      contentMode: contentMode,
-      options: options,
-      resultHandler: resultHandler)
-  }
 }
