@@ -18,4 +18,11 @@ class FirstCollectionViewCell: UICollectionViewCell {
         imgView_thumbnail.layer.cornerRadius = 10
         imgView_thumbnail.clipsToBounds = true
     }
+    
+    
+    
+    func update(title: String?, count: Int) {
+        titleLabel.text = title ?? "Untitled"
+        photoCountLabel.text = "\(count.description) \(count == 1 ? "photo" : "photos")"
+    }
 }
