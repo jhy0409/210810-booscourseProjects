@@ -23,18 +23,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
      [기능]
      - [ㅇ] 애플리케이션 처음 진입 시 사진 라이브러리 접근권한이 없다면 사진 라이브러리에 접근 허용 여부를 묻습니다.
-        - [ㅇ] 수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
+        - [] 수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
         - [ㅇ] 비수락 시 컬렉션뷰에 사진이 나타나지 않으며, 오류로 인한 애플리케이션 강제종료가 되지도 않습니다.
      - [] 컬렉션뷰 셀을 선택하면 화면2로 전환됩니다.
      */
     
-    var sections: [AlbumCollectionSectionType] = [.all, .smartAlbums, .userCollections]
-    //var allPhotos = PHFetchResult<PHAsset>()
-    var allPhotos = PHFetchResult<PHAssetCollection>()
-    var smartAlbums = PHFetchResult<PHAssetCollection>()
     var userCollections = PHFetchResult<PHAssetCollection>()
     
-    var testArr: [PHFetchResult<PHAssetCollection>] = []
+    
     
     
     
@@ -45,47 +41,47 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
     
+    
+    func requestCollection() {
+        let cameraRoll: PHFetchResult<PHAssetCollection> =
+            PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+        
+        guard let cameraRollCollection = cameraRoll.firstObject else { return }
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
+    }
+    
+    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         print("photoLibraryDidChange")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        switch sections[section] {
-        case .all: return 1
-        case .smartAlbums: return smartAlbums.count
-        case .userCollections: return userCollections.count
-        }
+        return userCollections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell: FirstCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? FirstCollectionViewCell else { return UICollectionViewCell()}
-        
         var coverAsset: PHAsset?
-        let sectionType = sections[indexPath.section]
         
         let options = PHFetchOptions()
         options.sortDescriptors = [
           NSSortDescriptor(key: "creationDate",ascending: false)]
         
+        let collection = userCollections[indexPath.item]
         
-        switch sectionType {
-        case .all:
-            
-            coverAsset = allPhotos.firstObject
-            cell.update(title: sectionType.description, count: allPhotos.count)
-            
-        case .smartAlbums, .userCollections:
-            let collection = sectionType == .smartAlbums ?
-                smartAlbums[indexPath.item] : userCollections[indexPath.item]
-            let fetchedAssets = PHAsset.fetchAssets(in: collection, options: options)
-              coverAsset = fetchedAssets.firstObject
-              cell.update(title: collection.localizedTitle, count: fetchedAssets.count)
-        }
+        let fetchedAssets = PHAsset.fetchAssets(in: collection, options: options)
+        coverAsset = fetchedAssets.firstObject
+        
+        guard let cell: FirstCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? FirstCollectionViewCell else { return UICollectionViewCell()}
         
         guard let asset = coverAsset else { return cell }
         cell.imgView_thumbnail.fetchImageAsset(asset, targetSize: cell.bounds.size, completionHandler: nil)
+        
+        
+        cell.update(title: collection.localizedTitle, count: fetchedAssets.count)
         
         return cell
     }
@@ -93,6 +89,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     
+    
+    
+    func requestCollection2() {
+        let cameraRoll: PHFetchResult<PHAssetCollection> =
+            PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+        
+        guard let cameraRollCollection = cameraRoll.firstObject else { return }
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
+    }
     
     
     
@@ -105,7 +113,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         switch photoAuthorizationStatus {
         case .authorized:
             print("접근 허가 됨")
-            self.fetchAssets()
+            self.requestCollection()
+            //self.requestCollection2()
             self.collectionView.reloadData()
             
         case .denied:
@@ -117,8 +126,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 switch status {
                 case .authorized:
                     print("사용자가 허용함")
-                    
-                    self.fetchAssets()
+                    //self.requestCollection2()
+                    self.requestCollection()
                     OperationQueue.main.addOperation {
                         self.collectionView.reloadData()
                     }
@@ -143,31 +152,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     func fetchAssets() {
-        let options = PHFetchOptions()
-        options.sortDescriptors = [
-            NSSortDescriptor( key: "creationDate", ascending: false)
-        ]
-        
-        // 2
-        //allPhotos = PHAsset.fetchAssets(with: options)
-        allPhotos = PHAssetCollection.fetchAssetCollections(
-            with: .smartAlbum,
-            subtype: .albumRegular,
-            options: options)
-        // 3
-        smartAlbums = PHAssetCollection.fetchAssetCollections(
-          with: .smartAlbum,
-          subtype: .albumRegular,
-          options: options)
-        // 4
-        userCollections = PHAssetCollection.fetchAssetCollections(
-          with: .album,
-          subtype: .albumRegular,
-          options: options)
-        
-        testArr.append(allPhotos)
-        testArr.append(smartAlbums)
-        testArr.append(userCollections)
+        // 1
+      let allPhotosOptions = PHFetchOptions()
+      allPhotosOptions.sortDescriptors = [
+        NSSortDescriptor(
+          key: "creationDate",
+          ascending: false)
+      ]
+      userCollections = PHAssetCollection.fetchAssetCollections(
+        with: .album,
+        subtype: .albumRegular,
+        options: nil)
     }
 }
 
@@ -200,18 +195,5 @@ extension UIImageView {
       contentMode: contentMode,
       options: options,
       resultHandler: resultHandler)
-  }
-}
-
-
-enum AlbumCollectionSectionType: Int, CustomStringConvertible {
-  case all, smartAlbums, userCollections
-
-  var description: String {
-    switch self {
-    case .all: return "All Photos"
-    case .smartAlbums: return "Smart Albums"
-    case .userCollections: return "User Collections"
-    }
   }
 }
