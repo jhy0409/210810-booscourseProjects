@@ -8,6 +8,7 @@
 > 
 > - [4강 - 컬렉션뷰 데이터소스, 델리게이트 읽음](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#8044391a81ea4827a91a43b2735b8cbd)
 > - [4강 - 7) UICollectionViewFlowLayout 읽음](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#acd024f40f5e486cba0a832008d41930)
+> - [4강 - Threading Programming Guide 읽는 중](https://www.notion.so/jhcode/210829-bst-Swift-4-25ea-4-6a043b76884a4f998a489a4928ad7146#257b40f921e148278ccca29dbac1eb9a)
 > ***
 > `210830 월` 
 > 
