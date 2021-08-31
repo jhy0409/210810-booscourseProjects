@@ -109,8 +109,8 @@ class AlbumListViewController: UIViewController {
         countForCell = assetCollectionArray.count
         
         // stackoverflow referance 👇
-        if let eachCollection: AnyObject = getAllAlbums.objects(at: indexSetInit) as AnyObject {
-            self.assetCollection = eachCollection.firstObject as? PHAssetCollection
+        if let eachCollection: AnyObject? = getAllAlbums.objects(at: indexSetInit) as AnyObject {
+            self.assetCollection = eachCollection?.firstObject as? PHAssetCollection
             self.albumFound = true
         } else { albumFound = false }
         var i = getAllAlbums.count
