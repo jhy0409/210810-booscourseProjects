@@ -90,6 +90,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         
         //접근권한
@@ -125,16 +126,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         PHPhotoLibrary.shared().register(self)
     }
     
-//    // MARK: - 툴바 숨기기
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.isToolbarHidden = true
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        navigationController?.isToolbarHidden = false
-//    }
     
     
     // MARK: - cell Clicked

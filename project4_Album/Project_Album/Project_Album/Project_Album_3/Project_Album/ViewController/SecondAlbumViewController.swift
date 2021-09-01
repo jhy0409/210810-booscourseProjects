@@ -18,8 +18,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
      
      [기능]
      - [] 사진 다중 선택 기능
-        - [] 내비게이션 바의 '선택' 버튼을 누르면 버튼의 타이틀이 '취소'로, 내비게이션 아이템의 타이틀이 '항목 선택'으로 바뀝니다.
-        - [] 컬렉션뷰 셀(사진)을 선택하면 선택된 사진의 윤곽선과 투명도가 변해 선택되었음을 나타냅니다.
+        - [ㅇ] 내비게이션 바의 '선택' 버튼을 누르면 버튼의 타이틀이 '취소'로, 내비게이션 아이템의 타이틀이 '항목 선택'으로 바뀝니다.
+        - [ㅇ] 컬렉션뷰 셀(사진)을 선택하면 선택된 사진의 윤곽선과 투명도가 변해 선택되었음을 나타냅니다.
         - [] 선택된 사진 장수가 내비게이션 아이템의 타이틀에 즉각 반영됩니다.
         - [] '취소' 버튼을 누르면 선택된 사진이 해제되고 초기 상태로 되돌아갑니다.
      
@@ -44,12 +44,50 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
     @IBOutlet weak var toolbar: UIToolbar!
-    var isTappedBarItem: Bool = true
+    var isTappedBarItem: Bool = false
     var testBarItem: UIBarButtonItem?
     @IBOutlet weak var collectionView: UICollectionView!
-    
     var phAssetArr: [PHAsset] = []
     var countNum: Int?
+    
+    
+    
+    
+    // MARK: - 사진 다중 선택 기능
+    
+    @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem!
+    var tappedMultiSelect: Bool?
+    var selectedCells : NSMutableArray = []
+
+    @IBAction func multiSelect(_ sender: Any) {
+        if tappedMultiSelect == true {
+            tappedMultiSelect = false
+            multiSelectPhoto_BarButtonItem.title = "선택"
+        } else {
+            tappedMultiSelect = true
+            multiSelectPhoto_BarButtonItem.title = "취소"
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        selectedCells.add(indexPath)
+        print("\n\n\ndidSelectItemAt : \(selectedCells.count)")
+        //collectionView.reloadItems(at: [indexPath])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedCells.remove(indexPath)
+        print("\n\n\ndidDeselectItemAt : \(selectedCells.count)")
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
@@ -64,7 +102,25 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         // MARK: - 사진 하나씩 붙임
         if countNum == nil {
             self.phAssetArr.append(asset)
+            
+            if assets.count == phAssetArr.count {
+                isTappedBarItem = true
+                sortPhotos()
+            }
         }
+        
+        
+        if selectedCells.contains(indexPath) {
+            cell.isSelected = true
+            //cell.photoImgView.image?.image(alpha: 0.5)
+            cell.photoImgView.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+            print("selectedCells.contains(indexPath) ")
+        }
+        
+//        if let selected = cell.didSelected, selected == true {
+//            print("🔴🔴🔴🔴🔴🔴🔴🔴")
+//            cell.statusUpdateBySelection(selected)
+//        }
         
         imageManager.requestImage(for: phAssetArr[indexPath.item], targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in
             cell.photoImgView.image = image
@@ -75,6 +131,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         PHPhotoLibrary.shared().register(self)
+        
+        //collectionView.allowsMultipleSelection = true
         // Do any additional setup after loading the view.
         setToolBarItem_SetAlignment()
     }
@@ -129,6 +187,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             isTappedBarItem = true
         }
         sortPhoto(isTappedBarItem)
+        collectionView.allowsMultipleSelection = isTappedBarItem
     }
     
     func sortPhoto(_ isTapped: Bool) {

@@ -165,10 +165,17 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="album title" id="9Zd-3p-hYV"/>
+                    <navigationItem key="navigationItem" title="album title" id="9Zd-3p-hYV">
+                        <barButtonItem key="rightBarButtonItem" title="선택" id="BCc-5c-aqW">
+                            <connections>
+                                <action selector="multiSelect:" destination="pDp-V3-STf" id="WxC-5K-TLZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Pxu-Jh-rVz" id="J0l-oX-7Xi"/>
+                        <outlet property="multiSelectPhoto_BarButtonItem" destination="BCc-5c-aqW" id="Wnp-8j-ZBk"/>
                         <outlet property="toolbar" destination="UG0-iL-Llt" id="8en-xd-e2Q"/>
                     </connections>
                 </viewController>
