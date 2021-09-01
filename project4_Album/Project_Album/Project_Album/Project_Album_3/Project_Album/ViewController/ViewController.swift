@@ -25,42 +25,42 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      - [ㅇ] 애플리케이션 처음 진입 시 사진 라이브러리 접근권한이 없다면 사진 라이브러리에 접근 허용 여부를 묻습니다.
         - [] 수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
         - [ㅇ] 비수락 시 컬렉션뷰에 사진이 나타나지 않으며, 오류로 인한 애플리케이션 강제종료가 되지도 않습니다.
-     - [] 컬렉션뷰 셀을 선택하면 화면2로 전환됩니다.
+     - [ㅇ] 컬렉션뷰 셀을 선택하면 화면2로 전환됩니다.
      */
     
     var userCollections = PHFetchResult<PHAssetCollection>()
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
     
     var fetchResults: [PHFetchResult<PHAsset>] = []    //앨범 정보
-    var fetchOptions: PHFetchOptions {
+    var fetchOptions: PHFetchOptions {                 //앨범 정보에 대한 옵션
         let fetchOptions = PHFetchOptions()
-       fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-       return fetchOptions
-    }    //앨범 정보에 대한 옵션
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        return fetchOptions
+    }
+    
+    var albumTitle: [String?] = [] // 앨범 제목
     
     func requestCollection() {
         let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         let favoriteList = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
         let albumList = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
-        addAlbums(collection: cameraRoll)
-        addAlbums(collection: favoriteList)
-        addAlbums(collection: albumList)
+        addPhotoAlbums(collection: cameraRoll)      // 스마트 앨범
+        addPhotoAlbums(collection: favoriteList)    // 선호목록
+        addPhotoAlbums(collection: albumList)       // 사용자 앨범
         
         OperationQueue.main.addOperation {
             self.collectionView.reloadData()
         }
     }
-    var albumTitle: [String?] = []
-    private func addAlbums(collection : PHFetchResult<PHAssetCollection>){
+    
+    private func addPhotoAlbums(collection : PHFetchResult<PHAssetCollection>){
         for i in 0 ..< collection.count {
             let collection = collection.object(at: i)
             self.fetchResults.append(PHAsset.fetchAssets(in: collection, options: fetchOptions))
-            
-            albumTitle.append(collection.localizedTitle)
+            albumTitle.append(collection.localizedTitle) // 앨범 타이틀
         }
     }
     
@@ -76,14 +76,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         guard let cell: FirstCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? FirstCollectionViewCell else { return UICollectionViewCell()}
         
-        guard let asset = fetchResults[indexPath.item].firstObject as? PHAsset else { return cell }
-        let collection =  fetchResults[indexPath.item]
+        guard let asset = fetchResults[indexPath.item].firstObject else { return cell }
         
         imageManager.requestImage(for: asset, targetSize: cell.bounds.size, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.imgView_thumbnail.image = image
         }
         
-        print("\(fetchResults[indexPath.item].description)")
         cell.update(title: albumTitle[indexPath.item], count: fetchResults[indexPath.item].count)
         
         return cell
@@ -91,9 +89,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         
+        //접근권한
         switch photoAuthorizationStatus {
         case .authorized:
             print("접근 허가 됨")
@@ -125,8 +123,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         PHPhotoLibrary.shared().register(self)
     }
+    
+    // MARK: - cell Clicked
+    
+    @IBSegueAction func makeSecondVC(_ coder: NSCoder) -> SecondAlbumViewController? {
+        
+        guard let selectIndex = collectionView.indexPathsForSelectedItems?.first else { return nil }
+
+        //let item = selectIndex.item // 선택한 아이템
+        let assets: PHFetchResult<PHAsset> =  fetchResults[selectIndex.item] // 앨범
+        let title: String = albumTitle[selectIndex.item] ?? "NONE" // 앨범 타이틀
+        print("\n\n-----> 🟢 @IBSegueAction func makeSecondVC: title = \(title)\n assets count : \(assets.count)")
+        
+        return SecondAlbumViewController(assets: assets, title: title, coder: coder)
+    }
+    
+    
+    
 }
 
+
+// MARK: - 셀 크기
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 10

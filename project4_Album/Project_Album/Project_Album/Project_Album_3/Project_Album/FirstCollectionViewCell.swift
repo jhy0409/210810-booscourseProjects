@@ -17,6 +17,8 @@ class FirstCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         imgView_thumbnail.layer.cornerRadius = 10
         imgView_thumbnail.clipsToBounds = true
+        imgView_thumbnail.layer.borderWidth = 0.5
+        imgView_thumbnail.layer.borderColor = CGColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     }
     
     
