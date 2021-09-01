@@ -12,9 +12,9 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
      화면 2 - 앨범내 사진 목록
       
      [화면구성]
-     - [] 내비게이션 아이템의 타이틀은 이전 화면에서 선택된 앨범 이름입니다.
-     - [] 컬렉션뷰의 이미지뷰는 정사각형으로, 내부 이미지는 기존 이미지 비율을 유지합니다.
-     - [] 화면 하단에는 사진 정렬 방법을 선택하기 위한 툴바가 있습니다.
+     - [ㅇ] 내비게이션 아이템의 타이틀은 이전 화면에서 선택된 앨범 이름입니다.
+     - [ㅇ] 컬렉션뷰의 이미지뷰는 정사각형으로, 내부 이미지는 기존 이미지 비율을 유지합니다.
+     - [ㅇ] 화면 하단에는 사진 정렬 방법을 선택하기 위한 툴바가 있습니다.
      
      [기능]
      - [] 사진 다중 선택 기능
@@ -37,6 +37,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         - [] 삭제 버튼은 기본적으로 비활성화되어있습니다.
         - [] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
         - [] 이미지 선택 후 활성화된 버튼을 탭하면 선택된 사진을 삭제합니다.
+     
      - [] 컬렉션뷰 셀을 선택하면 화면3으로 전환됩니다.
      */
     var assets: PHFetchResult<PHAsset>
