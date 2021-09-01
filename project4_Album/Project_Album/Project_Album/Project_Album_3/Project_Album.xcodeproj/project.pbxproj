@@ -64,13 +64,13 @@
 			children = (
 				689C41D426DF068700BF9555 /* ViewController */,
 				684E685626DDFF5100B9F943 /* FirstCollectionViewCell.swift */,
+				689C41D526DF3E3100BF9555 /* SecondCollectionViewCell.swift */,
 				6861544826DDF981009E67A9 /* AppDelegate.swift */,
 				6861544A26DDF981009E67A9 /* SceneDelegate.swift */,
 				6861544E26DDF981009E67A9 /* Main.storyboard */,
 				6861545126DDF982009E67A9 /* Assets.xcassets */,
 				6861545326DDF982009E67A9 /* LaunchScreen.storyboard */,
 				6861545626DDF982009E67A9 /* Info.plist */,
-				689C41D526DF3E3100BF9555 /* SecondCollectionViewCell.swift */,
 			);
 			path = Project_Album;
 			sourceTree = "<group>";

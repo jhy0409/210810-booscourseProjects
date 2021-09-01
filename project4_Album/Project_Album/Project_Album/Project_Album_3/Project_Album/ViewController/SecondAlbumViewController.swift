@@ -23,10 +23,10 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         - [] 선택된 사진 장수가 내비게이션 아이템의 타이틀에 즉각 반영됩니다.
         - [] '취소' 버튼을 누르면 선택된 사진이 해제되고 초기 상태로 되돌아갑니다.
      
-     - [] 사진 정렬 기능(사진 날짜 기준)
-        - [] 초기 설정은 최신 사진이 제일 위에 오는 정렬입니다.
-        - [] 툴바의 버튼을 누르면 최신순/과거순 토글로 사진의 순서가 바뀝니다.
-        - [] 툴바의 버튼을 누르면 현재 상태에 따라 버튼의 타이틀이 변경됩니다.
+     - [ㅇ] 사진 정렬 기능(사진 날짜 기준)
+        - [ㅇ] 초기 설정은 최신 사진이 제일 위에 오는 정렬입니다.
+        - [ㅇ] 툴바의 버튼을 누르면 최신순/과거순 토글로 사진의 순서가 바뀝니다.
+        - [ㅇ] 툴바의 버튼을 누르면 현재 상태에 따라 버튼의 타이틀이 변경됩니다.
      
      - [] 공유 기능
         - [] 공유 버튼은 기본적으로 비활성화되어있습니다.
@@ -43,6 +43,28 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     var assets: PHFetchResult<PHAsset>
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
+    @IBOutlet weak var toolbar: UIToolbar!
+    var isTappedBarItem: Bool = true
+    var testBarItem: UIBarButtonItem?
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var phAssetArr: [PHAsset] = []
+    var countNum: Int?
+    
+    var fetchOld: PHFetchOptions {                 //앨범 정보에 대한 옵션
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        return fetchOptions
+    }
+    
+    var fetchRecent: PHFetchOptions {                 //앨범 정보에 대한 옵션
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        return fetchOptions
+    }
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
@@ -53,8 +75,25 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
                 as? SecondCollectionViewCell else { return UICollectionViewCell() }
         
         let asset = assets[indexPath.item]
+        // MARK: - 사진 하나씩 붙임
         
-        imageManager.requestImage(for: asset, targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in
+        if countNum == nil {
+            self.phAssetArr.append(asset)
+        }
+        
+//        // MARK: - 탭바 아이템 클릭
+//        if isTappedBarItem == true {
+//            print("isTappedBarItem == true")
+//        } else if isTappedBarItem == false {
+//            print("isTappedBarItem == false")
+//        }
+        
+//        imageManager.requestImage(for: asset, targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in
+//            cell.photoImgView.image = image
+//        }
+        
+        
+        imageManager.requestImage(for: phAssetArr[indexPath.item], targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in
             cell.photoImgView.image = image
         }
         
@@ -66,6 +105,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         super.viewDidLoad()
         PHPhotoLibrary.shared().register(self)
         // Do any additional setup after loading the view.
+        setToolBarItem_SetAlignment()
     }
     
     required init?(coder: NSCoder) {
@@ -88,6 +128,97 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     }
     */
 
+    func setToolBarItem_SetAlignment() {
+        //view.addSubview(toolbar)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
+        toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0).isActive = true
+        toolbar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 0).isActive = true
+        
+        var items: [UIBarButtonItem] = []
+        let emptySpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        let titleStr: String = isTappedBarItem == true ? "최신순" : "과거순"
+        let sortRecentPhoto = UIBarButtonItem(title: titleStr, style: .plain, target: self, action: #selector(abcTest))
+        items.append(emptySpace)
+        items.append(sortRecentPhoto)
+        items.append(emptySpace)
+        toolbar.setItems(items, animated: true)
+        
+        testBarItem = sortRecentPhoto
+    }
+    
+    @objc func abcTest() {
+        countNum = 1
+        //https://developer.apple.com/documentation/photokit/phfetchoptions/1624771-sortdescriptors
+        if isTappedBarItem == true {
+            testBarItem?.title = "과거순"
+            sortPhotoRecent()
+            isTappedBarItem = false
+        } else {
+            testBarItem?.title = "최신순"
+            sortPhotoOld()
+            isTappedBarItem = true
+        }
+    }
+    
+    func sortPhotoOld() {
+        let tmpArr = phAssetArr.sorted(by: { ph1, ph2 in
+            if let ph1Date = ph1.creationDate, let ph2Date = ph2.creationDate {
+                print("날짜비교 되었음 ")
+                return ph1Date < ph2Date
+            }
+            else {
+                print("픽셀 비교 되었음")
+                return ph1.pixelWidth < ph2.pixelWidth
+            }
+        })
+        
+        phAssetArr = tmpArr
+        
+//        collectionView.reloadData()
+//        view.layoutIfNeeded()
+        collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+        
+        print("\n\n---> 🟡 sortPhotoOld / phAssetArr.count : \(phAssetArr.count)")
+    }
+    
+    
+    
+    func sortPhotoRecent() {
+        let tmpArr = phAssetArr.sorted(by: { ph1, ph2 in
+            if let ph1Date = ph1.creationDate, let ph2Date = ph2.creationDate {
+                print("날짜비교 되었음 ")
+                return ph1Date > ph2Date
+            }
+            else {
+                print("픽셀 비교 되었음")
+                return ph1.pixelWidth < ph2.pixelWidth
+            }
+        })
+        
+        phAssetArr = tmpArr
+        //collectionView.reloadData()
+        //view.layoutIfNeeded()
+        collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+        
+        
+        print("\n\n---> 🟠 sortPhotoRecent / phAssetArr.count : \(phAssetArr.count)")
+    }
+    
+    
+    
+    func acs(s1:PHAsset, s2:PHAsset) -> Bool? {
+        guard let ss1 = s1.creationDate else { return nil }
+        guard let ss2 = s2.creationDate else { return nil }
+        return ss1 < ss2
+    }
+    func des(s1:PHAsset, s2:PHAsset) -> Bool? {
+        guard let ss1 = s1.creationDate else { return nil }
+        guard let ss2 = s2.creationDate else { return nil }
+        return ss1 > ss2
+    }
+    
 }
 
 

@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4IK-uL-qSx">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RmC-hP-clh">
                                     <size key="itemSize" width="200" height="280"/>
@@ -147,30 +147,39 @@
                                     <outlet property="delegate" destination="pDp-V3-STf" id="84n-lE-q85"/>
                                 </connections>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UG0-iL-Llt">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Dvu-Px-oel"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Dvu-Px-oel" firstAttribute="bottom" secondItem="Pxu-Jh-rVz" secondAttribute="bottom" id="0bK-gh-rQf"/>
                             <constraint firstItem="Dvu-Px-oel" firstAttribute="trailing" secondItem="Pxu-Jh-rVz" secondAttribute="trailing" id="6Vu-n8-QBT"/>
+                            <constraint firstItem="Dvu-Px-oel" firstAttribute="leading" secondItem="UG0-iL-Llt" secondAttribute="leading" id="7OD-C0-b3O"/>
+                            <constraint firstItem="Dvu-Px-oel" firstAttribute="trailing" secondItem="UG0-iL-Llt" secondAttribute="trailing" id="Ja5-8s-QlR"/>
                             <constraint firstItem="Pxu-Jh-rVz" firstAttribute="leading" secondItem="Dvu-Px-oel" secondAttribute="leading" id="Pj5-CA-L5k"/>
+                            <constraint firstItem="Dvu-Px-oel" firstAttribute="bottom" secondItem="UG0-iL-Llt" secondAttribute="bottom" id="bbH-Vd-aih"/>
                             <constraint firstItem="Pxu-Jh-rVz" firstAttribute="top" secondItem="Dvu-Px-oel" secondAttribute="top" id="k9D-Cj-mgW"/>
+                            <constraint firstItem="UG0-iL-Llt" firstAttribute="top" secondItem="Pxu-Jh-rVz" secondAttribute="bottom" id="mbF-93-8gH"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="NXy-d8-t1e"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="album title" id="9Zd-3p-hYV"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Pxu-Jh-rVz" id="J0l-oX-7Xi"/>
+                        <outlet property="toolbar" destination="UG0-iL-Llt" id="8en-xd-e2Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xCO-yg-gKv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1770" y="73"/>
+            <point key="canvasLocation" x="1769.5652173913045" y="72.991071428571431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wU1-lk-AMv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dmU-tp-4en" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dmU-tp-4en" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="02T-3T-b2W">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -178,7 +187,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g38-ue-of9">
-                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
