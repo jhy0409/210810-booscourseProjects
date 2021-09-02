@@ -40,6 +40,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
      
      - [] 컬렉션뷰 셀을 선택하면 화면3으로 전환됩니다.
      */
+    static var recieveAsset: PHFetchResult<PHAsset>?
     var assets: PHFetchResult<PHAsset>
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
@@ -181,8 +182,14 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         super.viewDidLoad()
         PHPhotoLibrary.shared().register(self)
         
-        // Do any additional setup after loading the view.
+        
         setToolBarItem_SetAlignment()
+        
+        
+        guard let rcvAsset = SecondAlbumViewController.recieveAsset else { return }
+        assets = rcvAsset
+        print("🌹🌹🌹🌹🌹 second view didload \(assets.count)")
+        // Do any additional setup after loading the view.
         
     }
     
@@ -253,16 +260,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
 //        assets
     }
     
-//    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-//        let isNilTrue: Bool = true
-//        guard let tmpBool = SecondAlbumViewController.tappedMultiSelect else { return isNilTrue }
-//
-//        print("canEditItemAt - tmpBool : \(tmpBool) / isNilTrue : \(isNilTrue)")
-//        return tmpBool
-//    }
-//
-    
-    
     
     
     
@@ -287,6 +284,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - 공유 창 띄우기
     func shareOutSideUsingActivityVC(_ images: [UIImage]) {
         let activityPhotos: [UIImage] = images
+        
         let activityVC = UIActivityViewController(activityItems: activityPhotos, applicationActivities: nil)
         self.present(activityVC, animated: true, completion: nil)
     }
@@ -314,11 +312,14 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         } else {
             fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         }
+        print("\n\n---> 🟡 sortPhoto / assets.count : \(assets.count)")
+        //self.assets = PHAsset.fetchAssets(with: fetchOptions)
         
-        self.assets = PHAsset.fetchAssets(with: fetchOptions)
+        
+        
         collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
 
-        print("\n\n---> 🟡 sortPhoto / assets.count : \(assets.count)")
+        print("\n\n---> 🟡🟡 sortPhoto / assets.count : \(assets.count)")
     }
 }
 

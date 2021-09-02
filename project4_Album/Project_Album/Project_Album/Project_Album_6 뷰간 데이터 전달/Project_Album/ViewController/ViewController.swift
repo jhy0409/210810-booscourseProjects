@@ -43,10 +43,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     var albumTitle: [String?] = [] // 앨범 제목
     
-    
-//    var cameraRoll: PHFetchResult<PHAssetCollection>
-//    var favoriteList: PHFetchResult<PHAssetCollection>
-//    var albumList: PHFetchResult<PHAssetCollection>
     func requestCollection() {
         let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         let favoriteList = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
@@ -54,11 +50,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         addPhotoAlbums(collection: cameraRoll)      // 스마트 앨범
         addPhotoAlbums(collection: favoriteList)    // 선호목록
         addPhotoAlbums(collection: albumList)       // 사용자 앨범
-        
-//        self.cameraRoll = cameraRoll
-//        self.favoriteList = favoriteList
-//        self.albumList = albumList
-        
         
         OperationQueue.main.addOperation {
             self.collectionView.reloadData()
@@ -75,13 +66,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     // MARK: - 여기
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-//        guard let changes = changeInstance.changeDetails(for: fetchResult) else { return }
-        //print("\n\n\n\n\(#function) - \(#function) - \(#function)")
-        
-        
-//        self.cameraRoll = cameraRoll
-//        self.favoriteList = favoriteList
-//        self.albumList = albumList
         
         guard let changes0 = changeInstance.changeDetails(for: fetchResults[0]) else { return }
         fetchResults[0] = changes0.fetchResultAfterChanges
@@ -153,28 +137,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
     }
     
-    
+    var collSelect: IndexPath?
     
     // MARK: - cell Clicked
     
     @IBSegueAction func makeSecondVC(_ coder: NSCoder) -> SecondAlbumViewController? {
         
-        guard let selectIndex = collectionView.indexPathsForSelectedItems?.first else { return nil }
+         guard let selectIndex = collectionView.indexPathsForSelectedItems?.first else { return nil }
+        //let selectIndex = collSelect
 
         //let item = selectIndex.item // 선택한 아이템
         let assets: PHFetchResult<PHAsset> =  fetchResults[selectIndex.item] // 앨범
         let title: String = albumTitle[selectIndex.item] ?? "NONE" // 앨범 타이틀
         print("\n\n-----> 🟢 @IBSegueAction func makeSecondVC: title = \(title)\n assets count : \(assets.count)")
         
+        SecondAlbumViewController.recieveAsset = assets
         return SecondAlbumViewController(assets: assets, title: title, coder: coder)
     }
     
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collSelect = indexPath
+        print("🌸🌸🌸🌸🌸function \(#function) - collSelect (\(collSelect)")
+    }
 }
 
 

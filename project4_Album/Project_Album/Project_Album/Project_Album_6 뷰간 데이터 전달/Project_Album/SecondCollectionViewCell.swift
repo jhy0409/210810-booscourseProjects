@@ -44,6 +44,9 @@ class SecondCollectionViewCell: UICollectionViewCell {
             } else if isSelected == true {
                 let tmpImg = photoImgView.image?.alpha(1)
                 orgImg = tmpImg
+            } else if SecondAlbumViewController.tappedMultiSelect == false {
+                let tmpImg = photoImgView.image?.alpha(1)
+                orgImg = tmpImg
             } else {
                 photoImgView.layer.borderWidth = 0.5
                 photoImgView.layer.borderColor = defaultBorderColor
