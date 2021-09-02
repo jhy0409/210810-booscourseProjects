@@ -56,7 +56,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem!
     static var tappedMultiSelect: Bool?
-    var selectedCells : NSMutableArray = []
+    var selectedCells : [PHAsset] = []
+    //var selectedCells : NSMutableArray = []
     //var selectedCells : [IndexPath] = []
     
     var orgTitle: String?
@@ -72,7 +73,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             multiSelectPhoto_BarButtonItem.title = "선택"
             self.title = orgTitle
             
-            selectedCells.removeAllObjects()
+            //selectedCells.removeAllObjects()
+            selectedCells.removeAll()
             collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
             setToolBarItem_SetAlignment(SecondAlbumViewController.tappedMultiSelect)
         } else {
@@ -92,11 +94,15 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         if tmpMulti == true, isTappedBarItem == false, isTapped_tmp == true {
             //self.selectedCells.append(indexPath)
             //print("\nisTappedBarItem: \(isTappedBarItem)")
-            self.selectedCells.add(indexPath)
+            
+            
+            
+            //self.selectedCells.add(indexPath)
+            self.selectedCells.append(assets[indexPath.item])
             self.title = "\(selectedCells.count)개 선택"
         }
         setToolBarItem_SetAlignment(tmpMulti)
-        print("---> 🟠 didSelectItemAt : \(selectedCells.count)")
+        print("---> 🟠 didSelectItemAt - selectedCells.count : \(selectedCells.count)")
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -104,14 +110,25 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         print("\n---> 🟢 isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
         let tmpMulti: Bool? = SecondAlbumViewController.tappedMultiSelect
         if selectedCells.count >= 1, tmpMulti == true {
-            selectedCells.remove(indexPath)
+            
+            //selectedCells.remove(indexPath)
+            //print("selectedCells : \(selectedCells.count) / indexPath.row : \(indexPath.row) / indexPath.item : \(indexPath.item)  ")
+            
+            //selectedCells : 2 / indexPath.row : 4 / indexPath.item : 4
+            // 셀즈 어레이에서 생성날짜와 같은 이미지 찾기
+            let exceptIndexPathPhoto = selectedCells.filter { resultAsset in
+                assets[indexPath.item] != resultAsset
+            }
+            
+            selectedCells = exceptIndexPathPhoto
+            
             self.title = selectedCells.count >= 1 ? "\(selectedCells.count)개 선택" : selectPhotoTitle
         } else {
             self.title = orgTitle
         }
         
         setToolBarItem_SetAlignment(SecondAlbumViewController.tappedMultiSelect)
-        print("---> 🟢 didDeselectItemAt : \(selectedCells.count)")
+        print("---> 🟢 didDeselectItemAt - selectedCells.count : \(selectedCells.count)")
     }
     
     
@@ -140,7 +157,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         }
         
         
-        if selectedCells.contains(indexPath) {
+        //if selectedCells.contains(indexPath) {
+        if selectedCells.contains(assets[indexPath.item]) {
             cell.isSelected = true
             //cell.photoImgView.image?.image(alpha: 0.5)
             //cell.photoImgView.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
@@ -160,8 +178,18 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         PHPhotoLibrary.shared().register(self)
         
         // Do any additional setup after loading the view.
+        
+        
         setToolBarItem_SetAlignment(tmpBool)
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) line 30 - required init?(coder: NSCoder)")
@@ -196,53 +224,18 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
 
         let titleStr: String = isTappedBarItem == true ? "최신순" : "과거순"
         let sortRecentPhoto = UIBarButtonItem(title: titleStr, style: .plain, target: self, action: #selector(sortPhotos))
-        let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: nil)
-        let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sharePhotos))
+        let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePhotos))
         
-//        if tmpBool == false {
-//            shareItem.isEnabled = false
-//            deleteItem.isEnabled = false
-//            sortRecentPhoto.isEnabled = true
-//        } else {
-//            shareItem.isEnabled = true
-//            deleteItem.isEnabled = true
-//            sortRecentPhoto.isEnabled = false
-//        }
-        
-//        if tmpBool == false {
-//            shareItem.isEnabled = false
-//            deleteItem.isEnabled = false
-//            sortRecentPhoto.isEnabled = true
-//        }
         if selectedCells.count >= 1, tmpBool == true {
             shareItem.isEnabled = true
             deleteItem.isEnabled = true
             sortRecentPhoto.isEnabled = false
-        }
-//        else if selectedCells.count == 0, tmpBool == false {
-//            shareItem.isEnabled = false
-//            deleteItem.isEnabled = false
-//            sortRecentPhoto.isEnabled = false
-//        }
-        else {
+        } else {
             shareItem.isEnabled = false
             deleteItem.isEnabled = false
             sortRecentPhoto.isEnabled = true
         }
-        
-        
-        
-        
-        
-//        if tmpBool == true, selectedCells.count >= 1 {
-//            shareItem.isEnabled = true
-//            deleteItem.isEnabled = true
-//            sortRecentPhoto.isEnabled = false
-//        } else {
-//            shareItem.isEnabled = false
-//            deleteItem.isEnabled = false
-//            sortRecentPhoto.isEnabled = true
-//        }
         
         items.append(shareItem)
         items.append(emptySpace)
@@ -253,6 +246,69 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         testBarItem = sortRecentPhoto
     }
+    
+    @objc func sharePhotos() {
+        print(#function)
+        let shareItem = getImage(selectedCells)
+        shareOutSideUsingActivityVC(shareItem)
+        print("🤮 \(#function) - shareItem.count : \(shareItem.count)")
+        //shareOutSideUsingActivityVC()
+        
+    }
+    
+    @objc func deletePhotos() {
+        print(#function)
+    }
+    
+    // MARK: - 선택 사진(phasset) array -> 이미지 배열로
+    func getImage(_ phassets: [PHAsset]) -> [UIImage] {
+        let manager = PHImageManager.default()
+        var shareImages: [UIImage] = []
+        
+        let option = PHImageRequestOptions()
+
+        for i in phassets {
+            var img = UIImage()
+            manager.requestImage(for: i, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option) { resultImg, info in
+                img = resultImg!
+            }
+            shareImages.append(img)
+        }
+        return shareImages
+    }
+    
+    
+    func shareOutSideUsingActivityVC(_ images: [UIImage]) {
+        let activityPhotos: [UIImage] = images
+        
+        let activityVC = UIActivityViewController(activityItems: activityPhotos, applicationActivities: nil)
+        self.present(activityVC, animated: true, completion: nil)
+        //completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+        
+//        { activity, success, item, error in
+//            if !success {
+//
+//            }
+            
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @objc func sortPhotos() {
         countNum = 1
@@ -310,7 +366,17 @@ extension SecondAlbumViewController: UICollectionViewDelegateFlowLayout {
 
 extension SecondAlbumViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        print(" 작성하기 - func photoLibraryDidChange(_ changeInstance: PHChange) ")
+        //print(" 작성하기 - func photoLibraryDidChange(_ changeInstance: PHChange) ")
+        
+        guard let changes = changeInstance.changeDetails(for: assets) else { return }
+        assets = changes.fetchResultAfterChanges
+        //phAssetArr =
+        OperationQueue.main.addOperation {
+            //self.collectionView.reloadSections(IndexSet(0...0))
+            self.collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+        }
     }
+    
+    
 }
 
