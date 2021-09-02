@@ -43,6 +43,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     var albumTitle: [String?] = [] // 앨범 제목
     
+    
+//    var cameraRoll: PHFetchResult<PHAssetCollection>
+//    var favoriteList: PHFetchResult<PHAssetCollection>
+//    var albumList: PHFetchResult<PHAssetCollection>
     func requestCollection() {
         let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         let favoriteList = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
@@ -50,6 +54,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         addPhotoAlbums(collection: cameraRoll)      // 스마트 앨범
         addPhotoAlbums(collection: favoriteList)    // 선호목록
         addPhotoAlbums(collection: albumList)       // 사용자 앨범
+        
+//        self.cameraRoll = cameraRoll
+//        self.favoriteList = favoriteList
+//        self.albumList = albumList
+        
         
         OperationQueue.main.addOperation {
             self.collectionView.reloadData()
@@ -64,8 +73,24 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
+    // MARK: - 여기
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        print("photoLibraryDidChange")
+//        guard let changes = changeInstance.changeDetails(for: fetchResult) else { return }
+        //print("\n\n\n\n\(#function) - \(#function) - \(#function)")
+        
+        
+//        self.cameraRoll = cameraRoll
+//        self.favoriteList = favoriteList
+//        self.albumList = albumList
+        
+        guard let changes0 = changeInstance.changeDetails(for: fetchResults[0]) else { return }
+        fetchResults[0] = changes0.fetchResultAfterChanges
+        
+        guard let changes1 = changeInstance.changeDetails(for: fetchResults[1]) else { return }
+        fetchResults[1] = changes1.fetchResultAfterChanges
+        
+        guard let changes2 = changeInstance.changeDetails(for: fetchResults[2]) else { return }
+        fetchResults[2] = changes2.fetchResultAfterChanges
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -124,6 +149,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             break
         }
         PHPhotoLibrary.shared().register(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
     }
     
     

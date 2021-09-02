@@ -44,11 +44,9 @@ class SecondCollectionViewCell: UICollectionViewCell {
             } else if isSelected == true {
                 let tmpImg = photoImgView.image?.alpha(1)
                 orgImg = tmpImg
-            }
-                else {
+            } else {
                 photoImgView.layer.borderWidth = 0.5
                 photoImgView.layer.borderColor = defaultBorderColor
-                let tmpImg = photoImgView.image?.alpha(1)
                 photoImgView.image = orgImg
             }
         }
