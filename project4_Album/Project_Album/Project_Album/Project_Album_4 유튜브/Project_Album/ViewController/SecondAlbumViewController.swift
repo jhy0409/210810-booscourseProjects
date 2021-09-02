@@ -30,12 +30,12 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
      
      - [] 공유 기능
         - [ㅇ] 공유 버튼은 기본적으로 비활성화되어있습니다.
-        - [] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
+        - [ㅇ] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
         - [] 선택된 사진을 이미지로 공유하는 창을 띄웁니다.
      
      - [] 삭제 기능
-        - [] 삭제 버튼은 기본적으로 비활성화되어있습니다.
-        - [] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
+        - [ㅇ] 삭제 버튼은 기본적으로 비활성화되어있습니다.
+        - [ㅇ] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
         - [] 이미지 선택 후 활성화된 버튼을 탭하면 선택된 사진을 삭제합니다.
      
      - [] 컬렉션뷰 셀을 선택하면 화면3으로 전환됩니다.
@@ -94,24 +94,23 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             //print("\nisTappedBarItem: \(isTappedBarItem)")
             self.selectedCells.add(indexPath)
             self.title = "\(selectedCells.count)개 선택"
-            
-            if selectedCells.count >= 1 { setToolBarItem_SetAlignment(tmpMulti)}
         }
+        setToolBarItem_SetAlignment(tmpMulti)
         print("---> 🟠 didSelectItemAt : \(selectedCells.count)")
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         //selectedCells.remove(indexPath)
-        
         print("\n---> 🟢 isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
         let tmpMulti: Bool? = SecondAlbumViewController.tappedMultiSelect
         if selectedCells.count >= 1, tmpMulti == true {
             selectedCells.remove(indexPath)
-            
             self.title = selectedCells.count >= 1 ? "\(selectedCells.count)개 선택" : selectPhotoTitle
         } else {
             self.title = orgTitle
         }
+        
+        setToolBarItem_SetAlignment(SecondAlbumViewController.tappedMultiSelect)
         print("---> 🟢 didDeselectItemAt : \(selectedCells.count)")
     }
     
@@ -219,11 +218,13 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             shareItem.isEnabled = true
             deleteItem.isEnabled = true
             sortRecentPhoto.isEnabled = false
-        } else if selectedCells.count == 0, tmpBool == false {
-            shareItem.isEnabled = false
-            deleteItem.isEnabled = false
-            sortRecentPhoto.isEnabled = false
-        } else {
+        }
+//        else if selectedCells.count == 0, tmpBool == false {
+//            shareItem.isEnabled = false
+//            deleteItem.isEnabled = false
+//            sortRecentPhoto.isEnabled = false
+//        }
+        else {
             shareItem.isEnabled = false
             deleteItem.isEnabled = false
             sortRecentPhoto.isEnabled = true
