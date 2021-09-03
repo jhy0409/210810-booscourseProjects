@@ -156,12 +156,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let title: String = albumTitle[selectIndex.item] ?? "NONE" // 앨범 타이틀
         print("\n\n-----> 🟢 @IBSegueAction makeSecondVC: title = \(title) / assets count : \(assets.count)")
         
-        SecondAlbumViewController.recieveAsset = assets
+//        SecondAlbumViewController.recieveAsset = assets
+//        SecondAlbumViewController.recieveCollection = fetchCollection[selectIndex.item]
         
-        //print("🍜🍜🍜fetchCollection : \(fetchCollection.count)")
-        SecondAlbumViewController.recieveCollection = fetchCollection[selectIndex.item]
-        
-        return SecondAlbumViewController(assets: assets, title: title, coder: coder)
+//        return SecondAlbumViewController(assets: assets, title: title, coder: coder)
+        let seconVC = SecondAlbumViewController(assets: assets, title: title, coder: coder)
+        seconVC?.assets = assets
+        return seconVC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

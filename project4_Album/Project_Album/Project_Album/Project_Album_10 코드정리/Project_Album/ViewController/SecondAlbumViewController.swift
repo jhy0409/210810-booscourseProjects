@@ -40,10 +40,11 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
      
      - [ㅇ] 컬렉션뷰 셀을 선택하면 화면3으로 전환됩니다.
      */
-    static var recieveAsset: PHFetchResult<PHAsset>?
-    static var recieveCollection: PHCollection?
+    //static var recieveAsset: PHFetchResult<PHAsset>?
+    //static var recieveCollection: PHCollection?
     
     
+    // MARK: - [ㅇ] ✅
     var assets: PHFetchResult<PHAsset>
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
@@ -56,19 +57,18 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     var deleteItem: UIBarButtonItem?
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var phAssetArr: [PHAsset] = []
+    //var phAssetArr: [PHAsset] = []
     var countNum: Int?
-    //static var countNumForArr: Int? = nil
     
     // MARK: - 사진 다중 선택 기능 [ㅇ]
-    @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem! // ✅
-    static var tappedMultiSelect: Bool? // ✅
-    var selectedCells : [PHAsset] = [] // ✅
+    @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem!
+    static var tappedMultiSelect: Bool?
+    var selectedCells : [PHAsset] = []
     
-    var orgTitle: String?  // ✅
-    let selectPhotoTitle: String = "항목 선택"  // ✅
-    var selectedIndexPathArr: [IndexPath]? // ✅
-    
+    var orgTitle: String?
+    let selectPhotoTitle: String = "항목 선택"
+    var selectedIndexPathArr: [IndexPath]?
+    // MARK: - [ㅇ] ✅
     
     
     
@@ -212,9 +212,11 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         setToolBarItem_SetAlignment()
         
-        guard let rcvAsset = SecondAlbumViewController.recieveAsset else { return }
-        assets = rcvAsset
-        print("🌹🌹 second view didload : \(assets.count) / 🌹recieveCollection : \(String(describing: SecondAlbumViewController.recieveCollection))🌹🌹")
+//        guard let rcvAsset = SecondAlbumViewController.recieveAsset else { return }
+//        assets = rcvAsset
+//        print("🌹🌹 second view didload : \(assets.count) / 🌹recieveCollection : \(String(describing: SecondAlbumViewController.recieveCollection))🌹🌹")
+        
+        print("🌹🌹 second view didload : \(assets.count) 🌹🌹")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
