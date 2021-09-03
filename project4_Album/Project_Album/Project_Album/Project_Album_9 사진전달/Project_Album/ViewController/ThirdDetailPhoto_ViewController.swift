@@ -14,9 +14,9 @@ class ThirdDetailPhoto_ViewController: UIViewController {
      화면에 이미지뷰로 이미지를 이미지 원래의 비율대로 화면 가득 표시해줍니다.
      
      [기능]
-     - [] 즐겨찾기❤️ 기능
-         - [] 사진이 즐겨찾기 찾기 되어있는지 아닌지를 표시합니다.
-         - [] 토글 기능으로 즐겨찾기 여부를 설정할 수 있으며, 에셋에 반영하여 iOS 기본 '사진' 애플리케이션에서도 즐겨찾기 여부를 확인할 수 있습니다.
+     - [ㅇ] 즐겨찾기❤️ 기능
+         - [ㅇ] 사진이 즐겨찾기 찾기 되어있는지 아닌지를 표시합니다.
+         - [ㅇ] 토글 기능으로 즐겨찾기 여부를 설정할 수 있으며, 에셋에 반영하여 iOS 기본 '사진' 애플리케이션에서도 즐겨찾기 여부를 확인할 수 있습니다.
      [공유 기능]
      - [] 현재 보이는 사진을 이미지로 공유하는 창을 띄웁니다.
      
@@ -83,6 +83,7 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         let img = getHeartFromPhoto(asset.isFavorite)
         let heartStatus = UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(setHeart))
         self.heartStatus = heartStatus
+        
         let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePhoto))
         
         items.append(shareItem)
@@ -100,7 +101,6 @@ class ThirdDetailPhoto_ViewController: UIViewController {
     func getHeartFromPhoto(_ tmpBool: Bool) -> UIImage {
         
         var resultIcon = UIImage()
-//        let bool = !tmpBool
         guard let heartFill = heartFillIcon, let hearEmpty = heartEmptyIcon else { print("\n\n 🟢🟢🟢 getHeartFromPhoto Fail "); return resultIcon }
         
         switch tmpBool {
@@ -111,23 +111,22 @@ class ThirdDetailPhoto_ViewController: UIViewController {
             resultIcon = hearEmpty
             print("🟢🟢🟢 tmpBool nil Or false? Area : \(tmpBool)- \(resultIcon)")
         }
-        
         return resultIcon
     }
     
     @objc func setHeart() {
-        print("\n\n--> 🟠 Did Clicked setHeart()")
+        print("\n\n--> 🟠 Did Clicked setHeart() - asset.isFavorite : \(asset.isFavorite)")
         
         let change: () -> Void = {
             let request = PHAssetChangeRequest(for: self.asset)
             request.isFavorite = !self.asset.isFavorite
         }
         
-        let icon = self.getHeartFromPhoto(asset.isFavorite)
-        self.heartStatus?.image = icon
         PHPhotoLibrary.shared().performChanges(change, completionHandler: nil)
-        //view.layoutIfNeeded()
+        let img = getHeartFromPhoto(!asset.isFavorite)
+        heartStatus?.image = img
     }
+    
     
     @objc func deletePhoto() {
         print("\n\n--> 🟡 Did Clicked deletePhoto()")
@@ -179,17 +178,10 @@ class ThirdDetailPhoto_ViewController: UIViewController {
 
 }
 
-extension ThirdDetailPhoto_ViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let change = changeInstance.changeDetails(for: asset),
-              let updateAsset = change.objectAfterChanges
-        else { return }
-        
-        DispatchQueue.main.sync {
-            asset = updateAsset
-            self.setHeart()
-        }
-    }
-    
-    
-}
+//extension ThirdDetailPhoto_ViewController: PHPhotoLibraryChangeObserver {
+//    func photoLibraryDidChange(_ changeInstance: PHChange) {
+////        guard let change = changeInstance.changeDetails(for: asset),
+////              let updateAsset = change.objectAfterChanges
+////        else { return }
+//    }
+//}
