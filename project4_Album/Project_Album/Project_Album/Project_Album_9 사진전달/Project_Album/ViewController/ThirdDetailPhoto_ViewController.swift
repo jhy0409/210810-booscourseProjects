@@ -18,7 +18,7 @@ class ThirdDetailPhoto_ViewController: UIViewController {
          - [ㅇ] 사진이 즐겨찾기 찾기 되어있는지 아닌지를 표시합니다.
          - [ㅇ] 토글 기능으로 즐겨찾기 여부를 설정할 수 있으며, 에셋에 반영하여 iOS 기본 '사진' 애플리케이션에서도 즐겨찾기 여부를 확인할 수 있습니다.
      [공유 기능]
-     - [] 현재 보이는 사진을 이미지로 공유하는 창을 띄웁니다.
+     - [ㅇ] 현재 보이는 사진을 이미지로 공유하는 창을 띄웁니다.
      
      [삭제 기능]
      - [] 현재 화면에 보이는 사진을 삭제하며, 에셋에 반영하여 iOS 기본 '사진' 애플리케이션에서도 삭제 여부를 확인할 수 있습니다.
@@ -56,6 +56,29 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         setToolBarItem_thirdVC() // 툴바 세팅
     }
     
+    // MARK: - 삭제 기능 ⬇️
+    
+    @objc func deletePhoto() {
+        print("\n\n--> 🟡 Did Clicked deletePhoto()")
+    }
+    
+    // MARK: - 공유 창 띄우기 ⬇️
+    func shareOutSideUsingActivityVC_third(_ images: [UIImage]) {
+        let activityPhotos: [UIImage] = images
+        
+        let activityVC = UIActivityViewController(activityItems: activityPhotos, applicationActivities: nil)
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    @objc func sharePhoto() {
+        print("\n\n--> 🔴 Did Clicked sharePhoto()")
+        
+        let shareItem = getImages(asset)
+        shareOutSideUsingActivityVC_third(shareItem)
+        print("\n\n--> 🔴🔴 Did Clicked sharePhoto() - shareItem.count : \(shareItem.count)")
+    }
+    
+    // MARK: - 즐겨찾기 기능 ⬇️
     func getImage(_ phasset: PHAsset) -> UIImage {
         let manager = PHImageManager.default()
         var resultImg = UIImage()
@@ -64,6 +87,19 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _  in
             if let img = image {
             resultImg = img
+            }
+        }
+        return resultImg
+    }
+    
+    func getImages(_ phasset: PHAsset) -> [UIImage] {
+        let manager = PHImageManager.default()
+        var resultImg = [UIImage]()
+        
+        let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
+        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _  in
+            if let img = image {
+                resultImg.append(img)
             }
         }
         return resultImg
@@ -94,9 +130,7 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         toolbar.setItems(items, animated: true)
     }
     
-    @objc func sharePhoto() {
-        print("\n\n--> 🔴 Did Clicked sharePhoto()")
-    }
+    
     
     func getHeartFromPhoto(_ tmpBool: Bool) -> UIImage {
         
@@ -128,9 +162,7 @@ class ThirdDetailPhoto_ViewController: UIViewController {
     }
     
     
-    @objc func deletePhoto() {
-        print("\n\n--> 🟡 Did Clicked deletePhoto()")
-    }
+    
     
     // MARK: - 뷰 타이틀 제목 및 부제목
     func setTitle(title:String, subtitle:String) -> UIView {
@@ -177,11 +209,3 @@ class ThirdDetailPhoto_ViewController: UIViewController {
     */
 
 }
-
-//extension ThirdDetailPhoto_ViewController: PHPhotoLibraryChangeObserver {
-//    func photoLibraryDidChange(_ changeInstance: PHChange) {
-////        guard let change = changeInstance.changeDetails(for: asset),
-////              let updateAsset = change.objectAfterChanges
-////        else { return }
-//    }
-//}

@@ -45,8 +45,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     
     
     var assets: PHFetchResult<PHAsset>
-    //var cllt: PHFetchResult<PHCollection>?
-    var assetTTT: PHAssetCollection?
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -60,54 +58,51 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     @IBOutlet weak var collectionView: UICollectionView!
     var phAssetArr: [PHAsset] = []
     var countNum: Int?
-    static var countNumForArr: Int? = nil
+    //static var countNumForArr: Int? = nil
     
     // MARK: - 사진 다중 선택 기능 [ㅇ]
+    @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem! // ✅
+    static var tappedMultiSelect: Bool? // ✅
+    var selectedCells : [PHAsset] = [] // ✅
     
-    @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem!
-    static var tappedMultiSelect: Bool?
-    var selectedCells : [PHAsset] = []
-    
-    var orgTitle: String?
-    let selectPhotoTitle: String = "항목 선택"
-    var selectedIndexPathArr: [IndexPath]?
-    
-    
-    
-    //var thirdViewController = UIViewController()
+    var orgTitle: String?  // ✅
+    let selectPhotoTitle: String = "항목 선택"  // ✅
+    var selectedIndexPathArr: [IndexPath]? // ✅
     
     
     
-    // MARK: - 동작 : 선택 누를 때 [ㅇ]
+    
+    // MARK: - [ㅇ] 동작 : 선택 누를 때
     @IBAction func multiSelect(_ sender: Any) {
         //guard let tmpBool = SecondAlbumViewController.tappedMultiSelect else { return }
-        print("\n1. multiSelect Function : \(SecondAlbumViewController.tappedMultiSelect)")
+        print("\n1. multiSelect Function : \(String(describing: SecondAlbumViewController.tappedMultiSelect))")
         if SecondAlbumViewController.tappedMultiSelect == true {
             SecondAlbumViewController.tappedMultiSelect = false
             
-//            isTappedBarItem = true
-//            isTapped_tmp = true // 셀 선택 가능 여부
+            //            isTappedBarItem = true
+            //            isTapped_tmp = true // 셀 선택 가능 여부
             collectionView.allowsMultipleSelection = false
             multiSelectPhoto_BarButtonItem.title = "선택"
             self.title = orgTitle
             
             selectedCells.removeAll()
             collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+            print("\n\n 🥶🥶 multiSelect - collectionView.reloadItems")
             barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
             deselectTotalCell(collectionView, didSelectItemAt: selectedIndexPathArr)
         } else {
             SecondAlbumViewController.tappedMultiSelect = true
-//            isTappedBarItem = false
-//            isTapped_tmp = false // 셀 선택 가능 여부
+            //            isTappedBarItem = false
+            //            isTapped_tmp = false // 셀 선택 가능 여부
             collectionView.allowsMultipleSelection = true
             multiSelectPhoto_BarButtonItem.title = "취소"
             self.title = selectPhotoTitle
             barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
         }
-        print("2. multiSelect Function : \(SecondAlbumViewController.tappedMultiSelect)")
+        print("2. multiSelect Function : \(String(describing: SecondAlbumViewController.tappedMultiSelect))")
     }
     
-    // MARK: - 공유, 삭제 활성화(바 버튼아이템)
+    // MARK: - [ㅇ] 공유, 삭제 활성화(바 버튼아이템)
     func barItemStatusChange(_ tmpBool: Bool?) {
         if selectedCells.count >= 1, tmpBool == true {
             self.shareItem?.isEnabled = true
@@ -126,15 +121,48 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-//    var fromSecondViewImg: UIImage?
-    // MARK: - 셀 선택, 선택 취소시 동작
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
-//                SecondCollectionViewCell.reuseIdentifier, for: indexPath)
-//                as? SecondCollectionViewCell else { return }
+    
+    
+    func makeThirdVC(_ sender: Any) {
+        guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") as? ThirdDetailPhoto_ViewController else { return }
         
-//        let asset = assets[indexPath.item]
-//        fromSecondViewImg = getImage(asset)
+        guard let index = sender as? IndexPath else { return }
+        //print("---> 🟠🟠 세번째 뷰 생성 중 : \(thirdVC == nil)")
+        thirdVC.asset = assets[index.item]
+        
+        let date: (String, String) = makeDate(assets[index.item]) ?? ("NONE", "NONE")
+        thirdVC.dateString = date
+        self.navigationController?.pushViewController(thirdVC, animated: true)
+    }
+    
+    
+    
+    // MARK: - [ㅇ] 셀 동작 - 선택취소
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let tmpMulti: Bool? = SecondAlbumViewController.tappedMultiSelect
+        print("\n---> 🟢 tmpMulti: \(String(describing: tmpMulti)) / isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
+        
+        if selectedCells.count >= 1, tmpMulti == true { // 셀즈 어레이에서 생성날짜와 같은 이미지 찾기
+            let exceptIndexPathPhoto = selectedCells.filter { resultAsset in
+                assets[indexPath.item] != resultAsset
+            }
+            selectedCells = exceptIndexPathPhoto
+            self.title = selectedCells.count >= 1 ? "\(selectedCells.count)개 선택" : selectPhotoTitle
+        } else {
+            self.title = orgTitle
+        }
+        
+        barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
+        print("---> 🟢 didDeselectItemAt - selectedCells.count : \(selectedCells.count)")
+    }
+    
+    // MARK: - [ㅇ] 셀 동작 - 선택
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
+        //                SecondCollectionViewCell.reuseIdentifier, for: indexPath)
+        //                as? SecondCollectionViewCell else { return }
+        
+        //        let asset = assets[indexPath.item]
         
         guard let tmpMulti: Bool = SecondAlbumViewController.tappedMultiSelect else { makeThirdVC(indexPath); return }
         print("\n---> 🟠 tmpMulti: \(tmpMulti) / isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
@@ -154,68 +182,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         print("---> 🟠 didSelectItemAt - selectedCells.count : \(selectedCells.count)")
     }
     
-    func makeThirdVC(_ sender: Any) {
-        //, let img = fromSecondViewImg
-        guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") as? ThirdDetailPhoto_ViewController else { return }
-        
-        guard let index = sender as? IndexPath else { return }
-        
-        print("---> 🟠🟠 세번째 뷰 생성 중 : \(thirdVC == nil)")
-        
-        thirdVC.asset = assets[index.item]
-        
-        let date: (String, String) = makeDate(assets[index.item]) ?? ("NONE", "NONE")
-        //        let tmpStr: String = "\(date.0) -- \(date.1)"
-        //        thirdVC.title = tmpStr
-        thirdVC.dateString = date
-        self.navigationController?.pushViewController(thirdVC, animated: true)
-    }
-    
-    func makeDate(_ phasset: PHAsset) -> (String, String)? {
-        guard let date = phasset.creationDate else { return nil }
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "yyyy-M-d"
-        
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "H:m:s"
-        
-        let str1 = dateFormatter1.string(from: date)
-        let str2 = dateFormatter2.string(from: date)
-        return (str1, str2)
-    }
-    
-    func deselectTotalCell(_ collectionView: UICollectionView, didSelectItemAt indexPath: [IndexPath]?) {
-        guard let index = indexPath else { return }
-        for i in index {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
-                    SecondCollectionViewCell.reuseIdentifier, for: i)
-                    as? SecondCollectionViewCell else { return }
-            cell.isSelected = false
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let tmpMulti: Bool? = SecondAlbumViewController.tappedMultiSelect
-//        guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") else { return }
-        print("\n---> 🟢 tmpMulti: \(tmpMulti) / isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
-        
-        if selectedCells.count >= 1, tmpMulti == true {
-            // 셀즈 어레이에서 생성날짜와 같은 이미지 찾기
-            let exceptIndexPathPhoto = selectedCells.filter { resultAsset in
-                assets[indexPath.item] != resultAsset
-            }
-            selectedCells = exceptIndexPathPhoto
-            self.title = selectedCells.count >= 1 ? "\(selectedCells.count)개 선택" : selectPhotoTitle
-        } else {
-//            print("---> 🟢🟢 세번째 뷰 생성 중 : \(thirdVC == nil)")
-            self.title = orgTitle
-        }
-        
-        
-        barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
-        print("---> 🟢 didDeselectItemAt - selectedCells.count : \(selectedCells.count)")
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
@@ -226,11 +192,10 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
                 as? SecondCollectionViewCell else { return UICollectionViewCell() }
         
         let asset = assets[indexPath.item]
-        
         // MARK: - 사진 하나씩 붙임
         if countNum == nil {
             isTappedBarItem = true
-            sortPhotos()
+            sortPhoto()
         }
         
         imageManager.requestImage(for: assets[indexPath.item], targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in
@@ -239,6 +204,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         return cell
     }
     
+    // MARK: - [ㅇ] 뷰 초기값 세팅
     override func viewDidLoad() {
         //let tmpBool = false
         super.viewDidLoad()
@@ -248,13 +214,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         guard let rcvAsset = SecondAlbumViewController.recieveAsset else { return }
         assets = rcvAsset
-        //assetTTT = assets
-        print("🌹🌹 second view didload : \(assets.count) / 🌹recieveCollection : \(SecondAlbumViewController.recieveCollection)🌹🌹")
-        // Do any additional setup after loading the view.
-        
-        
-        //guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") else { return }
-        //self.thirdViewController = thirdVC
+        print("🌹🌹 second view didload : \(assets.count) / 🌹recieveCollection : \(String(describing: SecondAlbumViewController.recieveCollection))🌹🌹")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -267,13 +227,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     override func viewWillAppear(_ animated: Bool) {
         isTappedBarItem = false
         isTapped_tmp = false
-        print("SecondAlbumViewController.tappedMultiSelect : \(SecondAlbumViewController.tappedMultiSelect)")
-//        if self.countNum == 1 {
-//            SecondAlbumViewController.tappedMultiSelect = true
-//        } else {
-//            SecondAlbumViewController.tappedMultiSelect = nil
-//        }
-        
+        print("SecondAlbumViewController.tappedMultiSelect : \(String(describing: SecondAlbumViewController.tappedMultiSelect))")
         print("😈😈😈😈😈")
     }
     
@@ -288,18 +242,8 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         self.title = title
         orgTitle = title
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    //MARK: - 툴바 아이템 중앙정렬 [ㅇ]
+    
+    // MARK: - [ㅇ] 툴바 아이템 중앙정렬
     func setToolBarItem_SetAlignment() {
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
@@ -308,9 +252,9 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         var items: [UIBarButtonItem] = []
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-
+        
         let titleStr: String = isTappedBarItem == true ? "최신순" : "과거순"
-        let sortRecentPhoto = UIBarButtonItem(title: titleStr, style: .plain, target: self, action: #selector(sortPhotos))
+        let sortRecentPhoto = UIBarButtonItem(title: titleStr, style: .plain, target: self, action: #selector(sortPhoto))
         let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sharePhotos))
         let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePhotos))
         
@@ -327,35 +271,38 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
     }
     
-    @objc func sharePhotos() {
-        print(#function)
-        let shareItem = getImages(selectedCells)
-        shareOutSideUsingActivityVC(shareItem)
-        print("🔵 \(#function) - shareItem.count : \(shareItem.count)")
-    }
-    
-    // MARK: - 사진 삭제
+    // MARK: - [ㅇ] 사진 삭제
     @objc func deletePhotos() {
-        print(#function)
+        print("\n\n---> 👹func deletePhotos()")
         
-        //selectedCell
-        //assets
-        
-//        selectedCells
-//        assets
+        // 1. 선택한만큼 지운다.
+        for i in selectedCells {
+            if i.pixelHeight != 0 {
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.deleteAssets([i] as NSFastEnumeration)
+                }, completionHandler: nil)
+            }
+        }
+        // 2. 다 지웠을 때
+        if selectedCells.count == 0 {
+            self.selectedCells.removeAll()
+            self.setTitle()
+        } else {
+            self.selectedCells.removeAll()
+            deselectTotalCell(collectionView, didSelectItemAt: selectedIndexPathArr)
+            self.setTitle()
+            collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+        }
+        self.barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
     }
     
     
-    
-    
-    
-    // MARK: - 선택 사진(phasset) array -> 이미지 배열로
+    // MARK: - [ㅇ] 선택 사진(phasset) array -> 이미지 배열로
     func getImages(_ phassets: [PHAsset]) -> [UIImage] {
         let manager = PHImageManager.default()
         var shareImages: [UIImage] = []
-        
         let option = PHImageRequestOptions()
-
+        
         for i in phassets {
             var img = UIImage()
             manager.requestImage(for: i, targetSize: CGSize(width: i.pixelWidth, height: i.pixelHeight), contentMode: .aspectFill, options: option) { resultImg, info in
@@ -367,28 +314,46 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     
-    func getImage0(_ phasset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        var resultImg = UIImage()
-        
-        let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
-        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _  in
-            if let img = image {
-            resultImg = img
-            }
+    // MARK: - [ㅇ] 공유 창 띄우기
+    @objc func sharePhotos() {
+        print("func sharePhotos()")
+        if selectedCells.count > 0 {
+            let shareItem = getImages(selectedCells)
+            shareOutSideUsingActivityVC(shareItem)
+            print("🔵 func sharePhotos() - shareItem.count : \(shareItem.count)")
         }
-        return resultImg
     }
     
-    // MARK: - 공유 창 띄우기
     func shareOutSideUsingActivityVC(_ images: [UIImage]) {
+        print("\n\n🌊🌊🌊🌊 shareOutSideUsingActivityVC ")
         let activityPhotos: [UIImage] = images
         
         let activityVC = UIActivityViewController(activityItems: activityPhotos, applicationActivities: nil)
-        self.present(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true) {
+            self.selectedCells.removeAll()
+            self.deselectTotalCell(self.collectionView, didSelectItemAt: self.selectedIndexPathArr)
+            self.barItemStatusChange(SecondAlbumViewController.tappedMultiSelect)
+            self.setTitle()
+        }
     }
     
-    @objc func sortPhotos() {
+    // MARK: - [ㅇ] 네비게이션 타이틀 설정
+    func setTitle() {
+        print("\n\n--> 🌻 func setTitle()")
+        guard let tmpMulti = SecondAlbumViewController.tappedMultiSelect else { return }
+        //        guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") else { return }
+        if self.selectedCells.count >= 1, tmpMulti == true {
+            self.title = self.selectedCells.count >= 1 ? "\(self.selectedCells.count)개 선택" : self.selectPhotoTitle
+        } else if tmpMulti == true {
+            self.title = self.selectPhotoTitle
+        }
+        else {
+            self.title = self.orgTitle
+        }
+    }
+    
+    // MARK: - [ㅇ] 사진 정렬
+    @objc func sortPhoto() {
         countNum = 1
         if isTappedBarItem == true {
             self.sortRecentPhoto?.title = "과거순"
@@ -399,11 +364,11 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             isTappedBarItem = true
             isTapped_tmp = false
         }
-        sortPhoto(isTappedBarItem)
+        sortPHAsset(isTappedBarItem)
         collectionView.allowsMultipleSelection = isTappedBarItem
     }
     
-    func sortPhoto(_ isTapped: Bool) {
+    func sortPHAsset(_ isTapped: Bool) {
         
         let fetchOptions = PHFetchOptions()
         if isTapped == true {
@@ -411,19 +376,18 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         } else {
             fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         }
-        print("\n---> 🟡 sortPhoto / assets.count : \(assets.count)")
+        print("\n---> 🟡 sortPHAsset / assets.count : \(assets.count)")
         if orgTitle == "Recents" {
             self.assets = PHAsset.fetchAssets(with: fetchOptions)
-        } else {
-        }
+        } else { }
         
         collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
-
-        print("---> 🟡🟡 sortPhoto / assets.count : \(assets.count)")
+        
+        print("---> 🟡🟡 sortPHAsset / 🟡🟡collectionView.reloadItems / assets.count : \(assets.count)")
     }
 }
 
-// MARK: - 셀 사이즈 [ㅇ]
+// MARK: - [ㅇ] 셀 사이즈
 extension SecondAlbumViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 10
@@ -442,6 +406,31 @@ extension SecondAlbumViewController: PHPhotoLibraryChangeObserver {
         assets = changes.fetchResultAfterChanges
         OperationQueue.main.addOperation {
             self.collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+            print("\n\n🤢🤢 main.addOperation - reloadItems")
+        }
+    }
+    
+    // MARK: - [ㅇ] 3번째 뷰 제목 만들기 makeDate
+    func makeDate(_ phasset: PHAsset) -> (String, String)? {
+        guard let date = phasset.creationDate else { return nil }
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "yyyy-M-d"
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "H:m:s"
+        
+        let str1 = dateFormatter1.string(from: date)
+        let str2 = dateFormatter2.string(from: date)
+        return (str1, str2)
+    }
+    
+    // MARK: - [ㅇ] 전체 셀 선택 해제
+    func deselectTotalCell(_ collectionView: UICollectionView, didSelectItemAt indexPath: [IndexPath]?) {
+        guard let index = indexPath else { return }
+        for i in index {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
+                            SecondCollectionViewCell.reuseIdentifier, for: i) as? SecondCollectionViewCell else { return }
+            cell.isSelected = false
         }
     }
 }
