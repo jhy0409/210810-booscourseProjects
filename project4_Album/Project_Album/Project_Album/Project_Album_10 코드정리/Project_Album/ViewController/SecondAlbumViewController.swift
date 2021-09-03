@@ -33,43 +33,36 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         - [ㅇ] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
         - [ㅇ] 선택된 사진을 이미지로 공유하는 창을 띄웁니다.
      
-     - [] 삭제 기능
+     - [ㅇ] 삭제 기능
         - [ㅇ] 삭제 버튼은 기본적으로 비활성화되어있습니다.
         - [ㅇ] 사진이 선택 모드에 들어가 선택된 사진이 1장 이상일 때만 활성화됩니다.
-        - [] 이미지 선택 후 활성화된 버튼을 탭하면 선택된 사진을 삭제합니다.
+        - [ㅇ] 이미지 선택 후 활성화된 버튼을 탭하면 선택된 사진을 삭제합니다.
      
      - [ㅇ] 컬렉션뷰 셀을 선택하면 화면3으로 전환됩니다.
      */
-    //static var recieveAsset: PHFetchResult<PHAsset>?
-    //static var recieveCollection: PHCollection?
     
-    
-    // MARK: - [ㅇ] ✅
+    // MARK: - [ㅇ] 변수선언
     var assets: PHFetchResult<PHAsset>
     let imageManager: PHCachingImageManager = PHCachingImageManager()
+    @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: - [ㅇ] 변수 - 툴바
     @IBOutlet weak var toolbar: UIToolbar!
     var isTappedBarItem: Bool = false
     var isTapped_tmp: Bool = false // 셀 선택 가능 여부
-    
     var sortRecentPhoto: UIBarButtonItem?
     var shareItem: UIBarButtonItem?
     var deleteItem: UIBarButtonItem?
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    //var phAssetArr: [PHAsset] = []
-    var countNum: Int?
-    
-    // MARK: - 사진 다중 선택 기능 [ㅇ]
+    // MARK: - [ㅇ] 변수 - 사진 다중선택
     @IBOutlet weak var multiSelectPhoto_BarButtonItem: UIBarButtonItem!
     static var tappedMultiSelect: Bool?
     var selectedCells : [PHAsset] = []
+    var selectedIndexPathArr: [IndexPath]?
     
     var orgTitle: String?
     let selectPhotoTitle: String = "항목 선택"
-    var selectedIndexPathArr: [IndexPath]?
-    // MARK: - [ㅇ] ✅
-    
+    var countNum: Int?
     
     
     // MARK: - [ㅇ] 동작 : 선택 누를 때
@@ -79,8 +72,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         if SecondAlbumViewController.tappedMultiSelect == true {
             SecondAlbumViewController.tappedMultiSelect = false
             
-            //            isTappedBarItem = true
-            //            isTapped_tmp = true // 셀 선택 가능 여부
             collectionView.allowsMultipleSelection = false
             multiSelectPhoto_BarButtonItem.title = "선택"
             self.title = orgTitle
@@ -92,8 +83,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             deselectTotalCell(collectionView, didSelectItemAt: selectedIndexPathArr)
         } else {
             SecondAlbumViewController.tappedMultiSelect = true
-            //            isTappedBarItem = false
-            //            isTapped_tmp = false // 셀 선택 가능 여부
             collectionView.allowsMultipleSelection = true
             multiSelectPhoto_BarButtonItem.title = "취소"
             self.title = selectPhotoTitle
@@ -127,7 +116,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         guard let thirdVC = self.storyboard?.instantiateViewController(identifier: "thirdView") as? ThirdDetailPhoto_ViewController else { return }
         
         guard let index = sender as? IndexPath else { return }
-        //print("---> 🟠🟠 세번째 뷰 생성 중 : \(thirdVC == nil)")
         thirdVC.asset = assets[index.item]
         
         let date: (String, String) = makeDate(assets[index.item]) ?? ("NONE", "NONE")

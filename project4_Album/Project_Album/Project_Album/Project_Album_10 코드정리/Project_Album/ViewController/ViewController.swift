@@ -28,8 +28,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      - [ㅇ] 컬렉션뷰 셀을 선택하면 화면2로 전환됩니다.
      */
     
-    //var userCollections = PHFetchResult<PHAssetCollection>()
-    
     @IBOutlet weak var collectionView: UICollectionView!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
@@ -89,8 +87,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         guard let asset = fetchResults[indexPath.item].firstObject else { return cell }
         
-        imageManager.requestImage(for: asset, targetSize: cell.bounds.size, contentMode: .aspectFill, options: nil) { (image, _) in
-            cell.imgView_thumbnail.image = image
+        imageManager.requestImage(for: asset, targetSize: cell.bounds.size,
+                                  contentMode: .aspectFill, options: nil) { (image, _) in
+                                  cell.imgView_thumbnail.image = image
         }
         
         cell.update(title: albumTitle[indexPath.item], count: fetchResults[indexPath.item].count)
@@ -101,7 +100,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         
         //접근권한
@@ -150,16 +148,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
          guard let selectIndex = collectionView.indexPathsForSelectedItems?.first else { return nil }
         //let selectIndex = collSelect
-
         //let item = selectIndex.item // 선택한 아이템
         let assets: PHFetchResult<PHAsset> =  fetchResults[selectIndex.item] // 앨범
         let title: String = albumTitle[selectIndex.item] ?? "NONE" // 앨범 타이틀
         print("\n\n-----> 🟢 @IBSegueAction makeSecondVC: title = \(title) / assets count : \(assets.count)")
         
-//        SecondAlbumViewController.recieveAsset = assets
-//        SecondAlbumViewController.recieveCollection = fetchCollection[selectIndex.item]
-        
-//        return SecondAlbumViewController(assets: assets, title: title, coder: coder)
         let seconVC = SecondAlbumViewController(assets: assets, title: title, coder: coder)
         seconVC?.assets = assets
         return seconVC
