@@ -40,6 +40,9 @@ class ThirdDetailPhoto_ViewController: UIViewController {
     @IBOutlet weak var detailImgView: UIImageView!
     @IBOutlet weak var toolbar: UIToolbar!
     
+    var heartStatus: UIBarButtonItem?
+    var heartEmptyIcon = UIImage(systemName: "heart")
+    var heartFillIcon = UIImage(systemName: "heart.fill")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +53,7 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         guard let date = dateString else { return }
         
         self.navigationItem.titleView = setTitle(title: "\(date.0)", subtitle: "\(date.1)")
-
+        setToolBarItem_thirdVC() // 툴바 세팅
     }
     
     func getImage(_ phasset: PHAsset) -> UIImage {
@@ -66,6 +69,71 @@ class ThirdDetailPhoto_ViewController: UIViewController {
         return resultImg
     }
     
+    func setToolBarItem_thirdVC() {
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
+        toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0).isActive = true
+        toolbar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 0).isActive = true
+        
+        var items: [UIBarButtonItem] = []
+        let emptySpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+
+        //let titleStr: String = isTappedBarItem == true ? "최신순" : "과거순"
+        let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sharePhoto))
+        let img = getHeartFromPhoto(asset.isFavorite)
+        let heartStatus = UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(setHeart))
+        self.heartStatus = heartStatus
+        let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePhoto))
+        
+        items.append(shareItem)
+        items.append(emptySpace)
+        items.append(heartStatus)
+        items.append(emptySpace)
+        items.append(deleteItem)
+        toolbar.setItems(items, animated: true)
+    }
+    
+    @objc func sharePhoto() {
+        print("\n\n--> 🔴 Did Clicked sharePhoto()")
+    }
+    
+    func getHeartFromPhoto(_ tmpBool: Bool) -> UIImage {
+        
+        var resultIcon = UIImage()
+//        let bool = !tmpBool
+        guard let heartFill = heartFillIcon, let hearEmpty = heartEmptyIcon else { print("\n\n 🟢🟢🟢 getHeartFromPhoto Fail "); return resultIcon }
+        
+        switch tmpBool {
+        case true:
+            resultIcon = heartFill
+            print("🟢🟢 tmpBool True Area : \(tmpBool) - \(resultIcon)")
+        default:
+            resultIcon = hearEmpty
+            print("🟢🟢🟢 tmpBool nil Or false? Area : \(tmpBool)- \(resultIcon)")
+        }
+        
+        return resultIcon
+    }
+    
+    @objc func setHeart() {
+        print("\n\n--> 🟠 Did Clicked setHeart()")
+        
+        let change: () -> Void = {
+            let request = PHAssetChangeRequest(for: self.asset)
+            request.isFavorite = !self.asset.isFavorite
+        }
+        
+        let icon = self.getHeartFromPhoto(asset.isFavorite)
+        self.heartStatus?.image = icon
+        PHPhotoLibrary.shared().performChanges(change, completionHandler: nil)
+        //view.layoutIfNeeded()
+    }
+    
+    @objc func deletePhoto() {
+        print("\n\n--> 🟡 Did Clicked deletePhoto()")
+    }
+    
+    // MARK: - 뷰 타이틀 제목 및 부제목
     func setTitle(title:String, subtitle:String) -> UIView {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: -2, width: 0, height: 0))
 
@@ -109,4 +177,19 @@ class ThirdDetailPhoto_ViewController: UIViewController {
     }
     */
 
+}
+
+extension ThirdDetailPhoto_ViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let change = changeInstance.changeDetails(for: asset),
+              let updateAsset = change.objectAfterChanges
+        else { return }
+        
+        DispatchQueue.main.sync {
+            asset = updateAsset
+            self.setHeart()
+        }
+    }
+    
+    
 }
