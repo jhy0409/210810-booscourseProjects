@@ -191,29 +191,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="WMh-pi-7KD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m1S-Mf-sIV">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="m1S-Mf-sIV" secondAttribute="trailing" id="9ec-ms-xiN"/>
+                                    <constraint firstAttribute="bottom" secondItem="m1S-Mf-sIV" secondAttribute="bottom" id="RJo-cI-7vM"/>
+                                    <constraint firstItem="m1S-Mf-sIV" firstAttribute="leading" secondItem="WMh-pi-7KD" secondAttribute="leading" id="UNn-Z2-Uuz"/>
+                                    <constraint firstItem="m1S-Mf-sIV" firstAttribute="height" secondItem="WMh-pi-7KD" secondAttribute="height" id="llS-Su-jRr"/>
+                                    <constraint firstItem="m1S-Mf-sIV" firstAttribute="top" secondItem="WMh-pi-7KD" secondAttribute="top" id="pHo-Nn-m08"/>
+                                    <constraint firstItem="m1S-Mf-sIV" firstAttribute="width" secondItem="WMh-pi-7KD" secondAttribute="width" id="t5r-Nq-ZFS"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="dnu-ZG-QpR" id="3Iy-fr-mNK"/>
+                                </connections>
+                            </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMV-ga-OBQ">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items/>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m1S-Mf-sIV">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Fjy-bv-4jA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="m1S-Mf-sIV" firstAttribute="width" secondItem="TNt-h8-A3q" secondAttribute="width" id="En0-nT-GtK"/>
-                            <constraint firstItem="m1S-Mf-sIV" firstAttribute="top" secondItem="Fjy-bv-4jA" secondAttribute="top" id="LHa-Ke-jik"/>
-                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="bottom" secondItem="m1S-Mf-sIV" secondAttribute="bottom" constant="49" id="akc-Bx-g1o"/>
-                            <constraint firstItem="m1S-Mf-sIV" firstAttribute="leading" secondItem="Fjy-bv-4jA" secondAttribute="leading" id="g6c-IB-fFn"/>
-                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="trailing" secondItem="fMV-ga-OBQ" secondAttribute="trailing" id="m5o-1h-sWx"/>
-                            <constraint firstItem="fMV-ga-OBQ" firstAttribute="leading" secondItem="Fjy-bv-4jA" secondAttribute="leading" id="tAM-r7-fzU"/>
-                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="bottom" secondItem="fMV-ga-OBQ" secondAttribute="bottom" id="z90-2y-09o"/>
-                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="trailing" secondItem="m1S-Mf-sIV" secondAttribute="trailing" id="zFM-0R-M16"/>
+                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="bottom" secondItem="WMh-pi-7KD" secondAttribute="bottom" constant="49" id="2tV-NP-V8A"/>
+                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="trailing" secondItem="WMh-pi-7KD" secondAttribute="trailing" id="7lU-fK-uVE"/>
+                            <constraint firstItem="WMh-pi-7KD" firstAttribute="top" secondItem="Fjy-bv-4jA" secondAttribute="top" id="C9K-l0-Mdc"/>
+                            <constraint firstItem="fMV-ga-OBQ" firstAttribute="leading" secondItem="Fjy-bv-4jA" secondAttribute="leading" id="uS8-lU-Yju"/>
+                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="bottom" secondItem="fMV-ga-OBQ" secondAttribute="bottom" id="wHs-Rh-Nkz"/>
+                            <constraint firstItem="WMh-pi-7KD" firstAttribute="leading" secondItem="Fjy-bv-4jA" secondAttribute="leading" id="xsp-86-Cmi"/>
+                            <constraint firstItem="Fjy-bv-4jA" firstAttribute="trailing" secondItem="fMV-ga-OBQ" secondAttribute="trailing" id="zcS-iE-AJS"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="detailImgView" destination="m1S-Mf-sIV" id="SAL-kD-tIq"/>
+                        <outlet property="scrollViewSpaceFromBottom" destination="2tV-NP-V8A" id="kfk-dH-VO1"/>
                         <outlet property="toolbar" destination="fMV-ga-OBQ" id="th2-J9-E8x"/>
                     </connections>
                 </viewController>

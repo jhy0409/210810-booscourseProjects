@@ -146,12 +146,6 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
     
     // MARK: - [ㅇ] 셀 동작 - 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
-        //                SecondCollectionViewCell.reuseIdentifier, for: indexPath)
-        //                as? SecondCollectionViewCell else { return }
-        
-        //        let asset = assets[indexPath.item]
-        
         guard let tmpMulti: Bool = SecondAlbumViewController.tappedMultiSelect else { makeThirdVC(indexPath); return }
         print("\n---> 🟠 tmpMulti: \(tmpMulti) / isTappedBarItem: \(isTappedBarItem)/ isTapped_tmp: \(isTapped_tmp)")
         
@@ -267,11 +261,9 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         // 1. 선택한만큼 지운다.
         for i in selectedCells {
-            if i.pixelHeight != 0 {
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.deleteAssets([i] as NSFastEnumeration)
-                }, completionHandler: nil)
-            }
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.deleteAssets([i] as NSFastEnumeration)
+            }, completionHandler: nil)
         }
         // 2. 다 지웠을 때
         if selectedCells.count == 0 {

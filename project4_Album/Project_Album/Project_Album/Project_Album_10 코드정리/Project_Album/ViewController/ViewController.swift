@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
      [기능]
      - [ㅇ] 애플리케이션 처음 진입 시 사진 라이브러리 접근권한이 없다면 사진 라이브러리에 접근 허용 여부를 묻습니다.
-        - [] 수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
+        - [ㅇ] 수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
         - [ㅇ] 비수락 시 컬렉션뷰에 사진이 나타나지 않으며, 오류로 인한 애플리케이션 강제종료가 되지도 않습니다.
      - [ㅇ] 컬렉션뷰 셀을 선택하면 화면2로 전환됩니다.
      */
@@ -137,6 +137,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("\n\n\n\n🥶 First ViewController")
         collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
     }
     
