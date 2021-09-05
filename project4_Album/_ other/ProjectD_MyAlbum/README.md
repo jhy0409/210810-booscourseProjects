@@ -1,2 +1,0 @@
-# ProjectD_MyAlbum
-
