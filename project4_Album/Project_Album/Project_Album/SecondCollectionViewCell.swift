@@ -13,9 +13,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
     var orgImg: UIImage?
     var defaultBorderColor = CGColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
-    //var secondBarItemTapped: Bool?
-    //var tetete: Bool? = SecondAlbumViewController.tappedMultiSelect
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         photoImgView.layer.cornerRadius = 10
@@ -23,12 +20,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
         photoImgView.layer.borderWidth = 0.5
         photoImgView.layer.borderColor = defaultBorderColor
     }
-    
-//    func update(_ isPossibleMultiSelect: Bool?) {
-//        secondBarItemTapped = isPossibleMultiSelect
-//        print("👍👍👍👍secondBarItemTapped : \(secondBarItemTapped)")
-//    }
-    
     
     override var isSelected: Bool {
         didSet {
@@ -60,11 +51,9 @@ class SecondCollectionViewCell: UICollectionViewCell {
 }
 
 extension UIImage {
-    
     func alpha(_ value: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(at: .zero, blendMode: .normal, alpha: value)
-        
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

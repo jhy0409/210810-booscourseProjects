@@ -139,15 +139,16 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
             isTappedBarItem = true
             sortPhoto()
         }
-        
-        imageManager.requestImage(for: assets[indexPath.item], targetSize: cell.photoImgView.bounds.size, contentMode: .aspectFill, options: nil) { image, _  in cell.photoImgView.image = image
+        let size: CGSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+        imageManager.requestImage(for: assets[indexPath.item], targetSize:
+            size, contentMode: .aspectFit, options: nil) { image, _  in
+            cell.photoImgView.image = image
         }
         return cell
     }
     
     // MARK: - [ㅇ] 뷰 초기값 세팅
     override func viewDidLoad() {
-        //let tmpBool = false
         super.viewDidLoad()
         PHPhotoLibrary.shared().register(self)
         setToolBarItem_SetAlignment()
@@ -237,7 +238,7 @@ class SecondAlbumViewController: UIViewController, UICollectionViewDataSource, U
         
         for i in phassets {
             var img = UIImage()
-            manager.requestImage(for: i, targetSize: CGSize(width: i.pixelWidth, height: i.pixelHeight), contentMode: .aspectFill, options: option) { resultImg, info in
+            manager.requestImage(for: i, targetSize: CGSize(width: i.pixelWidth, height: i.pixelHeight), contentMode: .aspectFit, options: option) { resultImg, info in
                 img = resultImg!
             }
             shareImages.append(img)
