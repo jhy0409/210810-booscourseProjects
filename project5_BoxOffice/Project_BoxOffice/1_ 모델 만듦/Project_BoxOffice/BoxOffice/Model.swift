@@ -18,26 +18,25 @@ import Foundation
 //    {"thumb":"http://movie.phinf.naver.net/20171102_209/1509602233507BiJrs_JPEG/movie_image.jpg?type=m99_141_2","reservation_rate":1.93,"user_rating":9.2,"date":"2017-12-07","id":"5a54df5ee8a71d136fb53d75","grade":0,"reservation_grade":8,"title":"뽀로로 극장판 공룡섬 대모험"}
 //    ]
 //}
+
+// MARK: - [] Movie struct
 struct MovieList {
     let order_type: SortType
     let movies: [Movie]
+    
+    struct Movie {
+        let thumb: String
+        let reservation_rate: Double
+        let user_rating: Double
+        let date: String
+        let id: String
+        let grade: Int
+        let reservation_grade: Int
+        let title: String
+    }
 }
 
-struct Movie {
-    let thumb: String
-    let reservation_rate: Double
-    let user_rating: Double
-    let date: String
-    let id: String
-    let grade: Int
-    let reservation_grade: Int
-    let title: String
-}
-/*
- 영화 정렬순서
- 0: 예매율(default) 1: 큐레이션
- 2: 개봉일
- */
+// MARK: - [] 영화 정렬순서 / 0: 예매율(default), 1: 큐레이션, 2: 개봉일
 enum SortType {
     case reservation, curation, openingDate
 }
