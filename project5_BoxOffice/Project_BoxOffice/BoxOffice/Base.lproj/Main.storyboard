@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,8 +16,20 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P4K-uj-TXc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P4K-uj-TXc" secondAttribute="trailing" id="9bI-1I-J4U"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="P4K-uj-TXc" secondAttribute="bottom" id="Lus-qt-tsF"/>
+                            <constraint firstItem="P4K-uj-TXc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hoN-h4-9nr"/>
+                            <constraint firstItem="P4K-uj-TXc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kJ3-GL-Pkv"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Table" image="ic_list" id="upd-Kv-F2j"/>
                 </viewController>
@@ -31,8 +44,36 @@
                     <view key="view" contentMode="scaleToFill" id="NMr-q4-kdd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Drb-vj-K1D">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eRE-mL-5Nq">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="346-iA-CfZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oGD-Iq-hYj">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Um3-88-xOd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Drb-vj-K1D" firstAttribute="top" secondItem="Um3-88-xOd" secondAttribute="top" id="M0e-RS-wKg"/>
+                            <constraint firstItem="Um3-88-xOd" firstAttribute="bottom" secondItem="Drb-vj-K1D" secondAttribute="bottom" id="bnX-QQ-lzl"/>
+                            <constraint firstItem="Drb-vj-K1D" firstAttribute="leading" secondItem="Um3-88-xOd" secondAttribute="leading" id="da4-ZO-2L2"/>
+                            <constraint firstItem="Um3-88-xOd" firstAttribute="trailing" secondItem="Drb-vj-K1D" secondAttribute="trailing" id="n9e-qG-iMG"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Collection" image="ic_collection" id="jeg-Jp-pXh"/>
                 </viewController>
