@@ -10,7 +10,7 @@
 > 
 > [☑️ 5강 3-2) 참고링크 4ea 읽음](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#9c675af6ade7452f937791a2fab09120)
 >
-> [🔲 5강 4-1) 참고링크 10ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#e6863a4d91e04721af35e8998c9374e6)
+> [🔲 5강 4-1) 참고링크 7/10ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#e6863a4d91e04721af35e8998c9374e6)
 > ***
 > `210906 월`
 > 
