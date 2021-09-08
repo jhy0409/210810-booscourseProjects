@@ -23,6 +23,7 @@ class FirstTableViewCell: UITableViewCell {
         movieTitleLabel.text = movie.title
         RatingAndReservationLabel.text = movie.descriptionOfRating
         openDateLabel.text = movie.openingdate
+        gradeImageView.image = movie.gradeIcon
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

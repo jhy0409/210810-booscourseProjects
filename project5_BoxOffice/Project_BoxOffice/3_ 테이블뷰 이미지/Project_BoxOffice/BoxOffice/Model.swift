@@ -54,6 +54,26 @@ struct Movie: Codable {
         return "개봉일 : \(date)"
     }
     
+    var gradeIcon: UIImage {
+        var resultImage: UIImage
+        var iconName: String = "ic_"
+        switch grade {
+        case 0:
+            iconName.append("allages")
+        case 12:
+            iconName.append("12")
+        case 15:
+            iconName.append("15")
+        case 19:
+            iconName.append("19")
+        default:
+            print("\n Model - gradeIcon / [안내] 존재하지 않는 관람가입니다.")
+        }
+        resultImage = UIImage(named: iconName) ?? UIImage()
+        
+        return resultImage
+    }
+    
     //http://movie.phinf.naver.net/20171102_209/1509602233507BiJrs_JPEG/movie_image.jpg?type=m99_141_2.jpg
 //    let url = URL(string: "http://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
 //    let data = try Data(contentsOf: url!)
