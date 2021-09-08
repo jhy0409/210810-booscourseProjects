@@ -17,8 +17,8 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         - [] 첫 번째 탭 화면은 테이블형태로, 두 번째 탭 화면은 컬렉션 형태로 같은 데이터를 사용하여 콘텐츠를 표시합니다.
      
         - [] 테이블 화면
-             - [] 테이블뷰 셀에 영화 포스터를 보여줍니다.
-             - [] 포스터 오른편에 영화정보(제목, 등급, 평점, 예매순위, 예매율, 개봉일)를 보여줍니다.
+             - [ㅇ] 테이블뷰 셀에 영화 포스터를 보여줍니다.
+             - [] 포스터 오른편에 영화정보(제목ㅇ, 등급, 평점ㅇ, 예매순위ㅇ, 예매율ㅇ, 개봉일ㅇ)를 보여줍니다.
      
         - [] 컬렉션 화면
              - [] 컬렉션뷰 셀에 영화 포스터와 등급을 함께 보여줍니다.
@@ -41,8 +41,6 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     var movies: [Movie] = []
     let cellIdentifier: String = "firstCell"
     
-    
-    
     let recieveMovieID: String = "DidRecieveMovies"
     lazy var DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
     
@@ -53,26 +51,30 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
         
-        guard let movie = self.movies[indexPath.row] as? Movie else { print("\n\n\n 🥶🥶🥶🥶 9999"); return cell}
-        //cell.posterImageView.image
-        print("🔴🔴🔴🔴 movie.thumb: \(movie.thumb)")
+        guard let movie = self.movies[indexPath.row] as? Movie else { return cell }
         cell.update(movie)
         DispatchQueue.global().async {
-            guard let imageURL: URL = URL(string: movie.thumb) else { print("🤮 imageURL: URL = URL"); return }
-            guard let imageData: Data = try? Data(contentsOf: imageURL) else { print("🤮🤮 imageData: Data = try? Data"); return }
-            
+            guard let imageURL: URL = URL(string: movie.thumb) else { return }
+            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
+
             DispatchQueue.main.async {
                 if let index: IndexPath = tableView.indexPath(for: cell) {
                     if index.row == indexPath.row {
                         cell.posterImageView.backgroundColor = .systemBackground
                         cell.posterImageView.image = UIImage(data: imageData)
                     } else {
+                        cell.posterImageView.image = nil
                         cell.posterImageView.backgroundColor = .gray
-                        print("👹👹 DispatchQueue.main.async else")
                     }
                 }
             }
         }
+        
+        
+        
+        
+        
+        
         
         return cell
     }

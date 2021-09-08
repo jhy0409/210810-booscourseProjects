@@ -12,21 +12,11 @@ class FirstTableViewCell: UITableViewCell {
     @IBOutlet weak var RatingAndReservationLabel: UILabel!
     @IBOutlet weak var openDateLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var gradeImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        if let text = movieTitleLabel.text {
-            let attributedString = NSMutableAttributedString(string: text)
-            
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = UIImage(named: "heart")
-            attributedString.append(NSAttributedString(attachment: imageAttachment))
-            
-            movieTitleLabel.attributedText = attributedString
-        }
-        
     }
     
     func update(_ movie: Movie) {

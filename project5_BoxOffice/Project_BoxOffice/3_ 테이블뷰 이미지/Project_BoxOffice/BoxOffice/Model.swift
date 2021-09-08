@@ -22,22 +22,7 @@ import UIKit
 
 
 
-//DispatchQueue.global().async {
-//    guard let imageURL: URL = URL(string: movie.thumb) else { print("🤮 imageURL: URL = URL"); return }
-//    guard let imageData: Data = try? Data(contentsOf: imageURL) else { print("🤮🤮 imageData: Data = try? Data"); return }
-//
-//    DispatchQueue.main.async {
-//        if let index: IndexPath = tableView.indexPath(for: cell) {
-//            if index.row == indexPath.row {
-//                cell.posterImageView.backgroundColor = .systemBackground
-//                cell.posterImageView.image = UIImage(data: imageData)
-//            } else {
-//                cell.posterImageView.backgroundColor = .gray
-//                print("👹👹 DispatchQueue.main.async else")
-//            }
-//        }
-//    }
-//}
+
 
 
 
@@ -67,6 +52,17 @@ struct Movie: Codable {
     
     var openingdate: String {
         return "개봉일 : \(date)"
+    }
+    
+    //http://movie.phinf.naver.net/20171102_209/1509602233507BiJrs_JPEG/movie_image.jpg?type=m99_141_2.jpg
+//    let url = URL(string: "http://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
+//    let data = try Data(contentsOf: url!)
+//    uiImageView.image = UIImage(data: data)
+//    uiImageView
+    var url: URL {
+        let failed: URL! = URL(string: "https://www.naver.com")
+        guard let url = URL(string: thumb) else { print("return URL(string: invalid)"); return failed}
+        return url
     }
 }
 
