@@ -11,7 +11,8 @@ class FirstTableViewCell: UITableViewCell {
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var RatingAndReservationLabel: UILabel!
     @IBOutlet weak var openDateLabel: UILabel!
-
+    @IBOutlet weak var posterImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

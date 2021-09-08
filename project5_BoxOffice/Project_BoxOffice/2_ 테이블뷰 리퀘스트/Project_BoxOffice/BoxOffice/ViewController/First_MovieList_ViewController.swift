@@ -38,10 +38,13 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
      */
     
     @IBOutlet weak var tableView: UITableView!
-    var movies: [MovieList] = []
+    var movies: [Movie] = []
     let cellIdentifier: String = "firstCell"
     
     
+    
+    let recieveMovieID: String = "DidRecieveMovies"
+    lazy var DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -51,8 +54,25 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
         
         guard let movie = self.movies[indexPath.row] as? Movie else { print("\n\n\n 🥶🥶🥶🥶 9999"); return cell}
-        
+        //cell.posterImageView.image
+        print("🔴🔴🔴🔴 movie.thumb: \(movie.thumb)")
         cell.update(movie)
+        DispatchQueue.global().async {
+            guard let imageURL: URL = URL(string: movie.thumb) else { print("🤮 imageURL: URL = URL"); return }
+            guard let imageData: Data = try? Data(contentsOf: imageURL) else { print("🤮🤮 imageData: Data = try? Data"); return }
+            
+            DispatchQueue.main.async {
+                if let index: IndexPath = tableView.indexPath(for: cell) {
+                    if index.row == indexPath.row {
+                        cell.posterImageView.backgroundColor = .systemBackground
+                        cell.posterImageView.image = UIImage(data: imageData)
+                    } else {
+                        cell.posterImageView.backgroundColor = .gray
+                        print("👹👹 DispatchQueue.main.async else")
+                    }
+                }
+            }
+        }
         
         return cell
     }
@@ -64,6 +84,23 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+    }
+    
+    @objc func didRiecieveMovieNotification(_ noti: Notification) {
+        guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
+        self.movies = movies
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        requestMoovies()
     }
 }
 
