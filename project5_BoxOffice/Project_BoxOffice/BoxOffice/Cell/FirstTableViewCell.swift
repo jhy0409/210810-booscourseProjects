@@ -15,6 +15,17 @@ class FirstTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        if let text = movieTitleLabel.text {
+            let attributedString = NSMutableAttributedString(string: text)
+            
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: "heart")
+            attributedString.append(NSAttributedString(attachment: imageAttachment))
+            
+            movieTitleLabel.attributedText = attributedString
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

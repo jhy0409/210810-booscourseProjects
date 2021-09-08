@@ -7,7 +7,18 @@
 
 import UIKit
 
-class First_MovieList_ViewController: UIViewController {
+class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
+    let cellIdentifier: String = "firstCell"
+    @IBOutlet weak var tableView: UITableView!
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
+        return cell
+    }
+    
     /*
      //Base URL은 https://connect-boxoffice.run.goorm.io/ 입니다.
      [화면 1 - 영화 목록]
@@ -42,9 +53,6 @@ class First_MovieList_ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "9999999s"
     }
-    
-    
 }
 
