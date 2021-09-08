@@ -50,11 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //let testURL1_x: String = "https://randomuser.me/api/?results=20&inc=name,email,picture"
         let testURL1: String = "https://randomuser.me/api/?results=20&inc=name,email,picture"
-        //Your api key is LTJ0-4BY0-UZVQ-E366
-
-        let testURL3: String = " https://randomapi.com/api/1234abcd?key=LTJ0-4BY0-UZVQ-E366"
         guard let url: URL = URL(string: testURL1) else { return }
         
         let session: URLSession = URLSession(configuration: .default)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6859796B26E8B16600115528 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6859796A26E8B16600115528 /* Request.swift */; };
 		688A64E426E73DD2003123BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A64E326E73DD2003123BC /* AppDelegate.swift */; };
 		688A64E626E73DD2003123BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A64E526E73DD2003123BC /* SceneDelegate.swift */; };
 		688A64E826E73DD2003123BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A64E726E73DD2003123BC /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6859796A26E8B16600115528 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		688A64E026E73DD2003123BC /* Networking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Networking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		688A64E326E73DD2003123BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		688A64E526E73DD2003123BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				688A64E326E73DD2003123BC /* AppDelegate.swift */,
 				688A64E526E73DD2003123BC /* SceneDelegate.swift */,
 				688A64E726E73DD2003123BC /* ViewController.swift */,
+				6859796A26E8B16600115528 /* Request.swift */,
 				68CBA6F226E73EFA003E27B9 /* Model.swift */,
 				688A64E926E73DD2003123BC /* Main.storyboard */,
 				688A64EC26E73DD2003123BC /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			files = (
 				688A64E826E73DD2003123BC /* ViewController.swift in Sources */,
 				688A64E426E73DD2003123BC /* AppDelegate.swift in Sources */,
+				6859796B26E8B16600115528 /* Request.swift in Sources */,
 				688A64E626E73DD2003123BC /* SceneDelegate.swift in Sources */,
 				68CBA6F326E73EFA003E27B9 /* Model.swift in Sources */,
 			);
