@@ -8,7 +8,7 @@
 >
 > [☑️ 5강 4-2) 참고링크 - DispatchQueue 13ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#1bdbd724c3104500991bbe857a6dc58b)
 > 
-> [🔲 5강 5-1) 노티피케이션 센터와 노티피케이션 4ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#d744214068cb4694b884288c8e5c9ab3)
+> [☑️ 5강 5-1) 노티피케이션 센터와 노티피케이션 4ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#d744214068cb4694b884288c8e5c9ab3)
 > ***
 > `210907 화`
 > 
