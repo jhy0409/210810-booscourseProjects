@@ -27,6 +27,12 @@ class FirstTableViewCell: UITableViewCell {
         }
         
     }
+    
+    func update(_ movie: Movie) {
+        movieTitleLabel.text = movie.title
+        RatingAndReservationLabel.text = movie.descriptionOfRating
+        openDateLabel.text = movie.openingdate
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

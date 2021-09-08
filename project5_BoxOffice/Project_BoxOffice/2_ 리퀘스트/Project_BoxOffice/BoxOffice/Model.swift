@@ -23,16 +23,24 @@ import Foundation
 struct MovieList: Codable {
     let order_type: SortType
     let movies: [Movie]
+}
+
+struct Movie: Codable {
+    let thumb: String
+    let reservation_rate: Double
+    let user_rating: Double
+    let date: String
+    let id: String
+    let grade: Int
+    let reservation_grade: Int
+    let title: String
     
-    struct Movie: Codable {
-        let thumb: String
-        let reservation_rate: Double
-        let user_rating: Double
-        let date: String
-        let id: String
-        let grade: Int
-        let reservation_grade: Int
-        let title: String
+    var descriptionOfRating: String {
+        return "평점 : \(user_rating) | 예매순위 : \(reservation_grade) | 예매율 : \(reservation_rate)"
+    }
+    
+    var openingdate: String {
+        return "개봉일 : \(date)"
     }
 }
 

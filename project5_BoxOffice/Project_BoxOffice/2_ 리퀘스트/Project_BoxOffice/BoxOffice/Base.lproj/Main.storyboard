@@ -78,6 +78,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="KrW-VK-iFr"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Vv5-vE-FVd"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -143,6 +144,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="sSh-dm-Jj0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="D2w-p1-XZP">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" systemColor="systemIndigoColor"/>

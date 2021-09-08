@@ -8,17 +8,6 @@
 import UIKit
 
 class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
-    let cellIdentifier: String = "firstCell"
-    @IBOutlet weak var tableView: UITableView!
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
-        return cell
-    }
-    
     /*
      //Base URL은 https://connect-boxoffice.run.goorm.io/ 입니다.
      [화면 1 - 영화 목록]
@@ -47,6 +36,28 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
      - [] 테이블뷰와 컬렉션뷰를 아래쪽으로 잡아당기면 새로고침됩니다.
      - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
+    
+    @IBOutlet weak var tableView: UITableView!
+    var movies: [MovieList] = []
+    let cellIdentifier: String = "firstCell"
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
+        
+        guard let movie = self.movies[indexPath.row] as? Movie else { print("\n\n\n 🥶🥶🥶🥶 9999"); return cell}
+        
+        cell.update(movie)
+        
+        return cell
+    }
+    
+    
     
     
     
