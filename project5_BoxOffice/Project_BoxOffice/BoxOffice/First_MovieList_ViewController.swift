@@ -13,7 +13,7 @@ class First_MovieList_ViewController: UIViewController {
      [화면 1 - 영화 목록]
      [화면 구성]
      - [] 탭 인터페이스와 내비게이션 인터페이스의 결합 형태입니다.
-        - [] 첫 번째 탭은 'Table', 두 번째 탭은 'Collection' 타이틀로 구성합니다.
+        - [ㅇ] 첫 번째 탭은 'Table', 두 번째 탭은 'Collection' 타이틀로 구성합니다.
         - [] 첫 번째 탭 화면은 테이블형태로, 두 번째 탭 화면은 컬렉션 형태로 같은 데이터를 사용하여 콘텐츠를 표시합니다.
      
         - [] 테이블 화면
