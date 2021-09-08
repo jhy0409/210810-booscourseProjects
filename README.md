@@ -20,9 +20,9 @@
 > ***
 > `210906 월`
 > 
-> [☑️ 5강 - 참고링크 4ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#026b5e3014524fcb9937ccdba9f54f26)
+> [☑️ 5강 참고링크 - 탭바 컨트롤러 4ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#026b5e3014524fcb9937ccdba9f54f26)
 > 
-> [☑️ 5강 - 참고링크(pdf) 13ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#e0d4f26a95e24f65bc286793d59c35c3)
+> [☑️ 5강 참고링크(pdf) - View Controller Catalog - Tab Bar Controllers 13ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#e0d4f26a95e24f65bc286793d59c35c3)
 > ***
 >  `210831 화` 
 > 
