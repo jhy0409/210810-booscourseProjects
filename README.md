@@ -4,6 +4,10 @@
 ### 📖 공부일지
 
 
+> `210908 수`
+>
+> [🔲 5강 4-2) 참고링크 13ea](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#1bdbd724c3104500991bbe857a6dc58b)
+> ***
 > `210907 화`
 > 
 > [☑️ 5강 3-1) 참고링크 15ea + wwdc](https://www.notion.so/jhcode/210906-bst-Swift-5-17ea-5-9aaea9c6a3c84fd08cf044331b8d2bcc#02dd8840eb1944eb817e8e46c83ba3a4)
