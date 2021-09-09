@@ -103,9 +103,44 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         requestMoovies(SortType.reservation)
     }
     
-    
     @IBAction func tappedSortingButton(_ sender: Any) {
         print("🏆🏆🏆")
+        let title = "정렬방식 선택"
+        let message = "영화를 어떤 순서로 정렬할까요?"
+        showAlert(style: .actionSheet, title: title, message: message, handler: {print("99999999999999")})
+    }
+    
+    // 0: 예매율(reservation), 1: 큐레이션(curation), 2: 개봉일(openingDate)
+    // MARK: - [] 핸들러에서 할 일 >> 정렬한 데이터로 가져오기[], 테이블 데이터 리로드[], 네비게이션 바 타이틀 변경[]
+    func showAlert(style: UIAlertController.Style, title: String, message: String, handler: @escaping () -> () ) {
+        var sortType: SortType = SortType.reservation
+        let alertController: UIAlertController
+        alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        
+        let reservationAction: UIAlertAction
+        reservationAction = UIAlertAction(title: "예매율", style: .default,
+                          handler: { alertAction in sortType = .reservation })
+        
+        let curationAction: UIAlertAction
+        curationAction = UIAlertAction(title: "큐레이션", style: .default,
+                           handler: { alertAction in sortType = .curation })
+        
+        let openingDateAction: UIAlertAction
+        openingDateAction = UIAlertAction(title: "개봉일", style: .default,
+                                          handler: { alertAction in sortType = .openingDate; handler() })
+        
+        let cancelAction: UIAlertAction
+        cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        alertController.addAction(reservationAction)
+        alertController.addAction(curationAction)
+        alertController.addAction(openingDateAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: {
+            print("execution func showAlert, sortType : \(sortType)")
+            
+        })
     }
 }
 

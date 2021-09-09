@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 let recieveMovieID: String = "DidRecieveMovies"
 let DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
 
 //    let testURL: String = "https://connect-boxoffice.run.goorm.io/"
-func requestMoovies(_ sort: SortType) {
+func requestMoovies(_ sortType: SortType?) {
     let testURL: String = "https://connect-boxoffice.run.goorm.io/movies"
+    guard let sort = sortType else { return }
     guard let url: URL = appendSubQueryBySortType(testURL, sort) else { return }
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in
@@ -47,7 +49,6 @@ func getViewTitleFromSortType(_ sort: SortType) -> String {
 // MARK: - [ㅇ] URL 서브쿼리 메소드 - 영화정렬 순서
 func appendSubQueryBySortType(_ inputURL: String, _ sort: SortType) -> URL? {
     var resultURLString = inputURL + "?order_type="
-    
     switch sort { //영화 정렬순서
     case .reservation:
         resultURLString.append("0") //0: 예매율(default)
@@ -56,9 +57,10 @@ func appendSubQueryBySortType(_ inputURL: String, _ sort: SortType) -> URL? {
     case .openingDate:
         resultURLString.append("2") //2: 개봉일
     }
-    
-    guard let url: URL = URL(string: resultURLString)
-    else { print("\n\n---> 🎃🎃 Request.swift / func appendSubQueryBySortType(_ inputURL :"); return nil }
+    guard let url: URL = URL(string: resultURLString) else { return nil }
     
     return url
 }
+
+
+
