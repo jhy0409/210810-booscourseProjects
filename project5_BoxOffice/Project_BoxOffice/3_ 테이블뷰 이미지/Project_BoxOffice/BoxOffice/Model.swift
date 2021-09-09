@@ -15,7 +15,7 @@ import UIKit
 
 // MARK: - [] Movie struct
 struct MovieList: Codable {
-    let order_type: SortType
+    var order_type: SortType
     var movies: [Movie]
 }
 

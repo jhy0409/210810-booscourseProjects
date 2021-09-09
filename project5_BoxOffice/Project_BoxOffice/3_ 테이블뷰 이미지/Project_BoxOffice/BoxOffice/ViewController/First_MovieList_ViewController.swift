@@ -10,18 +10,15 @@ import UIKit
 class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-//    var movies: [Movie] = []
-//    var movieList: MovieList?
     let cellIdentifier: String = "firstCell"
-    
     let recieveMovieID: String = "DidRecieveMovies"
     lazy var DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
     
     let shared = MovieShared.shared
     var movies: [Movie] = []
-//    var movies: [Movie] = []
-//    var movieList: MovieList?
     var movieList: MovieList?
+    
+    var enteredNumber: Int? = nil
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -59,8 +56,6 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
-//        self.movies = movies
-//        self.movieList = movieList
         shared.movieList?.movies = movies
         shared.movieList = movieList
         
@@ -70,28 +65,32 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         DispatchQueue.main.async {
             self.tableView.reloadData()
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
-            guard let sort = self.movieList?.order_type else { return }
+            guard var sort = self.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
         }
     }
-    
     
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
 
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        requestMoovies(SortType.reservation)
+        // MARK: - [ㅇ] 정렬 - 초기진입 여부에 따른 분기
+        if enteredNumber == nil {
+            requestMoovies(SortType.reservation)
+            enteredNumber = 1
+        } else {
+            requestMoovies(shared.movieList?.order_type)
+        }
     }
     
-    @IBAction func tappedSortingButton(_ sender: Any) {
+    // MARK: - [ㅇ] 정렬 누름 - 탭바 아이템
+    @IBAction func tappedSortingButton(_ sender: UIBarButtonItem) {
         let title = "정렬방식 선택"
         let message = "영화를 어떤 순서로 정렬할까요?"
         showAlert(style: .actionSheet, title: title, message: message)
-        
     }
     
     // 0: 예매율(reservation), 1: 큐레이션(curation), 2: 개봉일(openingDate)

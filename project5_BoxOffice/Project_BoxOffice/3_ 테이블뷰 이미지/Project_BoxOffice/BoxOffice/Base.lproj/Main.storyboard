@@ -217,6 +217,9 @@
                     <navigationItem key="navigationItem" id="58s-3K-O0A">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="Oge-Rz-lsj">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="tappedSortingButton:" destination="CY6-go-M6L" id="hcZ-Ku-RXU"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
