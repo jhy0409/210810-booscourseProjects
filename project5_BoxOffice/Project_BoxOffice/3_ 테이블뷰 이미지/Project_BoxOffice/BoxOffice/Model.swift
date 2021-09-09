@@ -134,6 +134,32 @@ struct MovieDetail: Codable {
     var genreAndDuration: String {
         return "\(genre) / \(duration)분"
     }
+    
+    var reserveRankAndRate: String {
+        return "\(reservation_grade)위 \(reservation_rate)%"
+    }
+    
+    var rateStar: String {
+        var number = ""
+        
+        let count: Int = Int((user_rating/10 * 5) / 1)
+        let remain: Double = 5 - ( (user_rating/10 * 5) / 1 )
+        
+        
+        for _ in 1...count {
+            number.append("⭐️")
+        }
+        
+        for _ in 1...(5-count) {
+            number.append("🌌")
+        }
+        
+        if remain >= 0.4 {
+            number.append("")
+        }
+        
+        return number
+    }
 }
 
 

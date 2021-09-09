@@ -50,12 +50,6 @@ class Second_MovieList_ViewController: UIViewController {
         self.title = getViewTitleFromSortType(sort)
     }
     
-    
-    
-    
-    
-    
-    
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
