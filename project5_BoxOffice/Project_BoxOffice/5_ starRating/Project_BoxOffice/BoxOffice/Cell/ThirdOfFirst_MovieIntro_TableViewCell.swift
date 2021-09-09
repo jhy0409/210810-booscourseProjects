@@ -18,12 +18,14 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     @IBOutlet weak var userRateLabel: UILabel!
     @IBOutlet weak var audienceLabel: UILabel!
     
-    var size: CGFloat? = nil
+//    var size: CGFloat? = nil
+//    let starUIImage = UIImage(named: "ic_star_large_full")
+//    let starHalfUIImage = UIImage(named: "ic_star_large_half")
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        guard let size = size else { return }
-        posterImageView.frame.size = CGSize(width: size, height: size + 100 )
+//        guard let size = size else { return }
+//        posterImageView.frame.size = CGSize(width: size, height: size + 100 )
         // Initialization code
     }
 
@@ -34,7 +36,8 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
         gradeImageView.image = movieDetail.gradeIcon
         reservationRateLabel.text = "\(movieDetail.reserveRankAndRate)"
         //userRateLabel.text = "\(movieDetail.user_rating)"
-        userRateLabel.text = movieDetail.rateStar
+        userRateLabel.attributedText = movieDetail.rateStar
+        
         audienceLabel.text = decimalAudience(movieDetail.audience)
         
     }
@@ -53,3 +56,4 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     }
 
 }
+
