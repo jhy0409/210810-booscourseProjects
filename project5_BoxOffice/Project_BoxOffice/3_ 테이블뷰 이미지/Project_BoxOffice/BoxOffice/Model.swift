@@ -74,16 +74,6 @@ struct Movie: Codable {
         return resultImage
     }
     
-    //http://movie.phinf.naver.net/20171102_209/1509602233507BiJrs_JPEG/movie_image.jpg?type=m99_141_2.jpg
-//    let url = URL(string: "http://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
-//    let data = try Data(contentsOf: url!)
-//    uiImageView.image = UIImage(data: data)
-//    uiImageView
-    var url: URL {
-        let failed: URL! = URL(string: "https://www.naver.com")
-        guard let url = URL(string: thumb) else { print("return URL(string: invalid)"); return failed}
-        return url
-    }
 }
 
 // MARK: - [] 영화 정렬순서 / 0: 예매율(default), 1: 큐레이션, 2: 개봉일
