@@ -154,7 +154,11 @@
                             <constraint firstItem="Drb-vj-K1D" firstAttribute="top" secondItem="Um3-88-xOd" secondAttribute="top" id="u8u-Qx-K5D"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="58s-3K-O0A"/>
+                    <navigationItem key="navigationItem" id="58s-3K-O0A">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="Oge-Rz-lsj">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jv-sU-qP4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
