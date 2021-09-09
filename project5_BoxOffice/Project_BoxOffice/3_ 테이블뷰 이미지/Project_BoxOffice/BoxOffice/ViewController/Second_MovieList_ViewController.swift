@@ -37,7 +37,6 @@ class Second_MovieList_ViewController: UIViewController {
      - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
     private let cellIdentifire = "secondCell"
     let shared = MovieShared.shared
@@ -120,7 +119,6 @@ extension Second_MovieList_ViewController: UICollectionViewDataSource {
         DispatchQueue.global().async {
             guard let imageURL: URL = URL(string: movie.thumb) else { return }
             guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
-
 
             DispatchQueue.main.async {
                 if let index: IndexPath = collectionView.indexPath(for: cell) {

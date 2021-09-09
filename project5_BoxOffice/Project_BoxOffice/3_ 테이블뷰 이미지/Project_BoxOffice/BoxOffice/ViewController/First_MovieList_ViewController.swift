@@ -15,12 +15,7 @@ class First_MovieList_ViewController: UIViewController {
     lazy var DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
     
     let shared = MovieShared.shared
-    var movies: [Movie] = []
-    var movieList: MovieList?
-    
     var enteredNumber: Int? = nil
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +28,10 @@ class First_MovieList_ViewController: UIViewController {
         shared.movieList?.movies = movies
         shared.movieList = movieList
         
-        guard let sharedMovies = shared.movieList?.movies else { return }
-        self.movies = sharedMovies
-        self.movieList = shared.movieList
-        
         DispatchQueue.main.async {
             self.tableView.reloadData()
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
-            guard let sort = self.movieList?.order_type else { return }
+            guard let sort = self.shared.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
         }
     }
@@ -100,13 +91,14 @@ class First_MovieList_ViewController: UIViewController {
 // MARK: - [ㅇ] UITableViewDataSource
 extension First_MovieList_ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        guard let sharedCount = shared.movieList?.movies.count else { return 0 }
+        return sharedCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
         
-        guard let movie = self.movies[indexPath.row] as? Movie else { return cell }
+        guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
         DispatchQueue.global().async {
             guard let imageURL: URL = URL(string: movie.thumb) else { return }
