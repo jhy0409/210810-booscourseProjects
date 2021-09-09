@@ -146,14 +146,12 @@ extension First_MovieList_ViewController: UITableViewDelegate {
 //        connect-boxoffice.run.goorm.io/movie?id=5a54c286e8a71d136fb5378e
         guard let movies: [Movie] = shared.movieList?.movies else { return }
         let movie = movies[indexPath.item]
-        //print("🌈🌈🌈 movie: \(movie.title)")
         guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
         requestMoovies(movie.id)
         
-        thirdViewController.movie = movie
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
     }

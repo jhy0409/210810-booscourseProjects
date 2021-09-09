@@ -23,10 +23,10 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     }
 
     func update(_ movieDetail: MovieDetail) {
-//        posterImageView.image = movie.posterImage
         movieTitleLabel.text = movieDetail.title
-        openingDateLabel.text = movieDetail.date
-        movieGenreLabel.text = movieDetail.genre
+        openingDateLabel.text = "\(movieDetail.date) 개봉"
+        movieGenreLabel.text = movieDetail.genreAndDuration
+        gradeImageView.image = movieDetail.gradeIcon
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

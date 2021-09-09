@@ -34,7 +34,7 @@ class Second_MovieList_ViewController: UIViewController {
         - [ㅇ] 테이블뷰와 컬렉션뷰의 영화 정렬방식은 동일하게 적용됩니다. 즉, 한 화면에서 변경하면 다른 화면에도 변경이 적용되어 있어야 합니다.
      
      - [ㅇ] 테이블뷰와 컬렉션뷰를 아래쪽으로 잡아당기면 새로고침됩니다.
-     - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
+     - [ㅇ] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -135,6 +135,25 @@ extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
+
+extension Second_MovieList_ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let movies: [Movie] = shared.movieList?.movies else { return }
+        let movie = movies[indexPath.item]
+        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
+        
+        thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
+        thirdViewController.movie = movie
+        requestMoovies(movie.id)
+        
+        thirdViewController.title = "\(movie.title)"
+        self.navigationController?.pushViewController(thirdViewController, animated: true)
+    }
+}
+
+
+
+
 
 // MARK: - [ㅇ] UICollectionViewDataSource
 extension Second_MovieList_ViewController: UICollectionViewDataSource {

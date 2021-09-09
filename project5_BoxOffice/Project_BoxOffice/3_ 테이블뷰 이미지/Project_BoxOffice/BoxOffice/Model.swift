@@ -97,6 +97,7 @@ struct MovieDetail: Codable {
     let audience: Int
     let grade: Int
     let actor: String
+    let duration: Int
     let reservation_grade: Int
     let title: String
     
@@ -109,14 +110,6 @@ struct MovieDetail: Codable {
     let image: String
     let synopsis: String
     let genre: String
-    
-//    var posterImage: UIImage {
-//        var resultImage = UIImage()
-//        guard let imageURL: URL = URL(string: image), let imageData: Data = try? Data(contentsOf: imageURL) else { return resultImage }
-//        
-//        resultImage = UIImage(data: imageData) ?? resultImage
-//        return resultImage
-//    }
     
     var gradeIcon: UIImage {
         var resultImage: UIImage
@@ -136,6 +129,10 @@ struct MovieDetail: Codable {
         resultImage = UIImage(named: iconName) ?? UIImage()
         
         return resultImage
+    }
+    
+    var genreAndDuration: String {
+        return "\(genre) / \(duration)분"
     }
 }
 
