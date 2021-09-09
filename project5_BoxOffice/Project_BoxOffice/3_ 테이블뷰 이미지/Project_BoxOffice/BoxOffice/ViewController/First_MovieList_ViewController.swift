@@ -20,6 +20,7 @@ class First_MovieList_ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()
+        refresh()
     }
     
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
@@ -38,6 +39,22 @@ class First_MovieList_ViewController: UIViewController {
     
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+    }
+    
+    func refresh() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(updateView(refresh:)), for: .valueChanged)
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refresh
+        } else {
+            tableView.addSubview(refresh)
+        }
+    }
+    
+    @objc func updateView(refresh: UIRefreshControl) {
+        refresh.endRefreshing()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

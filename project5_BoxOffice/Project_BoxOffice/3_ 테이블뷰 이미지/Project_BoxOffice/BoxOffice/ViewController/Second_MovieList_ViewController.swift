@@ -33,7 +33,7 @@ class Second_MovieList_ViewController: UIViewController {
      - [ㅇ] 화면 오른쪽 상단 바 버튼을 눌러 정렬방식을 변경할 수 있습니다. (예매율/큐레이션/개봉일 기준) / 테이블[ㅇ], 콜렉션[ㅇ]
         - [ㅇ] 테이블뷰와 컬렉션뷰의 영화 정렬방식은 동일하게 적용됩니다. 즉, 한 화면에서 변경하면 다른 화면에도 변경이 적용되어 있어야 합니다.
      
-     - [] 테이블뷰와 컬렉션뷰를 아래쪽으로 잡아당기면 새로고침됩니다.
+     - [ㅇ] 테이블뷰와 컬렉션뷰를 아래쪽으로 잡아당기면 새로고침됩니다.
      - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
     
@@ -44,10 +44,17 @@ class Second_MovieList_ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()
+        refresh()
         // Do any additional setup after loading the view.
         guard let sort = self.shared.movieList?.order_type else { return }
         self.title = getViewTitleFromSortType(sort)
     }
+    
+    
+    
+    
+    
+    
     
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
@@ -100,6 +107,35 @@ class Second_MovieList_ViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func refresh() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(updateView(refresh:)), for: .valueChanged)
+        
+        if #available(iOS 10.0, *) {
+            //tableView.refreshControl = refresh
+            collectionView.refreshControl = refresh
+        } else {
+            //tableView.addSubview(refresh)
+            collectionView.addSubview(refresh)
+        }
+    }
+    
+    @objc func updateView(refresh: UIRefreshControl) {
+        refresh.endRefreshing()
+        //tableView.reloadData()
+        collectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
+    }
+}
+
+extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemSpacing: CGFloat = 10
+        let margin: CGFloat = 20
+        let width: CGFloat = (collectionView.bounds.width - (margin * 2) - itemSpacing) / 2
+        let height: CGFloat = width * 2
+        return CGSize(width: width, height: height)
+    }
 }
 
 // MARK: - [ㅇ] UICollectionViewDataSource
@@ -125,6 +161,10 @@ extension Second_MovieList_ViewController: UICollectionViewDataSource {
                     if index.item == indexPath.item {
                         cell.posterImageView.backgroundColor = .systemBackground
                         cell.posterImageView.image = UIImage(data: imageData)
+                    }
+                    else {
+                        cell.posterImageView.backgroundColor = .gray
+                        cell.posterImageView.image = nil
                     }
                 }
             }

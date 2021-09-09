@@ -29,8 +29,13 @@ struct Movie: Codable, Hashable {
     let reservation_grade: Int
     let title: String
     
-    var descriptionOfRating: String {
-        return "평점 : \(user_rating) | 예매순위 : \(reservation_grade) | 예매율 : \(reservation_rate)"
+    var descriptionOfRating: (String, String) {
+        // for table
+        let table: String = "평점 : \(user_rating) | 예매순위 : \(reservation_grade) | 예매율 : \(reservation_rate)"
+        
+        // for collectionView
+        let collection: String = "평점 : \(user_rating)\n예매순위 : \(reservation_grade)\n예매율 : \(reservation_rate)"
+        return (table, collection)
     }
     
     var openingdate: String {

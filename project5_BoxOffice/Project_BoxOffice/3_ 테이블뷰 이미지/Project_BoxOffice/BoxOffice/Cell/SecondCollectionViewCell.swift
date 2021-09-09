@@ -16,7 +16,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     func update(_ movie: Movie) {
         movieTitleLabel.text = movie.title
-        RatingAndReservationLabel.text = movie.descriptionOfRating
+        RatingAndReservationLabel.text = movie.descriptionOfRating.1
         openDateLabel.text = movie.openingdate
         gradeImageView.image = movie.gradeIcon
     }
