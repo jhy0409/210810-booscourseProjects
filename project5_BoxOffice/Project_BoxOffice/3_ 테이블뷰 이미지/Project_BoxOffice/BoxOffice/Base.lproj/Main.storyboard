@@ -82,6 +82,7 @@
                                             <outlet property="movieTitleLabel" destination="R2E-sp-gaS" id="5dk-rK-myL"/>
                                             <outlet property="openDateLabel" destination="N0s-tQ-OBC" id="veL-bA-4PN"/>
                                             <outlet property="posterImageView" destination="r7W-2l-gBV" id="Wsa-wn-W5q"/>
+                                            <segue destination="Yvw-8y-Gxj" kind="show" id="mX2-D1-B4z"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -115,6 +116,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1792.753623188406" y="-270.53571428571428"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5HF-XK-aeI">
+            <objects>
+                <viewController id="Yvw-8y-Gxj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jp2-ot-Ld6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="OnC-hW-C3l"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PW3-rc-oyh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uIu-Wt-InD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2799" y="73"/>
         </scene>
         <!--Second Movie List View Controller-->
         <scene sceneID="YHJ-6X-vMJ">
@@ -198,6 +215,7 @@
                                             <outlet property="movieTitleLabel" destination="g79-qw-eJM" id="n5b-6K-YTm"/>
                                             <outlet property="openDateLabel" destination="E1n-EB-1kS" id="nn3-XM-mDD"/>
                                             <outlet property="posterImageView" destination="DFi-kD-XP2" id="ra6-wL-rHt"/>
+                                            <segue destination="Yvw-8y-Gxj" kind="show" id="qOv-Qm-uLv"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -300,6 +318,9 @@
             <point key="canvasLocation" x="882.60869565217399" y="452.67857142857139"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="qOv-Qm-uLv"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="ic_collection" width="25" height="25"/>
         <image name="ic_list" width="24" height="24"/>
