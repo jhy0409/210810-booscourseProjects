@@ -103,6 +103,7 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         let title = "정렬방식 선택"
         let message = "영화를 어떤 순서로 정렬할까요?"
         showAlert(style: .actionSheet, title: title, message: message)
+        
     }
     
     // 0: 예매율(reservation), 1: 큐레이션(curation), 2: 개봉일(openingDate)
