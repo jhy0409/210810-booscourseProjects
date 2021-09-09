@@ -7,7 +7,7 @@
 
 import UIKit
 
-class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
+class First_MovieList_ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier: String = "firstCell"
@@ -20,33 +20,7 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     var enteredNumber: Int? = nil
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
-        
-        guard let movie = self.movies[indexPath.row] as? Movie else { return cell }
-        cell.update(movie)
-        DispatchQueue.global().async {
-            guard let imageURL: URL = URL(string: movie.thumb) else { return }
-            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
-
-            DispatchQueue.main.async {
-                if let index: IndexPath = tableView.indexPath(for: cell) {
-                    if index.row == indexPath.row {
-                        cell.posterImageView.backgroundColor = .systemBackground
-                        cell.posterImageView.image = UIImage(data: imageData)
-                    } else {
-                        cell.posterImageView.image = nil
-                        cell.posterImageView.backgroundColor = .gray
-                    }
-                }
-            }
-        }
-        return cell
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +33,14 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         shared.movieList?.movies = movies
         shared.movieList = movieList
         
-        self.movies = shared.movieList?.movies as! [Movie]
+        guard let sharedMovies = shared.movieList?.movies else { return }
+        self.movies = sharedMovies
         self.movieList = shared.movieList
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
-            guard var sort = self.movieList?.order_type else { return }
+            guard let sort = self.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
         }
     }
@@ -73,7 +48,7 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -121,3 +96,34 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     }
 }
 
+
+// MARK: - [ㅇ] UITableViewDataSource
+extension First_MovieList_ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell: FirstTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FirstTableViewCell else { return UITableViewCell() }
+        
+        guard let movie = self.movies[indexPath.row] as? Movie else { return cell }
+        cell.update(movie)
+        DispatchQueue.global().async {
+            guard let imageURL: URL = URL(string: movie.thumb) else { return }
+            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
+            
+            DispatchQueue.main.async {
+                if let index: IndexPath = tableView.indexPath(for: cell) {
+                    if index.row == indexPath.row {
+                        cell.posterImageView.backgroundColor = .systemBackground
+                        cell.posterImageView.image = UIImage(data: imageData)
+                    } else {
+                        cell.posterImageView.image = nil
+                        cell.posterImageView.backgroundColor = .gray
+                    }
+                }
+            }
+        }
+        return cell
+    }
+}

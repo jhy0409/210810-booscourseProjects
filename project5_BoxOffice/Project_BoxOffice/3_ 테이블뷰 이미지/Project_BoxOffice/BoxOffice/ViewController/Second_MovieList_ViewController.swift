@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSource {
+class Second_MovieList_ViewController: UIViewController {
     /*
      //Base URL은 https://connect-boxoffice.run.goorm.io/ 입니다.
      [화면 1 - 영화 목록]
@@ -48,12 +48,6 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
         // Do any additional setup after loading the view.
         guard let sort = self.shared.movieList?.order_type else { return }
         self.title = getViewTitleFromSortType(sort)
-        print("\n💀Second View shared.movieList?.movies.count: \(shared.movieList?.movies.count)")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("\n💀💀Second View shared.movieList?.movies.count: \(shared.movieList?.movies.count)")
     }
     
     func notiAddObserber() {
@@ -75,7 +69,6 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
-    
     @IBAction func tappedSortingButton(_ sender: UIBarButtonItem) {
         let title = "정렬방식 선택"
         let message = "영화를 어떤 순서로 정렬할까요?"
@@ -108,17 +101,10 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+// MARK: - [ㅇ] UICollectionViewDataSource
+extension Second_MovieList_ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let itemsCount = shared.movieList?.movies.count else { return 0 }
         return  itemsCount
@@ -127,7 +113,7 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell: SecondCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifire, for: indexPath) as? SecondCollectionViewCell else { return UICollectionViewCell() }
         
-        guard let movie = shared.movieList?.movies[indexPath.item] as? Movie else { return cell }
+        guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
         cell.posterImageView.image = nil
         
@@ -148,5 +134,3 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
         return cell
     }
 }
-
-
