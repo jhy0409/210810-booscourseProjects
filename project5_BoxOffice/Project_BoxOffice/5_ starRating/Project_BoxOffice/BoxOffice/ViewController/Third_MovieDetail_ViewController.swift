@@ -27,6 +27,8 @@ class Third_MovieDetail_ViewController: UIViewController {
     
     
     let firstCell: String = "thirdOfFirst"
+    let secondCell: String = "thirdOfSecond"
+    
     var urlFromSecondView: URL?
     var movie: Movie?
     let shared = MovieShared.shared

@@ -19,8 +19,6 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     @IBOutlet weak var audienceLabel: UILabel!
     
 //    var size: CGFloat? = nil
-//    let starUIImage = UIImage(named: "ic_star_large_full")
-//    let starHalfUIImage = UIImage(named: "ic_star_large_half")
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,11 +33,8 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
         movieGenreLabel.text = movieDetail.genreAndDuration
         gradeImageView.image = movieDetail.gradeIcon
         reservationRateLabel.text = "\(movieDetail.reserveRankAndRate)"
-        //userRateLabel.text = "\(movieDetail.user_rating)"
         userRateLabel.attributedText = movieDetail.rateStar
-        
         audienceLabel.text = decimalAudience(movieDetail.audience)
-        
     }
     
     func decimalAudience(_ number: Int) -> String {

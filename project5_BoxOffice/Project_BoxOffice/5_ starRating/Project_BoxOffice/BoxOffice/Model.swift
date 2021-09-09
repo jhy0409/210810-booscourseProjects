@@ -146,15 +146,15 @@ struct MovieDetail: Codable {
         let imageEmptyAttachment = NSTextAttachment()
         
         let img = UIImage(named: "ic_star_large_full")
-        let star = img?.resize(newWidth: 13)
+        let star = img?.resize(newWidth: 17)
         imageAttachment.image = star
         
         let img2 = UIImage(named: "ic_star_large_half")
-        let star2 = img2?.resize(newWidth: 13)
+        let star2 = img2?.resize(newWidth: 17)
         imageHalfAttachment.image = star2
         
         let img3 = UIImage(named: "ic_star_large")
-        let star3 = img3?.resize(newWidth: 13)
+        let star3 = img3?.resize(newWidth: 17)
         imageEmptyAttachment.image = star3
         
         let starFull = NSAttributedString(attachment: imageAttachment)
@@ -176,7 +176,6 @@ struct MovieDetail: Codable {
         
         if remain > 0.3 && remain < 1 { // 0.3초과의 나머지 수가 있을 때
             range = 0...((4-index)) // 별 반개 추가하고 인덱스 하나 줄임
-            
             number.append(starHalf)
             print("\n-------->🌈🌈 index: \(index)")
             
@@ -184,13 +183,11 @@ struct MovieDetail: Codable {
                 for _ in 1...3 { // 빈별 3개 추가
                     number.append(starEmpty)
                 }
-            } // ㅡㅡㅡㅇㅇ
-            else if index == 2 { // 3번째 자리에서 별 반개 추가됐을 때
+            } else if index == 2 { // 3번째 자리에서 별 반개 추가됐을 때
                 for _ in 1...2 { // 빈별 1개 추가
                     number.append(starEmpty)
                 }
-            }
-            else if index == 3 { // 4번째 자리에서 별 반개 추가됐을 때
+            } else if index == 3 { // 4번째 자리에서 별 반개 추가됐을 때
                 for _ in 1...1 { // ㅇ빈별 1개 추가
                     number.append(starEmpty)
                 }
@@ -235,10 +232,6 @@ extension UIImage {
         let renderImage = render.image { context in
             self.draw(in: CGRect(origin: .zero, size: size))
         }
-        
-//        print("화면 배율: \(UIScreen.main.scale)")// 배수
-//        print("origin: \(self), resize: \(renderImage)")
-//        printDataSize(renderImage)
         return renderImage
     }
 }
