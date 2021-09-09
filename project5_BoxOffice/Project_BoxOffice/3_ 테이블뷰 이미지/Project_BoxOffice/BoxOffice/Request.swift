@@ -16,6 +16,7 @@ func requestMoovies(_ sortType: SortType?) {
     let testURL: String = "https://connect-boxoffice.run.goorm.io/movies"
     guard let sort = sortType else { return }
     guard let url: URL = appendSubQueryBySortType(testURL, sort) else { return }
+    print("🤮🤮 requestMoovies url : \(url)")
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in
         guard let data = data else { return }
