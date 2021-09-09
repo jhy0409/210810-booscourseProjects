@@ -41,6 +41,7 @@ class First_MovieList_ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
     
+    // MARK: - [ㅇ] 뷰 갱신
     func refresh() {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(updateView(refresh:)), for: .valueChanged)
@@ -117,22 +118,43 @@ extension First_MovieList_ViewController: UITableViewDataSource {
         
         guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
-        DispatchQueue.global().async {
-            guard let imageURL: URL = URL(string: movie.thumb) else { return }
-            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
-            
-            DispatchQueue.main.async {
-                if let index: IndexPath = tableView.indexPath(for: cell) {
-                    if index.row == indexPath.row {
-                        cell.posterImageView.backgroundColor = .systemBackground
-                        cell.posterImageView.image = UIImage(data: imageData)
-                    } else {
-                        cell.posterImageView.image = nil
-                        cell.posterImageView.backgroundColor = .gray
-                    }
-                }
-            }
-        }
+        cell.posterImageView.image = movie.posterImage
+        
+//        DispatchQueue.global().async {
+//            guard let imageURL: URL = URL(string: movie.thumb) else { return }
+//            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
+//
+//            DispatchQueue.main.async {
+//                if let index: IndexPath = tableView.indexPath(for: cell) {
+//                    if index.row == indexPath.row {
+//                        cell.posterImageView.backgroundColor = .systemBackground
+//                        cell.posterImageView.image = UIImage(data: imageData)
+//                    } else {
+//                        cell.posterImageView.image = nil
+//                        cell.posterImageView.backgroundColor = .gray
+//                    }
+//                }
+//            }
+//        }
         return cell
+    }
+}
+
+// MARK: - [] here 👹
+extension First_MovieList_ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        connect-boxoffice.run.goorm.io/movie?id=5a54c286e8a71d136fb5378e
+        guard let movies: [Movie] = shared.movieList?.movies else { return }
+        let movie = movies[indexPath.item]
+        //print("🌈🌈🌈 movie: \(movie.title)")
+        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
+        
+        thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
+        thirdViewController.movie = movie
+        requestMoovies(movie.id)
+        
+        thirdViewController.movie = movie
+        thirdViewController.title = "\(movie.title)"
+        self.navigationController?.pushViewController(thirdViewController, animated: true)
     }
 }

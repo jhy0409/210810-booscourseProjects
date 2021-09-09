@@ -108,22 +108,20 @@ class Second_MovieList_ViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // MARK: - [ㅇ] 뷰 갱신
     func refresh() {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(updateView(refresh:)), for: .valueChanged)
         
         if #available(iOS 10.0, *) {
-            //tableView.refreshControl = refresh
             collectionView.refreshControl = refresh
         } else {
-            //tableView.addSubview(refresh)
             collectionView.addSubview(refresh)
         }
     }
     
     @objc func updateView(refresh: UIRefreshControl) {
         refresh.endRefreshing()
-        //tableView.reloadData()
         collectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
     }
 }
@@ -150,25 +148,7 @@ extension Second_MovieList_ViewController: UICollectionViewDataSource {
         
         guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
-        cell.posterImageView.image = nil
-        
-        DispatchQueue.global().async {
-            guard let imageURL: URL = URL(string: movie.thumb) else { return }
-            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
-
-            DispatchQueue.main.async {
-                if let index: IndexPath = collectionView.indexPath(for: cell) {
-                    if index.item == indexPath.item {
-                        cell.posterImageView.backgroundColor = .systemBackground
-                        cell.posterImageView.image = UIImage(data: imageData)
-                    }
-                    else {
-                        cell.posterImageView.backgroundColor = .gray
-                        cell.posterImageView.image = nil
-                    }
-                }
-            }
-        }
+        cell.posterImageView.image = movie.posterImage
         return cell
     }
 }
