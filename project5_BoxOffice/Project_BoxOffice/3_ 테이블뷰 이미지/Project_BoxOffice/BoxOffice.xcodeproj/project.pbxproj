@@ -17,6 +17,7 @@
 		6839186026E8F0580075CA9A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6839185F26E8F0580075CA9A /* Model.swift */; };
 		6839186226E8F0A60075CA9A /* sampleJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6839186126E8F0A60075CA9A /* sampleJson.swift */; };
 		68787A5226E9DFFA0029F8F7 /* Second_MovieList_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68787A5126E9DFFA0029F8F7 /* Second_MovieList_ViewController.swift */; };
+		68787A5426E9E6C30029F8F7 /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68787A5326E9E6C30029F8F7 /* SecondCollectionViewCell.swift */; };
 		68BC40D626E8CDC200529CDA /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		6839185F26E8F0580075CA9A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6839186126E8F0A60075CA9A /* sampleJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleJson.swift; sourceTree = "<group>"; };
 		68787A5126E9DFFA0029F8F7 /* Second_MovieList_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Second_MovieList_ViewController.swift; sourceTree = "<group>"; };
+		68787A5326E9E6C30029F8F7 /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */,
+				68787A5326E9E6C30029F8F7 /* SecondCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				6814F6E026E8BFA7002E4AF0 /* First_MovieList_ViewController.swift in Sources */,
 				6814F6DC26E8BFA7002E4AF0 /* AppDelegate.swift in Sources */,
 				6826B15C26E8F37000490A1E /* Request.swift in Sources */,
+				68787A5426E9E6C30029F8F7 /* SecondCollectionViewCell.swift in Sources */,
 				68787A5226E9DFFA0029F8F7 /* Second_MovieList_ViewController.swift in Sources */,
 				68BC40D626E8CDC200529CDA /* FirstTableViewCell.swift in Sources */,
 				6814F6DE26E8BFA7002E4AF0 /* SceneDelegate.swift in Sources */,

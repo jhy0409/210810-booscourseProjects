@@ -47,11 +47,10 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+        notiAddObserber()
     }
     
-        @objc func didRiecieveMovieNotification(_ noti: Notification) {
+    @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
         self.movies = movies
@@ -64,6 +63,12 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
             self.title = getViewTitleFromSortType(sort)
         }
     }
+    
+    
+    func notiAddObserber() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

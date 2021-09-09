@@ -64,4 +64,3 @@ func appendSubQueryBySortType(_ inputURL: String, _ sort: SortType) -> URL? {
 }
 
 
-

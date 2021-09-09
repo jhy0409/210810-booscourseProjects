@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Second_MovieList_ViewController: UIViewController {
+class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSource {
     /*
      //Base URL은 https://connect-boxoffice.run.goorm.io/ 입니다.
      [화면 1 - 영화 목록]
@@ -36,13 +36,48 @@ class Second_MovieList_ViewController: UIViewController {
      - [] 테이블뷰와 컬렉션뷰를 아래쪽으로 잡아당기면 새로고침됩니다.
      - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
+    
+    var movies: [Movie] = []
+    var movieList: MovieList?
+    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    private let cellIdentifire = "secondCell"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        notiAddObserber()
         // Do any additional setup after loading the view.
+        
+        print("\n💀💀Second View movies.coung: \(movies.count)")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("\n💀💀💀Second View movies.coung: \(movies.count)")
+    }
+    
+    func notiAddObserber() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+    }
+    
+    @objc func didRiecieveMovieNotification(_ noti: Notification) {
+        guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
+        guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
+        self.movies = movies
+        self.movieList = movieList
+        
+        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+            self.collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+            // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
+            guard let sort = self.movieList?.order_type else { return }
+            self.title = getViewTitleFromSortType(sort)
+        }
+    }
 
+    
     /*
     // MARK: - Navigation
 
@@ -52,5 +87,39 @@ class Second_MovieList_ViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell: SecondCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifire, for: indexPath) as? SecondCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let movie = self.movies[indexPath.item] as? Movie else { return cell }
+        cell.update(movie)
+        cell.posterImageView.image = nil
+        
+        DispatchQueue.global().async {
+            guard let imageURL: URL = URL(string: movie.thumb) else { return }
+            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
+
+
+            DispatchQueue.main.async {
+                if let index: IndexPath = collectionView.indexPath(for: cell) {
+                    if index.item == indexPath.item {
+                        cell.posterImageView.backgroundColor = .systemBackground
+                        cell.posterImageView.image = UIImage(data: imageData)
+                    }
+//                    else {
+//                        cell.posterImageView.image = nil
+//                        cell.posterImageView.backgroundColor = .gray
+//                    }
+                }
+            }
+        }
+        return cell
+    }
 
 }
+
+
