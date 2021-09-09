@@ -37,25 +37,25 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
      - [] 테이블뷰/컬렉션뷰의 셀을 누르면 해당 영화의 상세 정보를 보여주는 화면 2로 전환합니다.
      */
     
-    var movies: [Movie] = []
-    var movieList: MovieList?
+//    var movies: [Movie] = []
+//    var movieList: MovieList?
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     private let cellIdentifire = "secondCell"
-    
+    let shared = MovieShared.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()
         // Do any additional setup after loading the view.
         
-        print("\n💀💀Second View movies.coung: \(movies.count)")
+        print("\n💀Second View shared.movieList?.movies.count: \(shared.movieList?.movies.count)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("\n💀💀💀Second View movies.coung: \(movies.count)")
+        print("\n💀💀Second View shared.movieList?.movies.count: \(shared.movieList?.movies.count)")
     }
     
     func notiAddObserber() {
@@ -65,14 +65,22 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
-        self.movies = movies
-        self.movieList = movieList
+//        self.movies = movies
+//        self.movieList = movieList
+        
+        shared.movieList?.movies = movies
+        shared.movieList = movieList
+        
+//        self.movies = shared.movieList?.movies as! [Movie]
+//        self.movieList = shared.movieList
         
         DispatchQueue.main.async {
 //            self.tableView.reloadData()
-            self.collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+//            self.collectionView.reloadItems(at: [IndexPath(indexes: 0...0)])
+            self.collectionView.reloadData()
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
-            guard let sort = self.movieList?.order_type else { return }
+//            guard let sort = self.movieList?.order_type else { return }
+            guard let sort = self.shared.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
         }
     }
@@ -89,13 +97,16 @@ class Second_MovieList_ViewController: UIViewController, UICollectionViewDataSou
     */
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies.count
+//        movies.count
+        guard let itemsCount = shared.movieList?.movies.count else { return 0 }
+        return  itemsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell: SecondCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifire, for: indexPath) as? SecondCollectionViewCell else { return UICollectionViewCell() }
         
-        guard let movie = self.movies[indexPath.item] as? Movie else { return cell }
+        //guard let movie = self.movies[indexPath.item] as? Movie else { return cell }
+        guard let movie = shared.movieList?.movies[indexPath.item] as? Movie else { return cell }
         cell.update(movie)
         cell.posterImageView.image = nil
         

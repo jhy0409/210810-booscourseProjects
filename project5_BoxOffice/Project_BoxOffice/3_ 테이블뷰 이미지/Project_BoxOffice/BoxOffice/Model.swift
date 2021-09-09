@@ -16,7 +16,7 @@ import UIKit
 // MARK: - [] Movie struct
 struct MovieList: Codable {
     let order_type: SortType
-    let movies: [Movie]
+    var movies: [Movie]
 }
 
 struct Movie: Codable, Hashable {
@@ -61,4 +61,11 @@ struct Movie: Codable, Hashable {
 // MARK: - [ㅇ] 영화 정렬순서 / 0: 예매율(default), 1: 큐레이션, 2: 개봉일
 enum SortType: Int, Codable {
     case reservation, curation, openingDate
+}
+
+class MovieShared {
+    static var shared = MovieShared()
+    var movieList: MovieList? = nil
+    
+    private init() { }
 }

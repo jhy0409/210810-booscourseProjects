@@ -10,12 +10,18 @@ import UIKit
 class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var movies: [Movie] = []
-    var movieList: MovieList?
+//    var movies: [Movie] = []
+//    var movieList: MovieList?
     let cellIdentifier: String = "firstCell"
     
     let recieveMovieID: String = "DidRecieveMovies"
     lazy var DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
+    
+    let shared = MovieShared.shared
+    var movies: [Movie] = []
+//    var movies: [Movie] = []
+//    var movieList: MovieList?
+    var movieList: MovieList?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -53,8 +59,13 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
-        self.movies = movies
-        self.movieList = movieList
+//        self.movies = movies
+//        self.movieList = movieList
+        shared.movieList?.movies = movies
+        shared.movieList = movieList
+        
+        self.movies = shared.movieList?.movies as! [Movie]
+        self.movieList = shared.movieList
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
