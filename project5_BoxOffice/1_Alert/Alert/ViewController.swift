@@ -46,10 +46,12 @@ class ViewController: UIViewController {
         alertController.addAction(someAction)
         alertController.addAction(anotherAction)
         
-        alertController.addTextField(configurationHandler: {(field: UITextField) in
-            field.placeholder = "플레이스 홀더"
-            field.textColor = UIColor.red
-        })
+        if style == .alert {
+            alertController.addTextField(configurationHandler: {(field: UITextField) in
+                field.placeholder = "플레이스 홀더"
+                field.textColor = UIColor.red
+            })
+        }
         
         self.present(alertController, animated: true, completion: {
             print("Alert controller shown")

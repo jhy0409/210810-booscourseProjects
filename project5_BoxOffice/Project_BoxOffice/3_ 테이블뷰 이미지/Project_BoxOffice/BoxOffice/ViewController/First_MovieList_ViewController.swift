@@ -16,9 +16,9 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
         - [ㅇ] 첫 번째 탭은 'Table', 두 번째 탭은 'Collection' 타이틀로 구성합니다.
         - [] 첫 번째 탭 화면은 테이블형태로, 두 번째 탭 화면은 컬렉션 형태로 같은 데이터를 사용하여 콘텐츠를 표시합니다.
      
-        - [] 테이블 화면
+        - [ㅇ] 테이블 화면
              - [ㅇ] 테이블뷰 셀에 영화 포스터를 보여줍니다.
-             - [] 포스터 오른편에 영화정보(제목ㅇ, 등급, 평점ㅇ, 예매순위ㅇ, 예매율ㅇ, 개봉일ㅇ)를 보여줍니다.
+             - [ㅇ] 포스터 오른편에 영화정보(제목ㅇ, 등급ㅇ, 평점ㅇ, 예매순위ㅇ, 예매율ㅇ, 개봉일ㅇ)를 보여줍니다.
      
         - [] 컬렉션 화면
              - [] 컬렉션뷰 셀에 영화 포스터와 등급을 함께 보여줍니다.
@@ -39,6 +39,7 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     var movies: [Movie] = []
+    var movieList: MovieList?
     let cellIdentifier: String = "firstCell"
     
     let recieveMovieID: String = "DidRecieveMovies"
@@ -69,13 +70,6 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
         return cell
     }
     
@@ -85,24 +79,33 @@ class First_MovieList_ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
     
-    @objc func didRiecieveMovieNotification(_ noti: Notification) {
+        @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
+        guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
         self.movies = movies
+        self.movieList = movieList
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
+            guard let sort = self.movieList?.order_type else { return }
+            self.title = getViewTitleFromSortType(sort)
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        requestMoovies()
+        requestMoovies(SortType.reservation)
+    }
+    
+    
+    @IBAction func tappedSortingButton(_ sender: Any) {
+        print("🏆🏆🏆")
     }
 }
 

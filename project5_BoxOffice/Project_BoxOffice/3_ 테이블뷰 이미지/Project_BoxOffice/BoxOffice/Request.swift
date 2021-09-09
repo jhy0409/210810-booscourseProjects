@@ -10,20 +10,55 @@ import Foundation
 let recieveMovieID: String = "DidRecieveMovies"
 let DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
 
-func requestMoovies() {
 //    let testURL: String = "https://connect-boxoffice.run.goorm.io/"
+func requestMoovies(_ sort: SortType) {
     let testURL: String = "https://connect-boxoffice.run.goorm.io/movies"
-    guard let url: URL = URL(string: testURL) else { return }
-    
+    guard let url: URL = appendSubQueryBySortType(testURL, sort) else { return }
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in
         guard let data = data else { return }
         do {
             let apiResponse: MovieList =  try JSONDecoder().decode(MovieList.self, from: data)
-            NotificationCenter.default.post(name: DidRecievedMoviesNotification, object: nil, userInfo: ["movies":apiResponse.movies])
+            NotificationCenter.default.post(name: DidRecievedMoviesNotification, object: nil, userInfo: ["movies":apiResponse.movies, "movieList":apiResponse])
         } catch let err {
-            print("\n\n---> 🤮🤮 err.localizedDescription : \(err.localizedDescription)")
+            print("\n\n---> 🤮🤮 Request.swift / err.localizedDescription : \(err.localizedDescription)")
         }
     }
     dataTask.resume()
+}
+
+func getViewTitleFromSortType(_ sort: SortType) -> String {
+    var resultString: String = ""
+    switch sort {
+    case .reservation:
+        resultString = "예매율"
+        
+    case .curation:
+        resultString = "큐레이션"
+        
+    case .openingDate:
+        resultString = "개봉일"
+    }
+    
+    return resultString
+}
+
+//connect-boxoffice.run.goorm.io/movies?order_type=1
+// MARK: - [ㅇ] URL 서브쿼리 메소드 - 영화정렬 순서
+func appendSubQueryBySortType(_ inputURL: String, _ sort: SortType) -> URL? {
+    var resultURLString = inputURL + "?order_type="
+    
+    switch sort { //영화 정렬순서
+    case .reservation:
+        resultURLString.append("0") //0: 예매율(default)
+    case .curation:
+        resultURLString.append("1") //1: 큐레이션
+    case .openingDate:
+        resultURLString.append("2") //2: 개봉일
+    }
+    
+    guard let url: URL = URL(string: resultURLString)
+    else { print("\n\n---> 🎃🎃 Request.swift / func appendSubQueryBySortType(_ inputURL :"); return nil }
+    
+    return url
 }
