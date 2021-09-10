@@ -49,6 +49,9 @@ class Third_MovieDetail_ViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .white
         notiAddObserber()
         refresh()
+        
+        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+//        tableView.tableHeaderView?.frame.size.height = 0
         // Do any additional setup after loading the view.
         
 //        firstStack.frame.size.width = (tableView.bounds.width - 40) / 3
@@ -83,6 +86,40 @@ class Third_MovieDetail_ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
     
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+//
+//        let label = UILabel()
+//        label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+//        label.text = "Notification Times"
+//        label.font = .systemFont(ofSize: 16)
+//        label.textColor = .yellow
+//
+//        headerView.addSubview(label)
+//
+//        return headerView
+//    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat.leastNormalMagnitude
+        } else if section < 3 {
+            print("🟣🟣 heightForHeaderInSection : \(section)")
+            return CGFloat.leastNormalMagnitude
+        }
+        return 400
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 3 {
+            return "한줄평"
+        } else {
+            return nil
+        }
+    }
 }
 
 
@@ -131,4 +168,6 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionForTableView.count
     }
+    
+    
 }

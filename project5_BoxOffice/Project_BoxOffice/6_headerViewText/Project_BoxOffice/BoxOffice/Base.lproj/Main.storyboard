@@ -391,7 +391,7 @@
                                             <constraints>
                                                 <constraint firstItem="2Nh-7K-uab" firstAttribute="leading" secondItem="8HU-J6-RTn" secondAttribute="leading" constant="17" id="3Uc-Yi-F7L"/>
                                                 <constraint firstAttribute="trailing" secondItem="2Nh-7K-uab" secondAttribute="trailing" constant="20" id="W3B-DV-fHu"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2Nh-7K-uab" secondAttribute="bottom" constant="20" id="xTf-jo-qVu"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2Nh-7K-uab" secondAttribute="bottom" constant="20" id="ubr-qq-zbG"/>
                                                 <constraint firstItem="2Nh-7K-uab" firstAttribute="top" secondItem="8HU-J6-RTn" secondAttribute="top" constant="20" id="xr6-3R-SO1"/>
                                             </constraints>
                                         </tableViewCellContentView>
