@@ -363,6 +363,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="GwM-zU-beX" secondAttribute="trailing" constant="18" id="OuR-eN-VPL"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hdT-DL-P7d" secondAttribute="bottom" constant="20" id="PEF-Dz-rTQ"/>
                                                 <constraint firstItem="hdT-DL-P7d" firstAttribute="leading" secondItem="Th3-N6-vSp" secondAttribute="trailing" constant="15" id="Vc8-b7-SgD"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hdT-DL-P7d" secondAttribute="trailing" constant="20" id="XIi-C7-9AI"/>
                                                 <constraint firstItem="Th3-N6-vSp" firstAttribute="top" secondItem="hKr-VM-jdy" secondAttribute="bottom" constant="5" id="Ze7-Ub-kTk"/>
                                                 <constraint firstItem="GwM-zU-beX" firstAttribute="leading" secondItem="eBA-2f-hgc" secondAttribute="leading" constant="17" id="kqr-Kq-tVZ"/>
                                                 <constraint firstItem="Th3-N6-vSp" firstAttribute="top" secondItem="dkv-0R-Rt6" secondAttribute="bottom" constant="5" id="uje-bb-0qe"/>
@@ -372,6 +373,27 @@
                                             <outlet property="actorLabel" destination="hdT-DL-P7d" id="khs-95-GVJ"/>
                                             <outlet property="directorLabel" destination="dkv-0R-Rt6" id="r3Q-WU-22X"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfFourth" rowHeight="200" id="Hfk-US-WuO" userLabel="thirdOfFourth" customClass="ThirdOfFourth_MovieIntro_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="824.5" width="414" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hfk-US-WuO" id="8HU-J6-RTn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="한줄평" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nh-7K-uab">
+                                                    <rect key="frame" x="17" y="20" width="377" height="25.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2Nh-7K-uab" firstAttribute="leading" secondItem="8HU-J6-RTn" secondAttribute="leading" constant="17" id="3Uc-Yi-F7L"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Nh-7K-uab" secondAttribute="trailing" constant="20" id="W3B-DV-fHu"/>
+                                                <constraint firstItem="2Nh-7K-uab" firstAttribute="top" secondItem="8HU-J6-RTn" secondAttribute="top" constant="20" id="xr6-3R-SO1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

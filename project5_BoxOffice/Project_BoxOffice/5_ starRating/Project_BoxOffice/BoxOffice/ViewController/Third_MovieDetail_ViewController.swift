@@ -29,6 +29,7 @@ class Third_MovieDetail_ViewController: UIViewController {
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
     let thirdCell: String = "thirdOfThird"
+    let fourthCell: String = "thirdOfFourth"
     
     var urlFromSecondView: URL?
     var movie: Movie?
@@ -115,6 +116,11 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         case 2: // directAndActor
             guard let cell: ThirdOfThird_DirectorAndActor_TableViewCell = tableView.dequeueReusableCell(withIdentifier: thirdCell) as? ThirdOfThird_DirectorAndActor_TableViewCell else { return UITableViewCell() }
             cell.update(sendMovie)
+            return cell
+            
+        case 3:
+            guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
+//            cell.update(sendMovie)
             return cell
         default:
             return UITableViewCell()
