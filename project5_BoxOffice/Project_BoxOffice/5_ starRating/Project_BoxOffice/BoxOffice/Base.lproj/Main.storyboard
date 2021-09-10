@@ -313,13 +313,65 @@
                                             <outlet property="synopsisLabel" destination="a98-K5-xRu" id="sPk-Od-G5j"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfThird" id="qRz-Kd-XBq" userLabel="thirdOfThird">
-                                        <rect key="frame" x="0.0" y="624.5" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfThird" rowHeight="200" id="qRz-Kd-XBq" userLabel="thirdOfThird" customClass="ThirdOfThird_DirectorAndActor_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="624.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qRz-Kd-XBq" id="eBA-2f-hgc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="감독/출연" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwM-zU-beX">
+                                                    <rect key="frame" x="17" y="20" width="379" height="25.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="감독" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKr-VM-jdy">
+                                                    <rect key="frame" x="17" y="50.5" width="28" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkv-0R-Rt6">
+                                                    <rect key="frame" x="60" y="50.5" width="39.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="출연" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Th3-N6-vSp">
+                                                    <rect key="frame" x="17" y="75" width="28" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdT-DL-P7d">
+                                                    <rect key="frame" x="60" y="75" width="39.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dkv-0R-Rt6" firstAttribute="top" secondItem="hKr-VM-jdy" secondAttribute="top" id="0nP-tI-jx4"/>
+                                                <constraint firstItem="GwM-zU-beX" firstAttribute="top" secondItem="eBA-2f-hgc" secondAttribute="top" constant="20" id="2bB-ma-yK7"/>
+                                                <constraint firstItem="hdT-DL-P7d" firstAttribute="top" secondItem="Th3-N6-vSp" secondAttribute="top" id="BFz-Pt-KuV"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dkv-0R-Rt6" secondAttribute="trailing" id="ELk-R7-vxw"/>
+                                                <constraint firstItem="hKr-VM-jdy" firstAttribute="leading" secondItem="eBA-2f-hgc" secondAttribute="leading" constant="17" id="F0X-0l-dT2"/>
+                                                <constraint firstItem="Th3-N6-vSp" firstAttribute="leading" secondItem="hKr-VM-jdy" secondAttribute="leading" id="G8x-0o-0rq"/>
+                                                <constraint firstItem="hKr-VM-jdy" firstAttribute="top" secondItem="GwM-zU-beX" secondAttribute="bottom" constant="5" id="Hes-0a-S32"/>
+                                                <constraint firstItem="dkv-0R-Rt6" firstAttribute="leading" secondItem="hKr-VM-jdy" secondAttribute="trailing" constant="15" id="Km5-uJ-fhN"/>
+                                                <constraint firstAttribute="trailing" secondItem="GwM-zU-beX" secondAttribute="trailing" constant="18" id="OuR-eN-VPL"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hdT-DL-P7d" secondAttribute="bottom" constant="20" id="PEF-Dz-rTQ"/>
+                                                <constraint firstItem="hdT-DL-P7d" firstAttribute="leading" secondItem="Th3-N6-vSp" secondAttribute="trailing" constant="15" id="Vc8-b7-SgD"/>
+                                                <constraint firstItem="Th3-N6-vSp" firstAttribute="top" secondItem="hKr-VM-jdy" secondAttribute="bottom" constant="5" id="Ze7-Ub-kTk"/>
+                                                <constraint firstItem="GwM-zU-beX" firstAttribute="leading" secondItem="eBA-2f-hgc" secondAttribute="leading" constant="17" id="kqr-Kq-tVZ"/>
+                                                <constraint firstItem="Th3-N6-vSp" firstAttribute="top" secondItem="dkv-0R-Rt6" secondAttribute="bottom" constant="5" id="uje-bb-0qe"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="actorLabel" destination="hdT-DL-P7d" id="khs-95-GVJ"/>
+                                            <outlet property="directorLabel" destination="dkv-0R-Rt6" id="r3Q-WU-22X"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
