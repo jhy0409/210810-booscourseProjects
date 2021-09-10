@@ -8,15 +8,14 @@
 import UIKit
 
 class ThirdOfSecond_MovieIntro_TableViewCell: UITableViewCell {
-    
-    
+    @IBOutlet weak var synopsisLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
     func update(_ movieDetail: MovieDetail) {
-      
+        synopsisLabel.text = movieDetail.synopsis
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

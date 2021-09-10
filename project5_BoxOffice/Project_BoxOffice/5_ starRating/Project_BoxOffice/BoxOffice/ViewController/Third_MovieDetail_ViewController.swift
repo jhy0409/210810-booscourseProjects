@@ -15,7 +15,7 @@ class Third_MovieDetail_ViewController: UIViewController {
      [화면구성]
      - [ㅇ] 화면2 내비게이션 아이템 타이틀은 이전 화면에서 선택된 영화 제목입니다.
      - [] 영화 상세정보 화면을 구현합니다.
-         - [] 영화 포스터를 포함한 소개, 줄거리, 감독/출연 그리고 한줄평을 모두 포함합니다.
+         - [] 영화 포스터를 포함한 소개, 줄거리ㅇ, 감독/출연 그리고 한줄평을 모두 포함합니다.
          - [] 한줄평에는 작성자의 프로필, 닉네임, 별점, 작성일 그리고 평을 보여줍니다.
          - [] 한줄평 오른쪽 상단에는 새로운 한줄평을 남길 수 있는 버튼이 있습니다.
      [기능]
@@ -28,10 +28,16 @@ class Third_MovieDetail_ViewController: UIViewController {
     
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
+    let thirdCell: String = "thirdOfThird"
     
     var urlFromSecondView: URL?
     var movie: Movie?
     let shared = MovieShared.shared
+    
+    let sectionForTableView: [String] = ["movieDetail", "synopsis", "directAndActor", "comments"]
+//    enum SectionForTableView: Int {
+//        case movieDetail = 0, synopsis = 1, directAndActor, comments
+//    }
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -84,16 +90,34 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         return 1
     }
     
+//    enum SectionForTableView {
+//        case movieDetail, synopsis, directAndActor, comments
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: ThirdOfFirst_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: firstCell) as? ThirdOfFirst_MovieIntro_TableViewCell else { return UITableViewCell() }
         
-        guard let sendMovie = shared.movieDetail, let movie = movie else { return cell }
+        guard let sendMovie = shared.movieDetail, let movie = movie else { return UITableViewCell() }
         
-        cell.posterImageView.image = movie.posterImage
-        DispatchQueue.main.async {
+        switch indexPath.section {
+        
+        case 0: //movieDetail
+            guard let cell: ThirdOfFirst_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: firstCell) as? ThirdOfFirst_MovieIntro_TableViewCell else { return UITableViewCell() }
+            
+            cell.posterImageView.image = movie.posterImage
+            DispatchQueue.main.async {
+                cell.update(sendMovie)
+            }
+            return cell
+            
+        case 1: // synopsis
+            guard let cell: ThirdOfSecond_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: secondCell) as? ThirdOfSecond_MovieIntro_TableViewCell else { return UITableViewCell() }
             cell.update(sendMovie)
+            return cell
+        default:
+            return UITableViewCell()
         }
-        
-        return cell
+    }
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionForTableView.count
     }
 }

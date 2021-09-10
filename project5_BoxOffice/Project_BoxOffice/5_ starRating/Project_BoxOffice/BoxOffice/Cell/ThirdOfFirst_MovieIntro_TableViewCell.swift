@@ -18,13 +18,15 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     @IBOutlet weak var userRateLabel: UILabel!
     @IBOutlet weak var audienceLabel: UILabel!
     
-//    var size: CGFloat? = nil
+//    @IBOutlet weak var stackView: UIStackView!
+    //    var size: CGFloat? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
 //        guard let size = size else { return }
 //        posterImageView.frame.size = CGSize(width: size, height: size + 100 )
         // Initialization code
+//        stackView.frame.size.width = (bounds.width - 30)
     }
 
     func update(_ movieDetail: MovieDetail) {
