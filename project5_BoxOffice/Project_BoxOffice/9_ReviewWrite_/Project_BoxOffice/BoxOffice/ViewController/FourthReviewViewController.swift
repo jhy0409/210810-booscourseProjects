@@ -40,9 +40,15 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         guard let movie = self.movie else { return }
         movieTitleLabel.text = movie.title
         gradeImageVIew.image = movie.gradeIcon
+        
+        
+        
         reviewTitleTextField.delegate = self
         reviewContentsTextField.delegate = self
+        reviewContentsTextField.layer.borderWidth = 1
+        reviewContentsTextField.layer.cornerRadius = 5
         
+        reviewContentsTextField.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
         let leftCancelItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeFourthView))
         let rightSubmitItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(submitReview))
         navigationItem.leftBarButtonItem = leftCancelItem
