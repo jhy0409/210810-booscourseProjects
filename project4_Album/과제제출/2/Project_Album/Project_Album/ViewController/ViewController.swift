@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, PHPhotoLibraryChangeObserver {
+class ViewController: UIViewController, UICollectionViewDelegate, PHPhotoLibraryChangeObserver {
     @IBOutlet weak var collectionView: UICollectionView!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
@@ -55,18 +55,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         fetchResults[2] = changes2.fetchResultAfterChanges
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResults.count
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell: FirstCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? FirstCollectionViewCell else { return UICollectionViewCell()}
         
-        guard let asset = fetchResults[indexPath.item].firstObject else { return cell }
+        guard let asset = fetchResults[indexPath.item].firstObject, fetchResults.count != 0 else { return cell }
         
         imageManager.requestImage(for: asset, targetSize: cell.bounds.size,
                                   contentMode: .aspectFill, options: nil) { (image, _) in
-                                  cell.imgView_thumbnail.image = image
+            if let index: IndexPath = collectionView.indexPath(for: cell) {
+                if index.item == indexPath.item {
+                    cell.imgView_thumbnail.image = image
+                } else {
+                    cell.imgView_thumbnail.image = nil
+                }
+            }
         }
         cell.update(title: albumTitle[indexPath.item], count: fetchResults[indexPath.item].count)
         return cell
@@ -75,7 +77,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-
+        
         // MARK: - [ㅇ] 접근권한
         switch photoAuthorizationStatus {
         case .authorized:
@@ -123,7 +125,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         print("-> 🟢 FirstVC 🟢 @IBSegueAction makeSecondVC: title = \(title) / assets count : \(assets.count)")
         
         let seconVC = SecondAlbumViewController(assets: assets, title: title, coder: coder)
-        seconVC?.assets = assets
         return seconVC
     }
 }
@@ -136,5 +137,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.bounds.width - itemSpacing - margin * 2) / 2
         let height = width + 70
         return CGSize(width: width, height: height)
+    }
+}
+
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchResults.count
     }
 }

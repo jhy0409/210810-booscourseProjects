@@ -175,7 +175,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Pxu-Jh-rVz" id="J0l-oX-7Xi"/>
-                        <outlet property="multiSelectPhoto_BarButtonItem" destination="BCc-5c-aqW" id="Wnp-8j-ZBk"/>
+                        <outlet property="multiSelectBarButtonItem" destination="BCc-5c-aqW" id="l8i-q8-0Jb"/>
                         <outlet property="toolbar" destination="UG0-iL-Llt" id="8en-xd-e2Q"/>
                     </connections>
                 </viewController>
@@ -186,7 +186,7 @@
         <!--Third Detail Photo View Controller-->
         <scene sceneID="S5D-xM-xSk">
             <objects>
-                <viewController storyboardIdentifier="thirdView" id="dnu-ZG-QpR" customClass="ThirdDetailPhoto_ViewController" customModule="Project_Album" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="thirdView" id="dnu-ZG-QpR" customClass="ThirdDetailPhotoViewController" customModule="Project_Album" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TNt-h8-A3q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
