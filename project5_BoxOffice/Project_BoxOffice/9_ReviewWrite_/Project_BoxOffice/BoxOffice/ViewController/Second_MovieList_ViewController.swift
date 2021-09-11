@@ -139,7 +139,7 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
         requestMoovies(movie.id)
-        
+        requestMovies(movie.id)
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
     }

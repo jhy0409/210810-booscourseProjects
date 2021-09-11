@@ -29,6 +29,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     let secondCell: String = "thirdOfSecond"
     let thirdCell: String = "thirdOfThird"
     let fourthCell: String = "thirdOfFourth"
+    let fourthView: String = "fourthView"
     
     var urlFromSecondView: URL?
     var movie: Movie?
@@ -39,8 +40,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     var commentArr: [Comment]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let headerNib = UINib(nibName: "writerHeader", bundle: nil)
-        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "reuseIdentifer")
         self.navigationController?.navigationBar.tintColor = .white
         notiAddObserberDetail()
         notiAddObserberComments()
@@ -179,7 +178,8 @@ extension Third_MovieDetail_ViewController {
     }
     
     @objc func commentViewPush() {
-        print("🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃")
+        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) else { return }
+        self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
