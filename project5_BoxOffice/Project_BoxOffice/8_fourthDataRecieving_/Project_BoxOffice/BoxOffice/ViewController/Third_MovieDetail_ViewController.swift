@@ -22,6 +22,7 @@ import UIKit
  */
 
 class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
@@ -38,7 +39,8 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = .white
-        notiAddObserber()
+        notiAddObserberDetail()
+        notiAddObserberComments()
         refresh()
         
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
@@ -72,8 +74,16 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         shared.movieDetail = movieDetail
     }
     
-    func notiAddObserber() {
+    @objc func didRecieveCommentsNotification(_ noti: Notification) {
+comments
+    }
+    
+    func notiAddObserberDetail() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
+    }
+    
+    func notiAddObserberComments() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveCommentsNotification), name: MovieDetailNotification, object: nil)
     }
 }
 
@@ -84,7 +94,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let sendMovie = shared.movieDetail, let movie = movie else { return UITableViewCell() }
+        guard let sendMovie = shared.movieDetail, let movie = movie else { print("👹👹👹 cellForRowAt indexPath - sendMovie"); return UITableViewCell() }
         
         switch indexPath.section {
         

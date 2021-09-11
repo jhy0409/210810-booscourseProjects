@@ -11,6 +11,9 @@ import UIKit
 let recieveMovieID: String = "DidRecieveMovies"
 let DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
 
+let recieveMovieDetail: String = "DidRecieveMovieDetail"
+let MovieDetailNotification: Notification.Name = Notification.Name(recieveMovieDetail)
+
 //    let testURL: String = "https://connect-boxoffice.run.goorm.io/"
 func requestMoovies(_ sortType: SortType?) {
     let testURL: String = "https://connect-boxoffice.run.goorm.io/movies"
