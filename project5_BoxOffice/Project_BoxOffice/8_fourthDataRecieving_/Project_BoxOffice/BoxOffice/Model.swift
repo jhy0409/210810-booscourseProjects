@@ -196,11 +196,95 @@ struct Comment: Codable {
     let writer: String
     let movie_id: String
     let contents: String
+    
+    var writtenDate: String {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:MM:ss"
+        
+        return "\(dateFormatter.string(from: date))"
+    }
+    
+    var rateNumberUnderTwo: Double {
+        let inputNumber = String(format: "%.2f", rating) // 40.000
+        return Double(inputNumber)!
+    }
+    var rateStar: NSAttributedString {
+        var number = NSMutableAttributedString(string: "")
+        let imageAttachment = NSTextAttachment()
+        let imageHalfAttachment = NSTextAttachment()
+        let imageEmptyAttachment = NSTextAttachment()
+        
+        let img = UIImage(named: "ic_star_large_full")
+        let star = img?.resize(newWidth: 17)
+        imageAttachment.image = star
+        
+        let img2 = UIImage(named: "ic_star_large_half")
+        let star2 = img2?.resize(newWidth: 17)
+        imageHalfAttachment.image = star2
+        
+        let img3 = UIImage(named: "ic_star_large")
+        let star3 = img3?.resize(newWidth: 17)
+        imageEmptyAttachment.image = star3
+        
+        let starFull = NSAttributedString(attachment: imageAttachment)
+        let starHalf = NSAttributedString(attachment: imageHalfAttachment)
+        let starEmpty = NSAttributedString(attachment: imageEmptyAttachment)
+        
+        // MARK: - [ㅇ] 별점 5점으로 환산 (9.8/1/2 = 4.9)
+        let count: Int = Int((rateNumberUnderTwo * 0.5) / 1)
+        let remain: Double =  ((rateNumberUnderTwo * 0.5) / 1) - Double(count)
+        print("🔴🔴🔴 count : \(count)")
+        var index = 0
+        if count != 0 {
+            for _ in 1...count {
+                number.append(starFull)
+                print("\n\n-------->🎃 count: \(count) /rateNumberUnderTwo: \(rateNumberUnderTwo * 0.5) / count: \(count) /remain : \(remain)\n-------->🎃 index: \(index)")
+                index += 1
+            }
+            if count < 5 {
+                var range = 1...(5-count)
+                if remain > 0.3 && remain < 1 { // 0.3초과의 나머지 수가 있을 때
+                    range = 0...((4-index)) // 별 반개 추가하고 인덱스 하나 줄임
+                    number.append(starHalf)
+                    print("\n-------->🎃🎃 index: \(index)")
+                    
+                    if index == 1 { // 2번째 자리에서 별 반개 추가됐을 때
+                        for _ in 1...3 { // ㅇ빈별 3개 추가
+                            number.append(starEmpty)
+                        }
+                    } else if index == 2 { // 3번째 자리에서 별 반개 추가됐을 때
+                        for _ in 1...2 { // ㅇ빈별 1개 추가
+                            number.append(starEmpty)
+                        }
+                    } else if index == 3 { // 4번째 자리에서 별 반개 추가됐을 때
+                        for _ in 1...1 { // ㅇ빈별 1개 추가
+                            number.append(starEmpty)
+                        }
+                    }
+                }
+                else { // 0.3이하의 나머지일 경우 - 나머지를 버리고 빈별로 채움
+                    print("\n-------->🎃🎃🎃 range: \(range)")
+                    for _ in range {
+                        number.append(starEmpty)
+                    }
+                }
+            }
+            
+        }
+        else {
+            for _ in 0...4 {
+                number.append(starEmpty)
+            }
+        }
+        
+        return number
+    }
 }
 
 struct MovieComments: Codable {
     let movie_id: String
-    let comments: [Comment]
+    var comments: [Comment]
 }
 
 extension UIImage {

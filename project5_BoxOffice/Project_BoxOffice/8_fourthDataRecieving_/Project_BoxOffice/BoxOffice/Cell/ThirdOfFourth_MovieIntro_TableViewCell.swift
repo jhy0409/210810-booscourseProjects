@@ -8,12 +8,31 @@
 import UIKit
 
 class ThirdOfFourth_MovieIntro_TableViewCell: UITableViewCell {
-
+    
+//    let writer: String
+//    let rating: Double
+//    let timestamp: Double
+    
+//    let movie_id: String
+//    let contents: String
+    
+    @IBOutlet weak var writerLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var contentsLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    func update(_ comment: Comment) {
+        writerLabel.text = comment.writer
+        ratingLabel.attributedText = comment.rateStar
+//        ratingLabel.text = "\(comment.rating)"
+        timestampLabel.text = "\(comment.writtenDate)"
+        contentsLabel.text = comment.contents
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

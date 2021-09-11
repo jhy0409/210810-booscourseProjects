@@ -13,17 +13,20 @@ let DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieve
 
 let recieveMovieComments: String = "DidRecieveMovieComments"
 let MovieCommentsNotification: Notification.Name = Notification.Name(recieveMovieComments)
-
+let shared = MovieShared.shared
 
 // MARK: - [] 🔴
 func requestMovies(_ commentsByID: String) {
     guard let url: URL = appendSubQueryForComments(commentsByID) else { return }
+    print("url : \(url)")
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in
         guard let data = data else { return }
         do {
             let apiResponse: MovieComments =  try JSONDecoder().decode(MovieComments.self, from: data)
             NotificationCenter.default.post(name: MovieCommentsNotification, object: nil, userInfo: ["movieComments":apiResponse, "comments":apiResponse.comments])
+            shared.movieComments = apiResponse
+            shared.movieComments?.comments = apiResponse.comments
         } catch let err {
             print("\n\n---> 🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
         }
@@ -131,7 +134,7 @@ func appendSubQueryByMovieID(_ id: String) -> URL? {
 
 
 func appendSubQueryForComments(_ id: String) -> URL? {
-    let testURL: String = "connect-boxoffice.run.goorm.io/comments?movie_id="
+    let testURL: String = "https://connect-boxoffice.run.goorm.io/comments?movie_id="
     let resultURLString = testURL + "\(id)"
     guard let url: URL = URL(string: resultURLString) else { return nil }
     return url
