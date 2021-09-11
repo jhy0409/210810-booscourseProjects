@@ -48,6 +48,11 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadSections(IndexSet(3...3), with: .automatic)
+    }
+    
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
     func refresh() {
         let refresh = UIRefreshControl()
@@ -65,9 +70,9 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         tableView.reloadData()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        movie = nil
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        movie = nil
+//    }
     
     // MARK: - [] 노티
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
@@ -108,7 +113,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let sendMovie = shared.movieDetail, let movie = movie else { print("👹 cellForRowAt indexPath - sendMovie"); return UITableViewCell() }
+        guard let sendMovie = shared.movieDetail, let movie = movie else { print("👹 cellForRowAt indexPath - sendMovie \(shared.movieDetail), 💋\(movie?.title)"); return UITableViewCell() }
         
         switch indexPath.section {
         
@@ -177,7 +182,10 @@ extension Third_MovieDetail_ViewController {
     }
     
     @objc func commentViewPush() {
-        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { print("😡😡😡😡😡😡😡 self.storyboard?.instantiateView"); return }
+        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { return }
+        guard let movie = self.movie else { return }
+        fourthViewAsReview.title = "한줄평 작성"
+        fourthViewAsReview.movie = movie
         self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
     }
     
