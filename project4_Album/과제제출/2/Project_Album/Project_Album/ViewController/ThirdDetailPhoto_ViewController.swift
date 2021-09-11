@@ -24,7 +24,7 @@ class ThirdDetailPhotoViewController: UIViewController,UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //detailImgView.image = getImage(asset)
+        detailImgView.image = getImage(asset)
         guard let date: (String, String) = dateString else { return }
         self.navigationItem.titleView = setTitle(title: "\(date.0)", subtitle: "\(date.1)")
         setToolBarItem_thirdVC() // 툴바 세팅
@@ -84,6 +84,7 @@ class ThirdDetailPhotoViewController: UIViewController,UIScrollViewDelegate {
         let deleveryOptions = PHImageRequestOptionsDeliveryMode.highQualityFormat
         let option = PHImageRequestOptions()
         option.deliveryMode = deleveryOptions
+        option.isSynchronous = true
         let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
         manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: option) { image, _  in
             if let img = image {
@@ -99,6 +100,7 @@ class ThirdDetailPhotoViewController: UIViewController,UIScrollViewDelegate {
         let deleveryOptions = PHImageRequestOptionsDeliveryMode.highQualityFormat
         let option = PHImageRequestOptions()
         option.deliveryMode = deleveryOptions
+        option.isSynchronous = true
         
         let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
         manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: option) { image, _  in

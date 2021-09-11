@@ -138,6 +138,10 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let height = width + 70
         return CGSize(width: width, height: height)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {

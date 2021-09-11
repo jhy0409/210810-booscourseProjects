@@ -9,7 +9,6 @@ import UIKit
 
 class SecondCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "cell"
-    var tappedMultiSelect: Bool?
     @IBOutlet weak var photoImgView: UIImageView!
     var defaultBorderColor = CGColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
@@ -21,9 +20,10 @@ class SecondCollectionViewCell: UICollectionViewCell {
         photoImgView.layer.borderColor = defaultBorderColor
     }
     
+    
     override var isSelected: Bool {
         didSet {
-            if isSelected == true, tappedMultiSelect == true {
+            if isSelected == true, SecondAlbumViewController.tappedMultiSelect == true {
                 photoImgView.alpha = 0.4
                 photoImgView.layer.borderWidth = 3
                 photoImgView.layer.borderColor = CGColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
