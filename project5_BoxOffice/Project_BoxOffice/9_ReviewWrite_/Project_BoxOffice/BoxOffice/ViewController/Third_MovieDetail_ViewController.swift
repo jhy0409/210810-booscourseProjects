@@ -7,7 +7,6 @@
 
 import UIKit
 /*
- 
  [화면 2 - 영화 상세 정보]
   
  [화면구성]
@@ -18,7 +17,7 @@ import UIKit
      - [ㅇ] 한줄평 오른쪽 상단에는 새로운 한줄평을 남길 수 있는 버튼이 있습니다.
  [기능]
  - [] 영화 포스터를 터치하면 포스터를 전체화면에서 볼 수 있습니다.
- - [] 한줄평 오른쪽 상단의 새로운 한줄평 남기기 버튼을 탭하면 화면3으로 전환합니다.
+ - [ㅇ] 한줄평 오른쪽 상단의 새로운 한줄평 남기기 버튼을 탭하면 화면3으로 전환합니다.
  */
 
 class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
@@ -178,7 +177,7 @@ extension Third_MovieDetail_ViewController {
     }
     
     @objc func commentViewPush() {
-        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) else { return }
+        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { print("😡😡😡😡😡😡😡 self.storyboard?.instantiateView"); return }
         self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
     }
     
