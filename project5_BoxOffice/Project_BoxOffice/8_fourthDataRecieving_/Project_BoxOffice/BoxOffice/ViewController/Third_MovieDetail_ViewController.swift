@@ -47,8 +47,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         
         indicator.startAnimating()
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-//        print("commentArr?.count : \(commentArr?.count)")
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
@@ -87,7 +85,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
             self.shared.movieComments?.comments = comments
             self.movieComments = comments
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
-            print("💋💋💋💋 self.commentArr : \(self.commentArr?.count)")
             self.indicator.stopAnimating()
             self.indicator.isHidden = true
         }
@@ -108,9 +105,6 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         if section == 3 {
             return movieComments.count
         }
-        
-//        guard let commentsCount = shared.movieComments?.comments.count else { return 0 }
-//        return section == 3 ? commentsCount : 1
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,10 +134,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
             
         case 3: // comments
             guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
-            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else {
-                print(indexPath)
-                print("💀💀comments.count : \(shared.movieComments?.comments.count)")
-                print("💀💀💀💀💀guard let cell: ThirdOfFourth_MovieIntro_Tabl"); return cell }
+            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
             cell.update(comment)
             return cell
         default:
