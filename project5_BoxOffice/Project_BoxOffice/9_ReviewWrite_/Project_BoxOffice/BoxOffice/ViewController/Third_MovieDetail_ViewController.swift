@@ -39,7 +39,8 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     var commentArr: [Comment]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let headerNib = UINib(nibName: "writerHeader", bundle: nil)
+        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "reuseIdentifer")
         self.navigationController?.navigationBar.tintColor = .white
         notiAddObserberDetail()
         notiAddObserberComments()
@@ -151,7 +152,9 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
 extension Third_MovieDetail_ViewController {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 3 {
-            let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+            let frame: CGRect = tableView.frame
+                    
+            let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: frame.width, height: 50))
             let label = UILabel()
             let fontSize: CGFloat = 21
             let yAnchor: CGFloat = (header.frame.height - fontSize) / 2
@@ -165,13 +168,18 @@ extension Third_MovieDetail_ViewController {
             let buttonSize: CGFloat = 30
             button.frame = CGRect.init(x: header.frame.width - buttonSize - 17 , y: (header.frame.height - buttonSize), width: buttonSize, height: buttonSize)
             button.setImage(UIImage(named: "btn_compose"), for: .normal)
+            button.addTarget(self, action: #selector(commentViewPush), for: .touchUpInside)
+            
             header.addSubview(button)
             header.backgroundColor = .systemGray6
-            
             return header
         } else {
             return nil
         }
+    }
+    
+    @objc func commentViewPush() {
+        print("🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃🧃")
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

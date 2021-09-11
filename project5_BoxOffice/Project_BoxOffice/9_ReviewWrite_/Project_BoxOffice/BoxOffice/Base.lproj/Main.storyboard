@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bsT-v8-0qy">
+                                <rect key="frame" x="197" y="440.5" width="20" height="20"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P4K-uj-TXc">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -96,7 +99,9 @@
                         <constraints>
                             <constraint firstItem="P4K-uj-TXc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8WN-jb-beK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="P4K-uj-TXc" secondAttribute="bottom" id="JaD-yW-EC4"/>
+                            <constraint firstItem="bsT-v8-0qy" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="LK3-2e-MlW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P4K-uj-TXc" secondAttribute="trailing" id="VLi-Y7-s5C"/>
+                            <constraint firstItem="bsT-v8-0qy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Wcc-Na-EY7"/>
                             <constraint firstItem="P4K-uj-TXc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zq7-VR-mgc"/>
                         </constraints>
                     </view>
@@ -109,6 +114,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="indicator" destination="bsT-v8-0qy" id="8Ff-ig-t5S"/>
                         <outlet property="tableView" destination="P4K-uj-TXc" id="PxV-r9-Pr1"/>
                     </connections>
                 </viewController>
@@ -514,10 +520,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyZ-wC-gP8">
-                                                    <rect key="frame" x="54" y="79" width="306" height="43"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Spd-Z0-kK4" customClass="StarRatingView" customModule="BoxOffice" customModuleProvider="target">
+                                                    <rect key="frame" x="54" y="54" width="301" height="58"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XLA-S2-OYn" firstAttribute="leading" secondItem="qdJ-pG-3q9" secondAttribute="leading" constant="20" id="6l5-8c-6Fv"/>

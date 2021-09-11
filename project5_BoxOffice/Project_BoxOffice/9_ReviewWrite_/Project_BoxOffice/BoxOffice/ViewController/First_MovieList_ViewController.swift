@@ -8,7 +8,7 @@
 import UIKit
 
 class First_MovieList_ViewController: UIViewController {
-    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier: String = "firstCell"
     let recieveMovieID: String = "DidRecieveMovies"
@@ -19,8 +19,11 @@ class First_MovieList_ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         notiAddObserber()
         refresh()
+        indicator.startAnimating()
     }
     
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
@@ -34,6 +37,8 @@ class First_MovieList_ViewController: UIViewController {
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
             guard let sort = self.shared.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
+            self.indicator.stopAnimating()
+            self.indicator.isHidden = true
         }
     }
     
