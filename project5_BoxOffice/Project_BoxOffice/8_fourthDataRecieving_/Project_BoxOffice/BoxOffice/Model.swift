@@ -185,8 +185,22 @@ class MovieShared {
     static var shared = MovieShared()
     var movieList: MovieList? = nil
     var movieDetail: MovieDetail? = nil
+    var movieComments: MovieComments? = nil
     
     private init() { }
+}
+
+struct Comment: Codable {
+    let rating: Double
+    let timestamp: Double
+    let writer: String
+    let movie_id: String
+    let contents: String
+}
+
+struct MovieComments: Codable {
+    let movie_id: String
+    let comments: [Comment]
 }
 
 extension UIImage {

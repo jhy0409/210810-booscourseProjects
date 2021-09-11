@@ -24,6 +24,7 @@ import UIKit
 class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
     let thirdCell: String = "thirdOfThird"
@@ -34,7 +35,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     let shared = MovieShared.shared
     
     let sectionForTableView: [String] = ["movieDetail", "synopsis", "directAndActor", "comments"]
-    
+    lazy var commentArr = shared.movieComments?.comments
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +43,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         notiAddObserberDetail()
         notiAddObserberComments()
         refresh()
-        
+        indicator.startAnimating()
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         // Do any additional setup after loading the view.
     }
@@ -70,12 +71,22 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     // MARK: - [] 노티
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
-        guard let movieDetail: MovieDetail = noti.userInfo?["detail"] as? MovieDetail else { return }
-        shared.movieDetail = movieDetail
+        DispatchQueue.main.async {
+            guard let movieDetail: MovieDetail = noti.userInfo?["detail"] as? MovieDetail else { return }
+            self.shared.movieDetail = movieDetail
+            self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
+            self.indicator.stopAnimating()
+            self.indicator.isHidden = true
+        }
     }
-    
+    //["movieComments":apiResponse, "comments":apiResponse.comments])
     @objc func didRecieveCommentsNotification(_ noti: Notification) {
-comments
+        DispatchQueue.main.async {
+            guard let commentsData: MovieComments = noti.userInfo?["movieComments"] as? MovieComments else { return }
+            self.shared.movieComments = commentsData
+            self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
+            print("💋💋💋💋💋💋💋 shared.movieComments?.comments.count : \(self.shared.movieComments?.comments.count)")
+        }
     }
     
     func notiAddObserberDetail() {
@@ -83,7 +94,7 @@ comments
     }
     
     func notiAddObserberComments() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveCommentsNotification), name: MovieDetailNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveCommentsNotification), name: MovieCommentsNotification, object: nil)
     }
 }
 

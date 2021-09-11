@@ -445,19 +445,25 @@
                                     <outlet property="delegate" destination="Yvw-8y-Gxj" id="Zko-cx-4Bv"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YXY-xj-jLX">
+                                <rect key="frame" x="197" y="745" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OnC-hW-C3l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="YXY-xj-jLX" firstAttribute="centerX" secondItem="OnC-hW-C3l" secondAttribute="centerX" id="L7i-fR-NUT"/>
                             <constraint firstItem="OnC-hW-C3l" firstAttribute="trailing" secondItem="sOD-dM-h6c" secondAttribute="trailing" id="Oze-By-b0n"/>
                             <constraint firstItem="sOD-dM-h6c" firstAttribute="leading" secondItem="OnC-hW-C3l" secondAttribute="leading" id="eRN-4d-vms"/>
                             <constraint firstItem="OnC-hW-C3l" firstAttribute="bottom" secondItem="sOD-dM-h6c" secondAttribute="bottom" id="owv-Xz-A0U"/>
+                            <constraint firstItem="YXY-xj-jLX" firstAttribute="centerY" secondItem="OnC-hW-C3l" secondAttribute="centerY" id="vYC-Pt-9gp"/>
                             <constraint firstItem="sOD-dM-h6c" firstAttribute="top" secondItem="OnC-hW-C3l" secondAttribute="top" id="zXk-y7-KzO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PW3-rc-oyh"/>
                     <size key="freeformSize" width="414" height="1500"/>
                     <connections>
+                        <outlet property="indicator" destination="YXY-xj-jLX" id="Qg9-m7-ewF"/>
                         <outlet property="tableView" destination="sOD-dM-h6c" id="AgW-y8-biM"/>
                     </connections>
                 </viewController>
