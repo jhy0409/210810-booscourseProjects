@@ -13,11 +13,18 @@ class FirstTableViewCell: UITableViewCell {
     @IBOutlet weak var openDateLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var gradeImageView: UIImageView!
-    
+    var tapGesture: UITapGestureRecognizer?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abc))
+//        posterImageView.addGestureRecognizer(tapGesture)
+//        posterImageView.isUserInteractionEnabled = true
     }
+    
+//    @objc func abc() {
+//        print("🌈🌈🌈🌈posterImageView.addGestureRecognizer")
+//    }
     
     func update(_ movie: Movie) {
         movieTitleLabel.text = movie.title

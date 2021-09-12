@@ -141,7 +141,6 @@ struct MovieDetail: Codable {
         var index = 0
         for _ in 1...count {
             number.append(starFull)
-//            print("\n-------->🌈 rate: \(user_rating * 0.5) / count: \(count) /remain : \(remain)\n-------->🌈 index: \(index)")
             index += 1
         }
         
@@ -150,7 +149,6 @@ struct MovieDetail: Codable {
         if remain > 0.3 && remain < 1 { // 0.3초과의 나머지 수가 있을 때
             range = 0...((4-index)) // 별 반개 추가하고 인덱스 하나 줄임
             number.append(starHalf)
-//            print("\n-------->🌈🌈 index: \(index)")
             
             if index == 1 { // 2번째 자리에서 별 반개 추가됐을 때
                 for _ in 1...3 { // ㅇ빈별 3개 추가
@@ -174,6 +172,15 @@ struct MovieDetail: Codable {
         }
         return number
     }
+    
+//    var largeImage: UIImage {
+//        var resultImage = UIImage()
+//
+//        guard let imageURL: URL = URL(string: image), let imageData: Data = try? Data(contentsOf: imageURL) else { return resultImage }
+//
+//        resultImage = UIImage(data: imageData) ?? resultImage
+//        return resultImage
+//    }
 }
 
 // MARK: - [ㅇ] 영화 정렬순서 / 0: 예매율(default), 1: 큐레이션, 2: 개봉일

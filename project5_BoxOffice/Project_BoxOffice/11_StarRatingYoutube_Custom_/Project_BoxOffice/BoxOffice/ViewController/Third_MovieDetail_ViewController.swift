@@ -16,7 +16,7 @@ import UIKit
      - [ㅇ] 한줄평에는 작성자의 프로필ㅇ, 닉네임ㅇ, 별점ㅇ, 작성일ㅇ 그리고 평ㅇ을 보여줍니다.
      - [ㅇ] 한줄평 오른쪽 상단에는 새로운 한줄평을 남길 수 있는 버튼이 있습니다.
  [기능]
- - [] 영화 포스터를 터치하면 포스터를 전체화면에서 볼 수 있습니다.
+ - [ㅇ] 영화 포스터를 터치하면 포스터를 전체화면에서 볼 수 있습니다.
  - [ㅇ] 한줄평 오른쪽 상단의 새로운 한줄평 남기기 버튼을 탭하면 화면3으로 전환합니다.
  */
 
@@ -29,6 +29,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     let thirdCell: String = "thirdOfThird"
     let fourthCell: String = "thirdOfFourth"
     let fourthView: String = "fourthView"
+    let posterView: String = "posterView"
     
     var urlFromSecondView: URL?
     var movie: Movie?
@@ -37,6 +38,8 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     let sectionForTableView: [String] = ["movieDetail", "synopsis", "directAndActor", "comments"]
     var commentArr: [Comment]?
+    var tapGesture: UITapGestureRecognizer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .white
@@ -44,13 +47,48 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         notiAddObserberComments()
         refresh()
         
+        indicator.isHidden = false
         indicator.startAnimating()
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        
+        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(posterImageViewTapped))
+    }
+    
+    @objc func posterImageViewTapped() {
+//        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { return }
+//        guard let movie = self.movie else { return }
+//        fourthViewAsReview.title = "한줄평 작성"
+//        fourthViewAsReview.movie = movie
+//        self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
+//    }
+//    posterView
+        
+        guard let posterView = self.storyboard?.instantiateViewController(identifier: posterView) as? PosterViewController else { return }
+        guard let movie = self.movie, let imageString = shared.movieDetail?.image else { return }
+        posterView.title = movie.title + " 포스터 이미지"
+        posterView.movie = movie
+        
+        DispatchQueue.main.async {
+            self.indicator.isHidden = false
+            self.indicator.startAnimating()
+            guard let imageURL = URL(string: imageString), let imageData = try? Data(contentsOf: imageURL), let posterImage: UIImage = UIImage(data: imageData) else { return }
+            posterView.posterLargeImage = posterImage
+        }
+        self.indicator.stopAnimating()
+        self.indicator.isHidden = true
+        
+        navigationController?.pushViewController(posterView, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadSections(IndexSet(3...3), with: .automatic)
+        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
+        indicator.isHidden = false
+        indicator.startAnimating()
+        tableView.reloadData()
+        tableView.reloadSections(IndexSet(0...3), with: .automatic)
+        indicator.stopAnimating()
+        indicator.isHidden = true
     }
     
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
@@ -118,8 +156,10 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         
         case 0: //movieDetail
             guard let cell: ThirdOfFirst_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: firstCell) as? ThirdOfFirst_MovieIntro_TableViewCell else { return UITableViewCell() }
-            
+            guard let tapGestureForcell = tapGesture else { return cell }
             cell.posterImageView.image = movie.posterImage
+            cell.posterImageView.addGestureRecognizer(tapGestureForcell)
+            cell.posterImageView.isUserInteractionEnabled = true
             DispatchQueue.main.async {
                 cell.update(sendMovie)
             }
@@ -138,6 +178,11 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         case 3: // comments
             guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
             guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
+//            let comment: Comment = movieComments[indexPath.row]
+            
+            
+            
+            
             cell.update(comment)
             return cell
         default:
