@@ -113,8 +113,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let sendMovie = shared.movieDetail, let movie = movie else { print("👹 cellForRowAt indexPath - sendMovie \(shared.movieDetail), 💋\(movie?.title)"); return UITableViewCell() }
-        
+        guard let sendMovie = shared.movieDetail, let movie = movie else { return UITableViewCell() }
         switch indexPath.section {
         
         case 0: //movieDetail
@@ -172,7 +171,8 @@ extension Third_MovieDetail_ViewController {
             button.frame = CGRect.init(x: header.frame.width - buttonSize - 17 , y: (header.frame.height - buttonSize), width: buttonSize, height: buttonSize)
             button.setImage(UIImage(named: "btn_compose"), for: .normal)
             button.addTarget(self, action: #selector(commentViewPush), for: .touchUpInside)
-            
+
+//            header.translatesAutoresizingMaskIntoConstraints = false
             header.addSubview(button)
             header.backgroundColor = .systemGray6
             return header

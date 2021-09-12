@@ -39,7 +39,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     let shared = MovieShared.shared
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        self.starRatingFloatLabel.text = String(sender.value)
+        self.starRatingFloatLabel.text = String(Int(sender.value))
     }
     
     @IBAction func draggingSlider(_ sender: UISlider) {
@@ -57,26 +57,32 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
-            self.starRatingFloatLabel?.text = String(Int(floatValue))
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        settingTextFields()
+        settingNavigationItem()
+        
         guard let movie = self.movie else { return }
         movieTitleLabel.text = movie.title
         gradeImageVIew.image = movie.gradeIcon
-        
+        sliderForRating.value = 0
+        starRatingFloatLabel.text = "\(sliderForRating.value)"
+        print("💋1. comments.count : \( shared.movieComments?.comments.count)")
+    }
+    
+    func settingTextFields() {
         reviewTitleTextField.delegate = self
         reviewContentsTextField.delegate = self
         reviewContentsTextField.layer.borderWidth = 1
         reviewContentsTextField.layer.cornerRadius = 5
-        
-        sliderForRating.value = 0
-        starRatingFloatLabel.text = "\(sliderForRating.value)"
-        
         reviewContentsTextField.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+    }
+    
+    func settingNavigationItem() {
         let leftCancelItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeFourthView))
         let rightSubmitItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(submitReview))
         navigationItem.leftBarButtonItem = leftCancelItem
