@@ -35,9 +35,32 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var reviewContentsTextField: UITextField!
     @IBOutlet weak var starRatingFloatLabel: UILabel!
     
+    @IBOutlet var starButtons: [UIButton]!
     
     
     let shared = MovieShared.shared
+    
+    @IBAction func starButtonTapped(_ sender: UIButton) {
+        print("\n💖---> Rated \(sender.tag) star")
+        
+        for button in starButtons {
+            if button.tag <= sender.tag {
+                button.setBackgroundImage(UIImage.init(named: "ic_star_large_full"), for: .normal)
+            } else {
+                button.setBackgroundImage(UIImage.init(named: "ic_star_large"), for: .normal)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -52,7 +75,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         reviewContentsTextField.layer.borderWidth = 1
         reviewContentsTextField.layer.cornerRadius = 5
         
-        starRatingFloatLabel.text = "\(StarRatingView.resultSum)"
+//        starRatingFloatLabel.text = "\(StarRatingView.resultSum)"
         
         
         reviewContentsTextField.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)

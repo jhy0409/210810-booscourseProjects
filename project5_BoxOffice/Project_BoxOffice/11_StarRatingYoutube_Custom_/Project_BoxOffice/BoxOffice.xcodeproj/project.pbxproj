@@ -25,9 +25,6 @@
 		68AA3F4226EA246A00827C58 /* ThirdOfFirst_MovieIntro_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AA3F4126EA246A00827C58 /* ThirdOfFirst_MovieIntro_TableViewCell.swift */; };
 		68BC40D626E8CDC200529CDA /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */; };
 		68C1285726EACFA500B5027E /* ThirdOfSecond_MovieIntro_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C1285626EACFA500B5027E /* ThirdOfSecond_MovieIntro_TableViewCell.swift */; };
-		68D172F526ECCE9C00657D5C /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D172F426ECCE9C00657D5C /* StarRatingView.swift */; };
-		68D172F726ECCEB700657D5C /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D172F626ECCEB700657D5C /* StarRatingStackView.xib */; };
-		68D172F926ECCF0D00657D5C /* StarRatingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D172F826ECCF0D00657D5C /* StarRatingStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +48,6 @@
 		68AA3F4126EA246A00827C58 /* ThirdOfFirst_MovieIntro_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOfFirst_MovieIntro_TableViewCell.swift; sourceTree = "<group>"; };
 		68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
 		68C1285626EACFA500B5027E /* ThirdOfSecond_MovieIntro_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOfSecond_MovieIntro_TableViewCell.swift; sourceTree = "<group>"; };
-		68D172F426ECCE9C00657D5C /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
-		68D172F626ECCEB700657D5C /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
-		68D172F826ECCF0D00657D5C /* StarRatingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,9 +80,6 @@
 		6814F6DA26E8BFA7002E4AF0 /* BoxOffice */ = {
 			isa = PBXGroup;
 			children = (
-				68D172F826ECCF0D00657D5C /* StarRatingStackView.swift */,
-				68D172F626ECCEB700657D5C /* StarRatingStackView.xib */,
-				68D172F426ECCE9C00657D5C /* StarRatingView.swift */,
 				68BC40D426E8CD9400529CDA /* ViewController */,
 				68BC40D326E8CD8E00529CDA /* Cell */,
 				6814F6DB26E8BFA7002E4AF0 /* AppDelegate.swift */,
@@ -185,7 +176,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68D172F726ECCEB700657D5C /* StarRatingStackView.xib in Resources */,
 				6814F6E826E8BFA8002E4AF0 /* LaunchScreen.storyboard in Resources */,
 				6814F6E526E8BFA8002E4AF0 /* Assets.xcassets in Resources */,
 				6814F6E326E8BFA7002E4AF0 /* Main.storyboard in Resources */,
@@ -203,12 +193,10 @@
 				6839186226E8F0A60075CA9A /* sampleJson.swift in Sources */,
 				68AA3F4226EA246A00827C58 /* ThirdOfFirst_MovieIntro_TableViewCell.swift in Sources */,
 				6814F6E026E8BFA7002E4AF0 /* First_MovieList_ViewController.swift in Sources */,
-				68D172F926ECCF0D00657D5C /* StarRatingStackView.swift in Sources */,
 				6814F6DC26E8BFA7002E4AF0 /* AppDelegate.swift in Sources */,
 				68AA3F4026EA1D1200827C58 /* Third_MovieDetail_ViewController.swift in Sources */,
 				68364F4426EAE34500D37682 /* ThirdOfFourth_MovieIntro_TableViewCell.swift in Sources */,
 				6826B15C26E8F37000490A1E /* Request.swift in Sources */,
-				68D172F526ECCE9C00657D5C /* StarRatingView.swift in Sources */,
 				68787A5426E9E6C30029F8F7 /* SecondCollectionViewCell.swift in Sources */,
 				6850FC1126ED0386009B2EAC /* FourthReviewViewController.swift in Sources */,
 				68364F4226EADFD900D37682 /* ThirdOfThird_DirectorAndActor_TableViewCell.swift in Sources */,
