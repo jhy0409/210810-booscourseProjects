@@ -58,6 +58,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var reviewContentsTextField: UITextField!
     @IBOutlet weak var starRatingFloatLabel: UILabel!
     @IBOutlet weak var sliderForRating: UISlider!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var reviewFieldCheck: Bool {
         let checkValue: (Bool?, Bool?) = (reviewTitleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty, reviewContentsTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -71,7 +72,9 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     
     lazy var urlSession = URLSession.shared
     var userRating: Int?
+    var callbackResult: (() -> ())?
     
+    // MARK: - [ㅇ] 드래그해서 별점 주기
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.starRatingFloatLabel.text = String(Int(sender.value))
     }
@@ -79,12 +82,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     @IBAction func draggingSlider(_ sender: UISlider) {
         userRating = Int(calculateScore(sender.value))
     }
-    
-    func getWriterFromDevice() -> String? {
-        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
-        return writer
-    }
-    
+
     func calculateScore(_ value: Float) -> Int {
         let floatValue = floor(value * 10) / 10
         
@@ -104,17 +102,31 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         return Int(floatValue)
     }
     
+    
+    
+    // MARK: - [ㅇ] view life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingTextFields()
+        self.indicator.isHidden = true
+        settingTextFields() // 초기세팅
         settingNavigationItem()
-        guard let movie = self.movie else { return }
+        
+        guard let movie = self.movie else { return } // 받아온 영화정보로 세팅
         movieTitleLabel.text = movie.title
         gradeImageVIew.image = movie.gradeIcon
+        
         sliderForRating.value = 0
         starRatingFloatLabel.text = "\(sliderForRating.value)"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        movieTitleLabel.becomeFirstResponder() // 텍스트 필드 클릭 시 키보드 띄우기
+        reviewContentsTextField.becomeFirstResponder()
+    }
+    
+    // MARK: - [ㅇ] 뷰 초기화
     func settingTextFields() {
         reviewTitleTextField.delegate = self
         reviewContentsTextField.delegate = self
@@ -130,12 +142,13 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         navigationItem.rightBarButtonItem = rightSubmitItem
     }
     
+    // MARK: - [ㅇ] 리뷰내용 작성 관련
     @objc func closeFourthView() {
         navigationController?.popViewController(animated: true)
     }
     
-    var callbackResult: (() -> ())?
     @objc func submitReview() {
+        indicatorShow(false, self.indicator)
         print("📣 4thView 📣 - fourthView @objc func submitReview()")
         print("reviewFieldCheck : \(reviewFieldCheck)")
         if reviewFieldCheck == true {
@@ -145,11 +158,8 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             let userRating: Double = Double(userRating! * 2)
             guard let writer = reviewTitleTextField.text, let contents = reviewContentsTextField.text, let movieID = movie?.id else { return }
             
-            print(" - userRating: \(userRating)\n - writer: \(writer)\n - contents: \(contents)\n - movieID: \(movieID)")
-            
-            let writtenDate: Date = Date()
-            let timeStamp = writtenDate.timeIntervalSince(writtenDate)
-            
+            let timeStamp = Date().timeIntervalSince1970
+            print(" - timeStamp: \(timeStamp)\n - userRating: \(userRating)\n - writer: \(writer)\n - contents: \(contents)\n - movieID: \(movieID)")
             let userReviewData = UserWriteComment(rating: userRating, timestamp: timeStamp, writer: writer, movie_id: movieID, contents: contents)
             
             guard let data = try? JSONEncoder().encode(userReviewData) else { return }
@@ -165,31 +175,16 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
                         DispatchQueue.main.async {
                             print("fourthView - callbackResult: \(self.callbackResult)")
                             self.callbackResult?()
+                            indicatorShow(true, self.indicator)
                             self.navigationController?.popViewController(animated: true)
-                            
                         }
                     } else {
+                        indicatorShow(true, self.indicator)
                         self.alertNetworking(data, response, error)
                     }
                 }
             }.resume()
         }
-        print("📣📣 2. comments.count : \(shared.movieComments?.comments.count)")
-    }
-    
-    func alert(_ isEmptyTextFields: Bool) {
-        if isEmptyTextFields == true {
-            let alert = UIAlertController(title: "안내", message: "모든 값을 채워주세요.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        movieTitleLabel.becomeFirstResponder()
-        reviewContentsTextField.becomeFirstResponder()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -198,10 +193,25 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         reviewContentsTextField.resignFirstResponder()
     }
     
+    // MARK: - [] 🔴
+    func getWriterFromDevice() -> String? {
+        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
+        return writer
+    }
+    
     func setWriter(_ writer: String) {
         // empty -> true(F) / notNil -> false(T)
         if !writer.isEmpty {
             UserDefaults.standard.set(writer, forKey: "writer")
+        }
+    }
+    
+    func alert(_ isEmptyTextFields: Bool) {
+        if isEmptyTextFields == true {
+            let alert = UIAlertController(title: "안내", message: "모든 값을 채워주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
         }
     }
     

@@ -561,6 +561,11 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_large" translatesAutoresizingMaskIntoConstraints="NO" id="S3T-1z-MVu">
                                 <rect key="frame" x="279" y="109" width="48" height="48"/>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="C58-pd-cCY">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" systemColor="systemBackgroundColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="voe-lR-Byo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -570,6 +575,7 @@
                             <constraint firstItem="dZN-Xd-jSi" firstAttribute="width" secondItem="eu7-ki-ezU" secondAttribute="width" id="9dg-bM-O3e"/>
                             <constraint firstItem="dZN-Xd-jSi" firstAttribute="height" secondItem="eu7-ki-ezU" secondAttribute="height" id="A77-CH-eeK"/>
                             <constraint firstItem="NS3-ix-36q" firstAttribute="top" secondItem="jK2-iA-VYP" secondAttribute="bottom" constant="50" id="ATt-Op-dTn"/>
+                            <constraint firstItem="C58-pd-cCY" firstAttribute="centerY" secondItem="voe-lR-Byo" secondAttribute="centerY" id="BPZ-2E-qlp"/>
                             <constraint firstItem="cvX-QI-V27" firstAttribute="width" secondItem="eu7-ki-ezU" secondAttribute="width" id="E0m-z3-ZtA"/>
                             <constraint firstItem="k7j-Fo-AdZ" firstAttribute="leading" secondItem="voe-lR-Byo" secondAttribute="leading" constant="20" id="FOV-ni-MNX"/>
                             <constraint firstItem="S3T-1z-MVu" firstAttribute="top" secondItem="eu7-ki-ezU" secondAttribute="top" id="G2U-K2-8By"/>
@@ -598,12 +604,14 @@
                             <constraint firstItem="voe-lR-Byo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BK7-1Z-jMo" secondAttribute="trailing" constant="20" id="oAP-OE-bDh"/>
                             <constraint firstItem="XLA-S2-OYn" firstAttribute="leading" secondItem="voe-lR-Byo" secondAttribute="leading" constant="20" id="olc-gZ-5Pa"/>
                             <constraint firstItem="k7j-Fo-AdZ" firstAttribute="top" secondItem="NS3-ix-36q" secondAttribute="bottom" constant="20" id="oov-eY-zbb"/>
+                            <constraint firstItem="C58-pd-cCY" firstAttribute="centerX" secondItem="voe-lR-Byo" secondAttribute="centerX" id="tQp-ZU-H55"/>
                             <constraint firstItem="cvX-QI-V27" firstAttribute="height" secondItem="eu7-ki-ezU" secondAttribute="height" id="uBZ-Xo-vgA"/>
                             <constraint firstItem="voe-lR-Byo" firstAttribute="trailing" secondItem="k7j-Fo-AdZ" secondAttribute="trailing" constant="20" id="xNF-j3-tp0"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="gradeImageVIew" destination="BK7-1Z-jMo" id="4Kd-Yc-pwn"/>
+                        <outlet property="indicator" destination="C58-pd-cCY" id="M9J-Ai-pz1"/>
                         <outlet property="movieTitleLabel" destination="XLA-S2-OYn" id="Zlw-8s-Fdp"/>
                         <outlet property="reviewContentsTextField" destination="k7j-Fo-AdZ" id="dLP-l8-uBP"/>
                         <outlet property="reviewTitleTextField" destination="NS3-ix-36q" id="q9E-np-vze"/>

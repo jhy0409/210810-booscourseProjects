@@ -17,14 +17,7 @@ class FirstTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abc))
-//        posterImageView.addGestureRecognizer(tapGesture)
-//        posterImageView.isUserInteractionEnabled = true
     }
-    
-//    @objc func abc() {
-//        print("🌈🌈🌈🌈posterImageView.addGestureRecognizer")
-//    }
     
     func update(_ movie: Movie) {
         movieTitleLabel.text = movie.title
@@ -35,8 +28,5 @@ class FirstTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

@@ -8,9 +8,7 @@
 import UIKit
 
 class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    // MARK: - [ㅇ] 변수 - 셀 및 뷰 구분자
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
     let thirdCell: String = "thirdOfThird"
@@ -18,11 +16,14 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     let fourthView: String = "fourthView"
     let posterView: String = "posterView"
     
+    // MARK: - [ㅇ] 변수 - 영화정보
     var urlFromSecondView: URL?
-    var movie: Movie?
     let shared = MovieShared.shared
+    var movie: Movie?
     var movieComments: [Comment] = []
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     let sectionForTableView: [String] = ["movieDetail", "synopsis", "directAndActor", "comments"]
     var commentArr: [Comment]?
     var tapGesture: UITapGestureRecognizer?
@@ -207,20 +208,13 @@ extension Third_MovieDetail_ViewController {
         fourthViewAsReview.movie = movie
         fourthViewAsReview.callbackResult = {
             print("\n\n\n---> 🤮 thirdView 🤮 fourthVC.callbackResult = ")
-            self.indicator.isHidden = false
-            self.indicator.startAnimating()
-            requestMovies(movie.id) {_,_,_ in 
-                func alertNetworking(_ error: Error?) {
-                    guard let error = error else { return }
-                    let errorDescription: String = error.localizedDescription
-                    let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                }
+            indicatorShow(false, self.indicator)
+            requestMovies(movie.id) {data, response, error in
+                self.alertNetworking(data, response, error)
             }
             self.tableView.reloadData()
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
-            self.indicator.stopAnimating()
-            self.indicator.isHidden = true
+            indicatorShow(true, self.indicator)
         }
         self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
     }
@@ -230,5 +224,15 @@ extension Third_MovieDetail_ViewController {
             return 1
         }
         return 70
+    }
+    
+    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
+        print("🤮 3rdVC - alert 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }

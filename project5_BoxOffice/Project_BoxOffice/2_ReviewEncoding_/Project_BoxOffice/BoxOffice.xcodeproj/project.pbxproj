@@ -103,12 +103,12 @@
 		68BC40D326E8CD8E00529CDA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				68C1285626EACFA500B5027E /* ThirdOfSecond_MovieIntro_TableViewCell.swift */,
-				68364F4326EAE34500D37682 /* ThirdOfFourth_MovieIntro_TableViewCell.swift */,
 				68BC40D526E8CDC200529CDA /* FirstTableViewCell.swift */,
 				68787A5326E9E6C30029F8F7 /* SecondCollectionViewCell.swift */,
 				68AA3F4126EA246A00827C58 /* ThirdOfFirst_MovieIntro_TableViewCell.swift */,
+				68C1285626EACFA500B5027E /* ThirdOfSecond_MovieIntro_TableViewCell.swift */,
 				68364F4126EADFD900D37682 /* ThirdOfThird_DirectorAndActor_TableViewCell.swift */,
+				68364F4326EAE34500D37682 /* ThirdOfFourth_MovieIntro_TableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

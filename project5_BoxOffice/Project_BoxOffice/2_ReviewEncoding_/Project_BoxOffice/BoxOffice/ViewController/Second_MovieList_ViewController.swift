@@ -101,7 +101,7 @@ class Second_MovieList_ViewController: UIViewController {
     }
     
     private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
-        print("🤮 SecondVC - alert2 🤮 func alertNetworking(_ error: Error?)")
+        print("🤮 2ndVC - alert 🤮 func alertNetworking(_ error: Error?)")
         guard let error = error else { return }
         let errorDescription: String = error.localizedDescription
         let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)

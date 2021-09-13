@@ -18,15 +18,8 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     @IBOutlet weak var userRateLabel: UILabel!
     @IBOutlet weak var audienceLabel: UILabel!
     
-//    @IBOutlet weak var stackView: UIStackView!
-    //    var size: CGFloat? = nil
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        guard let size = size else { return }
-//        posterImageView.frame.size = CGSize(width: size, height: size + 100 )
-        // Initialization code
-//        stackView.frame.size.width = (bounds.width - 30)
     }
 
     func update(_ movieDetail: MovieDetail) {
@@ -48,9 +41,7 @@ class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-
 }
 
