@@ -17,6 +17,7 @@ let shared = MovieShared.shared
 
 // MARK: - [] 🔴
 func requestMovies(_ commentsByID: String) {
+    print("삐에로 1 - func requestMovies")
     guard let url: URL = appendSubQueryForComments(commentsByID) else { return }
     print("url : \(url)")
     let session: URLSession = URLSession(configuration: .default)
@@ -42,7 +43,8 @@ func requestMovies(_ commentsByID: String) {
 
 
 
-func requestMoovies(_ movieID: String) {
+func requestMovies(movieID: String) {
+    print("삐에로 2 - func requestMovies")
     guard let url: URL = appendSubQueryByMovieID(movieID) else { return }
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in

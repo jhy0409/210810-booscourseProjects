@@ -140,7 +140,7 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
-        requestMoovies(movie.id)
+        requestMovies(movieID: movie.id)
         requestMovies(movie.id)
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
@@ -163,7 +163,9 @@ extension Second_MovieList_ViewController: UICollectionViewDataSource {
         
         guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
-        cell.posterImageView.image = movie.posterImage
+        DispatchQueue.main.async {
+            cell.posterImageView.image = movie.posterImage
+        }
         return cell
     }
 }

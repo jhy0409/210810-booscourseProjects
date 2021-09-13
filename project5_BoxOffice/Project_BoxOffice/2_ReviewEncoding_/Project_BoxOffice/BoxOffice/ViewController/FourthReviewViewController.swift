@@ -22,7 +22,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
          - [ㅇ] 5개의 별을 터치 또는 드래그해서 별점을 선택할 수 있습니다.
          - [ㅇ] 선택된 별이 숫자로 환산돼 별 이미지 아래쪽에 보입니다.
          - [ㅇ] 별점은 0~10점 사이의 정수단위입니다.
-     - [] 작성자의 닉네임과 한줄평을 작성하고 '완료' 버튼을 누르면 새로운 한줄평을 등록하고 등록에 성공하면 이전화면으로 되돌아오고, 새로운 한줄평이 업데이트됩니다.
+     - [ㅇ] 작성자의 닉네임과 한줄평을 작성하고 '완료' 버튼을 누르면 새로운 한줄평을 등록하고 등록에 성공하면 이전화면으로 되돌아오고, 새로운 한줄평이 업데이트됩니다.
      - [ㅇ] 닉네임 또는 한줄평이 모두 작성되지 않은 상태에서 '완료' 버튼을 누르면 경고 알림창이 뜹니다.
      - [ㅇ] '취소'버튼을 누르면 이전 화면으로 되돌아갑니다.
      - [] 기존에 작성했던 닉네임이 있다면 화면3으로 새로 진입할 때 기존의 닉네임이 입력되어 있습니다.
@@ -30,12 +30,12 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
      
      [Grand Central Dispatch] =============
 
-     - [] 백그라운드 네트워킹
-        - [] 네트워킹은 백그라운드 스레드에서 진행되어야 합니다.
-     - [] 이미지 로드
-        - [] 테이블뷰/컬렉션뷰 셀의 이미지 불러오기는 비동기로 백그라운드 스레드에서 처리해야 합니다.
-     - [] 메인 스레드
-        - [] UI 요소 표기는 메인 스레드에서 진행해야 합니다.
+     - [ㅇ] 백그라운드 네트워킹
+        - [ㅇ] 네트워킹은 백그라운드 스레드에서 진행되어야 합니다.
+     - [ㅇ] 이미지 로드
+        - [ㅇ] 테이블뷰/컬렉션뷰 셀의 이미지 불러오기는 비동기로 백그라운드 스레드에서 처리해야 합니다.
+     - [ㅇ] 메인 스레드
+        - [ㅇ] UI 요소 표기는 메인 스레드에서 진행해야 합니다.
       
 
      [Networking] =============
@@ -150,7 +150,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             print(" - userRating: \(userRating)\n - writer: \(writer)\n - contents: \(contents)\n - movieID: \(movieID)")
             
             let writtenDate: Date = Date()
-            let timeStamp = writtenDate.timeIntervalSince1970
+            let timeStamp = writtenDate.timeIntervalSince(writtenDate)
             
             let userReviewData = UserWriteComment(rating: userRating, timestamp: timeStamp, writer: writer, movie_id: movieID, contents: contents)
 
@@ -162,18 +162,20 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             request.setValue("appllication/json", forHTTPHeaderField: "Content-Type")
             urlSession.uploadTask(with: request, from: data) { data, response, error in
                 if let  response = response as? HTTPURLResponse {
-                if (200 ... 299).contains(response.statusCode) {
+                if (200 ... 299).contains(response.statusCode) && error == nil {
                     print("n\n---> 💖fourthView💖 - submit success 💖💖")
                     DispatchQueue.main.async {
                         print("fourthView - callbackResult: \(self.callbackResult)")
+                        self.callbackResult?()
                         self.navigationController?.popViewController(animated: true)
+                        
                     }
                 } else { print("\(error?.localizedDescription)")}
                 }
             }.resume()
         }
         print("📣📣 2. comments.count : \( shared.movieComments?.comments.count)")
-        self.callbackResult?()
+        
 //        navigationController?.popViewController(animated: true)
     }
     

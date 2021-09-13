@@ -46,13 +46,24 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         notiAddObserberDetail()
         notiAddObserberComments()
         refresh()
-        
-        indicator.isHidden = false
-        indicator.startAnimating()
-        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-        
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(posterImageViewTapped))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.indicator.isHidden = false
+            self.indicator.startAnimating()
+            self.tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+            self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
+            self.view.layoutIfNeeded()
+            self.indicator.stopAnimating()
+            self.indicator.isHidden = true
+            print("\n\n---> 👀👀👀 thirdView super.viewWillAppear(")
+        }
+    }
+    
+    
     
     @objc func posterImageViewTapped() {
         
@@ -73,16 +84,18 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         navigationController?.pushViewController(posterView, animated: true)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-        //        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
-        //        indicator.isHidden = false
-        //        indicator.startAnimating()
-        //        tableView.reloadData()
-        //        tableView.reloadSections(IndexSet(0...3), with: .automatic)
-        //        indicator.stopAnimating()
-        //        indicator.isHidden = true
-//    }
+    
+    
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(animated)
+    //        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
+    //        indicator.isHidden = false
+    //        indicator.startAnimating()
+    //        tableView.reloadData()
+    //        tableView.reloadSections(IndexSet(0...3), with: .automatic)
+    //        indicator.stopAnimating()
+    //        indicator.isHidden = true
+    //    }
     
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
     func refresh() {
@@ -220,9 +233,9 @@ extension Third_MovieDetail_ViewController {
             print("\n\n\n---> 🤮 thirdView 🤮 fourthVC.callbackResult = ")
             self.indicator.isHidden = false
             self.indicator.startAnimating()
-                self.tableView.reloadData()
-                self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
-                self.view.layoutIfNeeded()
+            requestMovies(movie.id)
+            self.tableView.reloadData()
+            self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
             self.indicator.stopAnimating()
             self.indicator.isHidden = true
         }

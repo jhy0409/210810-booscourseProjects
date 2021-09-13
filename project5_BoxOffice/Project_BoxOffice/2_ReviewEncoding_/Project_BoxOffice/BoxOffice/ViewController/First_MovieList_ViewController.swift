@@ -123,7 +123,9 @@ extension First_MovieList_ViewController: UITableViewDataSource {
         
         guard let movie = shared.movieList?.movies[indexPath.item] else { return cell }
         cell.update(movie)
-        cell.posterImageView.image = movie.posterImage
+        DispatchQueue.main.async {
+            cell.posterImageView.image = movie.posterImage
+        }
         
 //        DispatchQueue.global().async {
 //            guard let imageURL: URL = URL(string: movie.thumb) else { return }
@@ -155,7 +157,7 @@ extension First_MovieList_ViewController: UITableViewDelegate {
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
-        requestMoovies(movie.id)
+        requestMovies(movieID: movie.id)
         requestMovies(movie.id)
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
