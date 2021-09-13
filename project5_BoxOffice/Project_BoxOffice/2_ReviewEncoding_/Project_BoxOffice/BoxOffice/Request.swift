@@ -51,7 +51,7 @@ func requestMoovies(_ movieID: String) {
             let apiResponse: MovieDetail =  try JSONDecoder().decode(MovieDetail.self, from: data)
             NotificationCenter.default.post(name: DidRecievedMoviesNotification, object: nil, userInfo: ["detail":apiResponse])
         } catch let err {
-            print("\n\n---> 🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
+            print("\n\n---> 🤡🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
         }
     }
     dataTask.resume()

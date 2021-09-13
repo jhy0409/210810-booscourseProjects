@@ -41,6 +41,8 @@ class Second_MovieList_ViewController: UIViewController {
     private let cellIdentifire = "secondCell"
     let shared = MovieShared.shared
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()

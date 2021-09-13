@@ -55,13 +55,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     }
     
     @objc func posterImageViewTapped() {
-//        guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { return }
-//        guard let movie = self.movie else { return }
-//        fourthViewAsReview.title = "한줄평 작성"
-//        fourthViewAsReview.movie = movie
-//        self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
-//    }
-//    posterView
         
         guard let posterView = self.storyboard?.instantiateViewController(identifier: posterView) as? PosterViewController else { return }
         guard let movie = self.movie, let imageString = shared.movieDetail?.image else { return }
@@ -80,16 +73,16 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         navigationController?.pushViewController(posterView, animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
-        indicator.isHidden = false
-        indicator.startAnimating()
-        tableView.reloadData()
-        tableView.reloadSections(IndexSet(0...3), with: .automatic)
-        indicator.stopAnimating()
-        indicator.isHidden = true
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+        //        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
+        //        indicator.isHidden = false
+        //        indicator.startAnimating()
+        //        tableView.reloadData()
+        //        tableView.reloadSections(IndexSet(0...3), with: .automatic)
+        //        indicator.stopAnimating()
+        //        indicator.isHidden = true
+//    }
     
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
     func refresh() {
@@ -108,9 +101,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         tableView.reloadData()
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        movie = nil
-//    }
     
     // MARK: - [] 노티
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
@@ -178,10 +168,6 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         case 3: // comments
             guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
             guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
-//            let comment: Comment = movieComments[indexPath.row]
-            
-            
-            
             
             cell.update(comment)
             return cell
@@ -200,7 +186,7 @@ extension Third_MovieDetail_ViewController {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 3 {
             let frame: CGRect = tableView.frame
-                    
+            
             let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: frame.width, height: 50))
             let label = UILabel()
             let fontSize: CGFloat = 21
@@ -216,8 +202,7 @@ extension Third_MovieDetail_ViewController {
             button.frame = CGRect.init(x: header.frame.width - buttonSize - 17 , y: (header.frame.height - buttonSize), width: buttonSize, height: buttonSize)
             button.setImage(UIImage(named: "btn_compose"), for: .normal)
             button.addTarget(self, action: #selector(commentViewPush), for: .touchUpInside)
-
-//            header.translatesAutoresizingMaskIntoConstraints = false
+            
             header.addSubview(button)
             header.backgroundColor = .systemGray6
             return header
@@ -231,6 +216,16 @@ extension Third_MovieDetail_ViewController {
         guard let movie = self.movie else { return }
         fourthViewAsReview.title = "한줄평 작성"
         fourthViewAsReview.movie = movie
+        fourthViewAsReview.callbackResult = {
+            print("\n\n\n---> 🤮 thirdView 🤮 fourthVC.callbackResult = ")
+            self.indicator.isHidden = false
+            self.indicator.startAnimating()
+                self.tableView.reloadData()
+                self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
+                self.view.layoutIfNeeded()
+            self.indicator.stopAnimating()
+            self.indicator.isHidden = true
+        }
         self.navigationController?.pushViewController(fourthViewAsReview, animated: true)
     }
     

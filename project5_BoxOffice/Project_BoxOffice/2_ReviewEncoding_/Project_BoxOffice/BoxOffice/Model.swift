@@ -294,6 +294,14 @@ struct MovieComments: Codable {
     var comments: [Comment]
 }
 
+struct UserWriteComment: Codable {
+    let rating: Double
+    let timestamp: Double
+    let writer: String
+    let movie_id: String
+    let contents: String
+}
+
 extension UIImage {
     func resize(newWidth: CGFloat) -> UIImage {
         let scale = newWidth / self.size.width
