@@ -25,7 +25,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
      - [ㅇ] 작성자의 닉네임과 한줄평을 작성하고 '완료' 버튼을 누르면 새로운 한줄평을 등록하고 등록에 성공하면 이전화면으로 되돌아오고, 새로운 한줄평이 업데이트됩니다.
      - [ㅇ] 닉네임 또는 한줄평이 모두 작성되지 않은 상태에서 '완료' 버튼을 누르면 경고 알림창이 뜹니다.
      - [ㅇ] '취소'버튼을 누르면 이전 화면으로 되돌아갑니다.
-     - [] 기존에 작성했던 닉네임이 있다면 화면3으로 새로 진입할 때 기존의 닉네임이 입력되어 있습니다.
+     - [ㅇ] 기존에 작성했던 닉네임이 있다면 화면3으로 새로 진입할 때 기존의 닉네임이 입력되어 있습니다.
      
      
      [Grand Central Dispatch] =============
@@ -114,9 +114,10 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         settingNavigationItem()
         
         guard let movie = self.movie else { return } // 받아온 영화정보로 세팅
+        reviewTitleTextField.text = getWriterFromDevice()
+        
         movieTitleLabel.text = movie.title
         gradeImageVIew.image = movie.gradeIcon
-        
         sliderForRating.value = 0
         starRatingFloatLabel.text = "\(sliderForRating.value)"
     }
@@ -174,8 +175,9 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
                     if (200 ... 299).contains(response.statusCode) && error == nil {
                         print("n\n---> 💖fourthView💖 - submit success 💖💖")
                         DispatchQueue.main.async {
-                            print("fourthView - callbackResult: \(self.callbackResult)")
+                            print("fourthView - callbackResult: \(String(describing: self.callbackResult))")
                             self.callbackResult?()
+                            self.setWriter(writer)
                             indicatorShow(true, self.indicator)
                             self.navigationController?.popViewController(animated: true)
                         }
@@ -196,8 +198,10 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - [] 🔴
     func getWriterFromDevice() -> String? {
-        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
-        return writer
+        if let writer = UserDefaults.standard.value(forKey: "writer") as? String {
+            return writer
+        }
+        return nil
     }
     
     func setWriter(_ writer: String) {
