@@ -22,6 +22,8 @@ class First_MovieList_ViewController: UIViewController {
 
         notiAddObserber()
         refresh()
+        self.view.bringSubviewToFront(indicator)
+        indicator.isHidden = false
         indicator.startAnimating()
     }
     

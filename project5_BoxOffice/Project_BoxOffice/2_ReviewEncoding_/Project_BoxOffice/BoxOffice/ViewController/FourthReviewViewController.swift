@@ -40,8 +40,8 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
 
      [Networking] =============
 
-     - [] Indicator
-        - [] 네트워킹 동작중(로딩/새로고침)에는 상태표시줄(status bar)와 화면에 인디케이터를 사용해 사용자에게 네트워킹 중임을 정확히 표시해야 합니다.
+     - [ㅇ] Indicator
+        - [ㅇ] 네트워킹 동작중(로딩/새로고침)에는 상태표시줄(status bar)와 화면에 인디케이터를 사용해 사용자에게 네트워킹 중임을 정확히 표시해야 합니다.
      
      - [ㅇ] Result Handling
         - [ㅇ] 데이터 수신 또는 한줄평 등록에 실패한 경우, 알림창을 통해 사용자에게 결과를 표시해야 합니다.
@@ -101,7 +101,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         settingTextFields()
         settingNavigationItem()
         guard let movie = self.movie else { return }

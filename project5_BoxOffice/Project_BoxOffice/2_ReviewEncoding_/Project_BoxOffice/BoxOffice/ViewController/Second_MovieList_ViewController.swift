@@ -40,14 +40,23 @@ class Second_MovieList_ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     private let cellIdentifire = "secondCell"
     let shared = MovieShared.shared
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()
         refresh()
-        // Do any additional setup after loading the view.
+        self.view.bringSubviewToFront(indicator)
+        indicator.isHidden = false
+        indicator.startAnimating()
         guard let sort = self.shared.movieList?.order_type else { return }
         self.title = getViewTitleFromSortType(sort)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        indicator.stopAnimating()
+        indicator.isHidden = true
     }
     
     func notiAddObserber() {
@@ -148,14 +157,14 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         self.navigationController?.pushViewController(thirdViewController, animated: true)
     }
     
-    private func alertNetworking(_ error: Error?) {
-        print("🤮 SecondVC - alert1 🤮 func alertNetworking(_ error: Error?)")
-        guard let error = error else { return }
-        let errorDescription: String = error.localizedDescription
-        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        present(alert, animated: true, completion: nil)
-    }
+//    private func alertNetworking(_ error: Error?) {
+//        print("🤮 SecondVC - alert1 🤮 func alertNetworking(_ error: Error?)")
+//        guard let error = error else { return }
+//        let errorDescription: String = error.localizedDescription
+//        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+//        present(alert, animated: true, completion: nil)
+//    }
     
     private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
         print("🤮 SecondVC - alert2 🤮 func alertNetworking(_ error: Error?)")

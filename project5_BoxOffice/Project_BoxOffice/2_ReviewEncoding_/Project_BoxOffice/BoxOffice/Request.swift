@@ -121,9 +121,12 @@ func appendSubQueryForComments(_ id: String) -> URL? {
     return url
 }
 
-//func alertNetworking(_ error: Error?) {
-//    guard let error = error else { return }
-//    let errorDescription: String = error.localizedDescription
-//    let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-//    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-//}
+func indicatorShow(_ bool: Bool, _ indicator: UIActivityIndicatorView) {
+    if bool == true { // 뷰가 나타남
+        indicator.stopAnimating()
+        indicator.isHidden = true
+    } else {
+        indicator.isHidden = false
+        indicator.startAnimating()
+    }
+}

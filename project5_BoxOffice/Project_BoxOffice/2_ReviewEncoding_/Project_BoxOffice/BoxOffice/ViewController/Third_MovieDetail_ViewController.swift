@@ -42,6 +42,12 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.indicator.isHidden = false
+//        self.indicator.startAnimating()
+        
+        self.view.bringSubviewToFront(indicator)
+        indicatorShow(false, indicator)
+        
         self.navigationController?.navigationBar.tintColor = .white
         notiAddObserberDetail()
         notiAddObserberComments()
@@ -51,17 +57,22 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //indicatorShow(animated, indicator)
         DispatchQueue.main.async {
-            self.indicator.isHidden = false
-            self.indicator.startAnimating()
             self.tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
             self.view.layoutIfNeeded()
-            self.indicator.stopAnimating()
-            self.indicator.isHidden = true
             print("\n\n---> 👀👀👀 thirdView super.viewWillAppear(")
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("override func viewDidAppear(_ \(animated)")
+        indicatorShow(animated, indicator)
+    }
+    
+    
     
     @objc func posterImageViewTapped() {
         
