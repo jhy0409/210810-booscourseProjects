@@ -12,7 +12,7 @@
         <!--First Movie List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="First_MovieList_ViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="FirstMovieListViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -127,7 +127,7 @@
         <!--Third Movie Detail View Controller-->
         <scene sceneID="5HF-XK-aeI">
             <objects>
-                <viewController storyboardIdentifier="thirdVC" id="Yvw-8y-Gxj" customClass="Third_MovieDetail_ViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="thirdVC" id="Yvw-8y-Gxj" customClass="ThirdMovieDetailViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jp2-ot-Ld6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="scrollIndicatorInsets" minX="80" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfFirst" rowHeight="400" id="g2X-lr-vIm" customClass="ThirdOfFirst_MovieIntro_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfFirst" rowHeight="400" id="g2X-lr-vIm" customClass="ThirdOfFirstMovieIntroTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g2X-lr-vIm" id="xY3-Jg-h2s">
@@ -288,7 +288,7 @@
                                             <outlet property="userRateLabel" destination="kcJ-ew-iJf" id="mYW-Ta-rVP"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfSecond" rowHeight="200" id="gMV-RU-Nke" userLabel="thirdOfSecond" customClass="ThirdOfSecond_MovieIntro_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfSecond" rowHeight="200" id="gMV-RU-Nke" userLabel="thirdOfSecond" customClass="ThirdOfSecondMovieIntroTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="424.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gMV-RU-Nke" id="xPi-gh-S7H">
@@ -322,7 +322,7 @@
                                             <outlet property="synopsisLabel" destination="a98-K5-xRu" id="sPk-Od-G5j"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfThird" rowHeight="200" id="qRz-Kd-XBq" userLabel="thirdOfThird" customClass="ThirdOfThird_DirectorAndActor_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfThird" rowHeight="200" id="qRz-Kd-XBq" userLabel="thirdOfThird" customClass="ThirdOfThirdDirectorAndActorTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="624.5" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qRz-Kd-XBq" id="eBA-2f-hgc">
@@ -389,7 +389,7 @@
                                             <outlet property="directorLabel" destination="dkv-0R-Rt6" id="r3Q-WU-22X"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfFourth" id="Hfk-US-WuO" userLabel="thirdOfFourth" customClass="ThirdOfFourth_MovieIntro_TableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="thirdOfFourth" id="Hfk-US-WuO" userLabel="thirdOfFourth" customClass="ThirdOfFourthMovieIntroTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="824.5" width="414" height="120.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hfk-US-WuO" id="8HU-J6-RTn">
@@ -667,7 +667,7 @@
         <!--Second Movie List View Controller-->
         <scene sceneID="YHJ-6X-vMJ">
             <objects>
-                <viewController id="CY6-go-M6L" customClass="Second_MovieList_ViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CY6-go-M6L" customClass="SecondMovieListViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NMr-q4-kdd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

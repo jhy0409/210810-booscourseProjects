@@ -1,5 +1,5 @@
 //
-//  ThirdOfFourth_MovieIntro_TableViewCell.swift
+//  ThirdOfFourthMovieIntroTableViewCell.swift
 //  BoxOffice
 //
 //  Created by inooph on 2021/09/10.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdOfFourth_MovieIntro_TableViewCell: UITableViewCell {
+class ThirdOfFourthMovieIntroTableViewCell: UITableViewCell {
     @IBOutlet weak var writerLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!

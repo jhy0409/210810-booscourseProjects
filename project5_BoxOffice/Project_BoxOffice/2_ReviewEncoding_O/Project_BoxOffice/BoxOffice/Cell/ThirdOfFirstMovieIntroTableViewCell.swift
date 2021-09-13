@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdOfFirst_MovieIntro_TableViewCell: UITableViewCell {
+class ThirdOfFirstMovieIntroTableViewCell: UITableViewCell {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var openingDateLabel: UILabel!

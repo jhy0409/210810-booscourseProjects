@@ -7,7 +7,7 @@
 
 import UIKit
 
-class First_MovieList_ViewController: UIViewController {
+class FirstMovieListViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier: String = "firstCell"
@@ -125,7 +125,7 @@ class First_MovieList_ViewController: UIViewController {
 }
 
 // MARK: - [ㅇ] UITableViewDataSource
-extension First_MovieList_ViewController: UITableViewDataSource {
+extension FirstMovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sharedCount = shared.movieList?.movies.count else { return 0 }
         return sharedCount
@@ -144,11 +144,11 @@ extension First_MovieList_ViewController: UITableViewDataSource {
 }
 
 // MARK: - [ㅇ] UITableViewDelegate
-extension First_MovieList_ViewController: UITableViewDelegate {
+extension FirstMovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let movies: [Movie] = shared.movieList?.movies else { return }
         let movie = movies[indexPath.item]
-        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
+        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? ThirdMovieDetailViewController else { return }
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie

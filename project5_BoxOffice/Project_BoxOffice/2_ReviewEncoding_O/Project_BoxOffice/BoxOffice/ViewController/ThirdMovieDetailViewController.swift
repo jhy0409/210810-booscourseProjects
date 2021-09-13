@@ -1,5 +1,5 @@
 //
-//  Third_MovieDetail_ViewController.swift
+//  ThirdMovieDetailViewController.swift
 //  BoxOffice
 //
 //  Created by inooph on 2021/09/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
+class ThirdMovieDetailViewController: UIViewController,UITableViewDelegate {
     // MARK: - [ㅇ] 변수 - 셀 및 뷰 구분자
     let firstCell: String = "thirdOfFirst"
     let secondCell: String = "thirdOfSecond"
@@ -120,7 +120,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
 }
 
 // MARK: - [ㅇ] 테이블별 셀 세팅 - tableViewCell data setting
-extension Third_MovieDetail_ViewController: UITableViewDataSource {
+extension ThirdMovieDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 3, let comments = commentArr {
             return comments.count
@@ -133,7 +133,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         switch indexPath.section {
         
         case 0: //movieDetail
-            guard let cell: ThirdOfFirst_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: firstCell) as? ThirdOfFirst_MovieIntro_TableViewCell else { return UITableViewCell() }
+            guard let cell: ThirdOfFirstMovieIntroTableViewCell = tableView.dequeueReusableCell(withIdentifier: firstCell) as? ThirdOfFirstMovieIntroTableViewCell else { return UITableViewCell() }
             guard let tapGestureForcell = tapGesture else { return cell }
             cell.posterImageView.image = movie.posterImage
             cell.posterImageView.addGestureRecognizer(tapGestureForcell)
@@ -144,17 +144,17 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
             return cell
             
         case 1: // synopsis
-            guard let cell: ThirdOfSecond_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: secondCell) as? ThirdOfSecond_MovieIntro_TableViewCell else { return UITableViewCell() }
+            guard let cell: ThirdOfSecondMovieIntroTableViewCell = tableView.dequeueReusableCell(withIdentifier: secondCell) as? ThirdOfSecondMovieIntroTableViewCell else { return UITableViewCell() }
             cell.update(sendMovie)
             return cell
             
         case 2: // directAndActor
-            guard let cell: ThirdOfThird_DirectorAndActor_TableViewCell = tableView.dequeueReusableCell(withIdentifier: thirdCell) as? ThirdOfThird_DirectorAndActor_TableViewCell else { return UITableViewCell() }
+            guard let cell: ThirdOfThirdDirectorAndActorTableViewCell = tableView.dequeueReusableCell(withIdentifier: thirdCell) as? ThirdOfThirdDirectorAndActorTableViewCell else { return UITableViewCell() }
             cell.update(sendMovie)
             return cell
             
         case 3: // comments
-            guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
+            guard let cell: ThirdOfFourthMovieIntroTableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourthMovieIntroTableViewCell else { return UITableViewCell() }
 //            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
             guard let comment: Comment = commentArr?[indexPath.row] else { return cell }
             
@@ -171,7 +171,7 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
 }
 
 // MARK: - [ㅇ] 헤더뷰 세팅 - headerView setting
-extension Third_MovieDetail_ViewController {
+extension ThirdMovieDetailViewController {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 3 {
             let frame: CGRect = tableView.frame

@@ -1,5 +1,5 @@
 //
-//  ThirdOfThird_DirectorAndActor_TableViewCell.swift
+//  ThirdOfThirdDirectorAndActorTableViewCell.swift
 //  BoxOffice
 //
 //  Created by inooph on 2021/09/10.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdOfThird_DirectorAndActor_TableViewCell: UITableViewCell {
+class ThirdOfThirdDirectorAndActorTableViewCell: UITableViewCell {
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var actorLabel: UILabel!
     

@@ -1,5 +1,5 @@
 //
-//  Second_MovieList_ViewController.swift
+//  SecondMovieListViewController.swift
 //  BoxOffice
 //
 //  Created by inooph on 2021/09/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Second_MovieList_ViewController: UIViewController {
+class SecondMovieListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     private let cellIdentifire = "secondCell"
     let shared = MovieShared.shared
@@ -113,7 +113,7 @@ class Second_MovieList_ViewController: UIViewController {
 }
 
 // MARK: - [ㅇ] UICollectionViewDelegateFlowLayout
-extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
+extension SecondMovieListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 10
         let margin: CGFloat = 20
@@ -124,11 +124,11 @@ extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - [ㅇ] UICollectionViewDelegate
-extension Second_MovieList_ViewController: UICollectionViewDelegate {
+extension SecondMovieListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movies: [Movie] = shared.movieList?.movies else { return }
         let movie = movies[indexPath.item]
-        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
+        guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? ThirdMovieDetailViewController else { return }
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
@@ -144,7 +144,7 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
 }
 
 // MARK: - [ㅇ] UICollectionViewDataSource
-extension Second_MovieList_ViewController: UICollectionViewDataSource {
+extension SecondMovieListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let itemsCount = shared.movieList?.movies.count else { return 0 }
         return  itemsCount

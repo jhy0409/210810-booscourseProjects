@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdOfSecond_MovieIntro_TableViewCell: UITableViewCell {
+class ThirdOfSecondMovieIntroTableViewCell: UITableViewCell {
     @IBOutlet weak var synopsisLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
