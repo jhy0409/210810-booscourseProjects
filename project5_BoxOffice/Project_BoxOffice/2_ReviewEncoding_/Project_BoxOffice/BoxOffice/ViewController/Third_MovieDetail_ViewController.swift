@@ -63,8 +63,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         }
     }
     
-    
-    
     @objc func posterImageViewTapped() {
         
         guard let posterView = self.storyboard?.instantiateViewController(identifier: posterView) as? PosterViewController else { return }
@@ -83,19 +81,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         
         navigationController?.pushViewController(posterView, animated: true)
     }
-    
-    
-    
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        print("💋💋💋 thirdView - viewWillAppear(_ animated: Bool) {")
-    //        indicator.isHidden = false
-    //        indicator.startAnimating()
-    //        tableView.reloadData()
-    //        tableView.reloadSections(IndexSet(0...3), with: .automatic)
-    //        indicator.stopAnimating()
-    //        indicator.isHidden = true
-    //    }
     
     // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
     func refresh() {

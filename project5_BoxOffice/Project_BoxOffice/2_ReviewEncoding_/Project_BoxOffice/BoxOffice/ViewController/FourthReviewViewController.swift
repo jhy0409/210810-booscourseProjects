@@ -50,7 +50,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         - [ㅇ] 영화정보를 가져오거나 한줄평을 등록하는 과정은 첨부한 API 문서를 참고하여 URLSession을 활용하여 서버와 통신합니다.
      */
     let shared = MovieShared.shared
-    
     var movie: Movie?
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var gradeImageVIew: UIImageView!
@@ -67,9 +66,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         guard let check: (Bool, Bool) = checkValue as? (Bool, Bool) else { return false }
         if check.0 == false && check.1 == false && userRating == false {
             return false
-        } else {
-            return true
-        }
+        } else { return true }
     }
     
     lazy var urlSession = URLSession.shared
@@ -151,24 +148,26 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             let timeStamp = writtenDate.timeIntervalSince(writtenDate)
             
             let userReviewData = UserWriteComment(rating: userRating, timestamp: timeStamp, writer: writer, movie_id: movieID, contents: contents)
-
+            
             guard let data = try? JSONEncoder().encode(userReviewData) else { return }
             guard let url = URL(string: "https://connect-boxoffice.run.goorm.io/comment") else { return }
-
+            
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("appllication/json", forHTTPHeaderField: "Content-Type")
             urlSession.uploadTask(with: request, from: data) { data, response, error in
                 if let  response = response as? HTTPURLResponse {
-                if (200 ... 299).contains(response.statusCode) && error == nil {
-                    print("n\n---> 💖fourthView💖 - submit success 💖💖")
-                    DispatchQueue.main.async {
-                        print("fourthView - callbackResult: \(self.callbackResult)")
-                        self.callbackResult?()
-                        self.navigationController?.popViewController(animated: true)
-                        
+                    if (200 ... 299).contains(response.statusCode) && error == nil {
+                        print("n\n---> 💖fourthView💖 - submit success 💖💖")
+                        DispatchQueue.main.async {
+                            print("fourthView - callbackResult: \(self.callbackResult)")
+                            self.callbackResult?()
+                            self.navigationController?.popViewController(animated: true)
+                            
+                        }
+                    } else {
+                        self.alertNetworking(data, response, error)
                     }
-                } else { print("\(error?.localizedDescription)")}
                 }
             }.resume()
         }
@@ -183,8 +182,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             present(alert, animated: true, completion: nil)
         }
     }
-    
-
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -204,10 +201,19 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.set(writer, forKey: "writer")
         }
     }
-
+    
     func getWriterFromDevice() -> String? {
         guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
         return writer
+    }
+    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
+        print("🤮 fourthVC - alert1 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 

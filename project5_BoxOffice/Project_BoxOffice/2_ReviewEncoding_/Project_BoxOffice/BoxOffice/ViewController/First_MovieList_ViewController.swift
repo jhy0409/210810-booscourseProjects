@@ -19,7 +19,6 @@ class First_MovieList_ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         notiAddObserber()
         refresh()
@@ -166,8 +165,6 @@ extension First_MovieList_ViewController: UITableViewDelegate {
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
     }
-    
-    
     
     private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
         print("🤮 firstVC - alert1 🤮 func alertNetworking(_ error: Error?)")
