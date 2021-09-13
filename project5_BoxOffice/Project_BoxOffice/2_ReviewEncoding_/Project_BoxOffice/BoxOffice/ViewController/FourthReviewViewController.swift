@@ -43,11 +43,11 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
      - [] Indicator
         - [] 네트워킹 동작중(로딩/새로고침)에는 상태표시줄(status bar)와 화면에 인디케이터를 사용해 사용자에게 네트워킹 중임을 정확히 표시해야 합니다.
      
-     - [] Result Handling
-        - [] 데이터 수신 또는 한줄평 등록에 실패한 경우, 알림창을 통해 사용자에게 결과를 표시해야 합니다.
+     - [ㅇ] Result Handling
+        - [ㅇ] 데이터 수신 또는 한줄평 등록에 실패한 경우, 알림창을 통해 사용자에게 결과를 표시해야 합니다.
      
-     - [] URLSession
-        - [] 영화정보를 가져오거나 한줄평을 등록하는 과정은 첨부한 API 문서를 참고하여 URLSession을 활용하여 서버와 통신합니다.
+     - [ㅇ] URLSession
+        - [ㅇ] 영화정보를 가져오거나 한줄평을 등록하는 과정은 첨부한 API 문서를 참고하여 URLSession을 활용하여 서버와 통신합니다.
      */
     let shared = MovieShared.shared
     
@@ -73,7 +73,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     }
     
     lazy var urlSession = URLSession.shared
-//    print("\n🌈 4thView 🌈 - ")
     var userRating: Int?
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -114,7 +113,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         sliderForRating.value = 0
         starRatingFloatLabel.text = "\(sliderForRating.value)"
     }
-    
     
     func settingTextFields() {
         reviewTitleTextField.delegate = self
@@ -174,9 +172,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
                 }
             }.resume()
         }
-        print("📣📣 2. comments.count : \( shared.movieComments?.comments.count)")
-        
-//        navigationController?.popViewController(animated: true)
+        print("📣📣 2. comments.count : \(shared.movieComments?.comments.count)")
     }
     
     func alert(_ isEmptyTextFields: Bool) {
@@ -188,6 +184,8 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         movieTitleLabel.becomeFirstResponder()
@@ -198,6 +196,18 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         movieTitleLabel.resignFirstResponder()
         reviewContentsTextField.resignFirstResponder()
+    }
+    
+    func setWriter(_ writer: String) {
+        // empty -> true(F) / notNil -> false(T)
+        if !writer.isEmpty {
+            UserDefaults.standard.set(writer, forKey: "writer")
+        }
+    }
+
+    func getWriterFromDevice() -> String? {
+        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
+        return writer
     }
 }
 

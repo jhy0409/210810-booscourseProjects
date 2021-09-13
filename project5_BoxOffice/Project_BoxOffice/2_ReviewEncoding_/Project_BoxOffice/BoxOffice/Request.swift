@@ -10,13 +10,13 @@ import UIKit
 
 let recieveMovieID: String = "DidRecieveMovies"
 let DidRecievedMoviesNotification: Notification.Name = Notification.Name(recieveMovieID)
-
 let recieveMovieComments: String = "DidRecieveMovieComments"
 let MovieCommentsNotification: Notification.Name = Notification.Name(recieveMovieComments)
 let shared = MovieShared.shared
 
+
 // MARK: - [] 🔴
-func requestMovies(_ commentsByID: String) {
+func requestMovies(_ commentsByID: String, _ completion: ((Data?, URLResponse?, Error?)->())?) {
     print("삐에로 1 - func requestMovies")
     guard let url: URL = appendSubQueryForComments(commentsByID) else { return }
     print("url : \(url)")
@@ -30,20 +30,14 @@ func requestMovies(_ commentsByID: String) {
             shared.movieComments?.comments = apiResponse.comments
         } catch let err {
             print("\n\n---> 🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
+            //alertNetworking(err)
+            completion?(data, urlResponse, err)
         }
     }
     dataTask.resume()
 }
 
-
-
-
-
-
-
-
-
-func requestMovies(movieID: String) {
+func requestMovies(movieID: String, _ completion: ((Data?, URLResponse?, Error?)->())?) {
     print("삐에로 2 - func requestMovies")
     guard let url: URL = appendSubQueryByMovieID(movieID) else { return }
     let session: URLSession = URLSession(configuration: .default)
@@ -54,20 +48,11 @@ func requestMovies(movieID: String) {
             NotificationCenter.default.post(name: DidRecievedMoviesNotification, object: nil, userInfo: ["detail":apiResponse])
         } catch let err {
             print("\n\n---> 🤡🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
+            completion?(data, urlResponse, err)
         }
     }
     dataTask.resume()
 }
-
-
-
-
-
-
-
-
-
-
 
 //    let testURL: String = "https://connect-boxoffice.run.goorm.io/"
 func requestMoovies(_ sortType: SortType?) {
@@ -86,11 +71,6 @@ func requestMoovies(_ sortType: SortType?) {
     }
     dataTask.resume()
 }
-
-
-
-
-
 
 func getViewTitleFromSortType(_ sort: SortType) -> String {
     var resultString: String = ""
@@ -134,10 +114,16 @@ func appendSubQueryByMovieID(_ id: String) -> URL? {
     return url
 }
 
-
 func appendSubQueryForComments(_ id: String) -> URL? {
     let testURL: String = "https://connect-boxoffice.run.goorm.io/comments?movie_id="
     let resultURLString = testURL + "\(id)"
     guard let url: URL = URL(string: resultURLString) else { return nil }
     return url
 }
+
+//func alertNetworking(_ error: Error?) {
+//    guard let error = error else { return }
+//    let errorDescription: String = error.localizedDescription
+//    let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+//    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+//}

@@ -140,10 +140,33 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
-        requestMovies(movieID: movie.id)
-        requestMovies(movie.id)
+        requestMovies(movieID: movie.id) {data,response,error in
+            self.alertNetworking(data, response, error)
+        }
+        requestMovies(movie.id) {data,response,error in
+            self.alertNetworking(data, response, error)
+        }
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
+    }
+    
+    private func alertNetworking(_ error: Error?) {
+        print("🤮 SecondVC - alert1 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
+        print("🤮 SecondVC - alert2 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
