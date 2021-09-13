@@ -17,9 +17,10 @@ class First_MovieList_ViewController: UIViewController {
     let shared = MovieShared.shared
     var enteredNumber: Int? = nil
     
+    // MARK: - [ㅇ] view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         notiAddObserber()
         refresh()
         self.view.bringSubviewToFront(indicator)
@@ -27,13 +28,27 @@ class First_MovieList_ViewController: UIViewController {
         indicator.startAnimating()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // MARK: - [ㅇ] 정렬 - 초기진입 여부에 따른 분기
+        if enteredNumber == nil {
+            requestMoovies(SortType.reservation)
+            enteredNumber = 1
+        } else {
+            requestMoovies(shared.movieList?.order_type)
+        }
+    }
+    
+    // MARK: - [ㅇ] 노티 등록, notification
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
         shared.movieList?.movies = movies
         shared.movieList = movieList
+        self.indicator.isHidden = false
         
         DispatchQueue.main.async {
+            self.indicator.startAnimating()
             self.tableView.reloadData()
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
             guard let sort = self.shared.movieList?.order_type else { return }
@@ -62,17 +77,6 @@ class First_MovieList_ViewController: UIViewController {
     @objc func updateView(refresh: UIRefreshControl) {
         refresh.endRefreshing()
         tableView.reloadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // MARK: - [ㅇ] 정렬 - 초기진입 여부에 따른 분기
-        if enteredNumber == nil {
-            requestMoovies(SortType.reservation)
-            enteredNumber = 1
-        } else {
-            requestMoovies(shared.movieList?.order_type)
-        }
     }
     
     // MARK: - [ㅇ] 정렬 누름 - 탭바 아이템
@@ -108,8 +112,17 @@ class First_MovieList_ViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
+        print("🤮 firstVC - alert1 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
-
 
 // MARK: - [ㅇ] UITableViewDataSource
 extension First_MovieList_ViewController: UITableViewDataSource {
@@ -130,7 +143,7 @@ extension First_MovieList_ViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - [] here 👹
+// MARK: - [ㅇ] UITableViewDelegate
 extension First_MovieList_ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let movies: [Movie] = shared.movieList?.movies else { return }
@@ -147,15 +160,5 @@ extension First_MovieList_ViewController: UITableViewDelegate {
         }
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
-    }
-    
-    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
-        print("🤮 firstVC - alert1 🤮 func alertNetworking(_ error: Error?)")
-        guard let error = error else { return }
-        let errorDescription: String = error.localizedDescription
-        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
     }
 }

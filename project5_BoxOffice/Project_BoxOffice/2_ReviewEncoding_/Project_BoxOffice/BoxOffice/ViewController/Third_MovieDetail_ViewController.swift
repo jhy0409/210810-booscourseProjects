@@ -27,10 +27,9 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     var commentArr: [Comment]?
     var tapGesture: UITapGestureRecognizer?
     
+    // MARK: - [ㅇ] view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.indicator.isHidden = false
-//        self.indicator.startAnimating()
         
         self.view.bringSubviewToFront(indicator)
         indicatorShow(false, indicator)
@@ -44,7 +43,6 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //indicatorShow(animated, indicator)
         DispatchQueue.main.async {
             self.tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
@@ -59,28 +57,21 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
         indicatorShow(animated, indicator)
     }
     
-    
-    
+    // MARK: - [ㅇ] 포스터이미지 크게 보기
     @objc func posterImageViewTapped() {
-        
         guard let posterView = self.storyboard?.instantiateViewController(identifier: posterView) as? PosterViewController else { return }
         guard let movie = self.movie, let imageString = shared.movieDetail?.image else { return }
         posterView.title = movie.title + " 포스터 이미지"
         posterView.movie = movie
         
         DispatchQueue.main.async {
-            self.indicator.isHidden = false
-            self.indicator.startAnimating()
             guard let imageURL = URL(string: imageString), let imageData = try? Data(contentsOf: imageURL), let posterImage: UIImage = UIImage(data: imageData) else { return }
             posterView.posterLargeImage = posterImage
         }
-        self.indicator.stopAnimating()
-        self.indicator.isHidden = true
-        
         navigationController?.pushViewController(posterView, animated: true)
     }
     
-    // MARK: - [] 뷰 당겨서 데이터 갱신 - view refresh
+    // MARK: - [ㅇ] 뷰 당겨서 데이터 갱신 - view refresh
     func refresh() {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(updateView(refresh:)), for: .valueChanged)
@@ -98,7 +89,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     }
     
     
-    // MARK: - [] 노티
+    // MARK: - [ㅇ] 노티 등록, notification
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         DispatchQueue.main.async {
             guard let movieDetail: MovieDetail = noti.userInfo?["detail"] as? MovieDetail else { return }
@@ -106,6 +97,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
         }
     }
+    
     @objc func didRecieveCommentsNotification(_ noti: Notification) {
         DispatchQueue.main.async {
             guard let commentsData: MovieComments = noti.userInfo?["movieComments"] as? MovieComments, let comments: [Comment] = noti.userInfo?["comments"] as? [Comment] else { return }
@@ -127,7 +119,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     }
 }
 
-// MARK: - [] 테이블별 셀 세팅 - tableViewCell data setting
+// MARK: - [ㅇ] 테이블별 셀 세팅 - tableViewCell data setting
 extension Third_MovieDetail_ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 3 {
@@ -135,8 +127,8 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
         }
         return 1
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let sendMovie = shared.movieDetail, let movie = movie else { return UITableViewCell() }
         switch indexPath.section {
         
@@ -207,6 +199,7 @@ extension Third_MovieDetail_ViewController {
         }
     }
     
+    // MARK: - [ㅇ] 리뷰 작성뷰 띄우기 
     @objc func commentViewPush() {
         guard let fourthViewAsReview = self.storyboard?.instantiateViewController(identifier: fourthView) as? FourthReviewViewController else { return }
         guard let movie = self.movie else { return }

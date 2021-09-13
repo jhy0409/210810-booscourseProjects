@@ -12,11 +12,14 @@ class PosterViewController: UIViewController {
     @IBOutlet weak var posterImageView: UIImageView!
     var movie: Movie?
     var posterLargeImage: UIImage?
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicatorShow(false, self.indicator)
         DispatchQueue.main.async {
             self.posterImageView.image = self.posterLargeImage
+            indicatorShow(true, self.indicator)
         }
-        // Do any additional setup after loading the view.
     }
 }

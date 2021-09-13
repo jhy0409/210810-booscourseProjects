@@ -85,7 +85,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         return writer
     }
     
-    
     func calculateScore(_ value: Float) -> Int {
         let floatValue = floor(value * 10) / 10
         
@@ -138,7 +137,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     var callbackResult: (() -> ())?
     @objc func submitReview() {
         print("📣 4thView 📣 - fourthView @objc func submitReview()")
-        //UserWriteComment
         print("reviewFieldCheck : \(reviewFieldCheck)")
         if reviewFieldCheck == true {
             alert(reviewFieldCheck)

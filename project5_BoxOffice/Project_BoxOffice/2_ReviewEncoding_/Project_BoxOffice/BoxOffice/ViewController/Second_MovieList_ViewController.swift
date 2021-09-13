@@ -13,6 +13,7 @@ class Second_MovieList_ViewController: UIViewController {
     let shared = MovieShared.shared
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
+    // MARK: - [ㅇ] view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         notiAddObserber()
@@ -30,6 +31,7 @@ class Second_MovieList_ViewController: UIViewController {
         indicator.isHidden = true
     }
     
+    // MARK: - [ㅇ] 노티 등록, notification
     func notiAddObserber() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRiecieveMovieNotification(_:)), name: DidRecievedMoviesNotification, object: nil)
     }
@@ -37,7 +39,6 @@ class Second_MovieList_ViewController: UIViewController {
     @objc func didRiecieveMovieNotification(_ noti: Notification) {
         guard let movies: [Movie] = noti.userInfo?["movies"] as? [Movie] else { return }
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
-        
         shared.movieList?.movies = movies
         shared.movieList = movieList
         
@@ -48,7 +49,7 @@ class Second_MovieList_ViewController: UIViewController {
             self.title = getViewTitleFromSortType(sort)
         }
     }
-
+    
     @IBAction func tappedSortingButton(_ sender: UIBarButtonItem) {
         let title = "정렬방식 선택"
         let message = "영화를 어떤 순서로 정렬할까요?"
@@ -98,8 +99,19 @@ class Second_MovieList_ViewController: UIViewController {
         refresh.endRefreshing()
         collectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
     }
+    
+    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
+        print("🤮 SecondVC - alert2 🤮 func alertNetworking(_ error: Error?)")
+        guard let error = error else { return }
+        let errorDescription: String = error.localizedDescription
+        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
+// MARK: - [ㅇ] UICollectionViewDelegateFlowLayout
 extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 10
@@ -110,6 +122,7 @@ extension Second_MovieList_ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - [ㅇ] UICollectionViewDelegate
 extension Second_MovieList_ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movies: [Movie] = shared.movieList?.movies else { return }
@@ -126,25 +139,6 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         }
         thirdViewController.title = "\(movie.title)"
         self.navigationController?.pushViewController(thirdViewController, animated: true)
-    }
-    
-//    private func alertNetworking(_ error: Error?) {
-//        print("🤮 SecondVC - alert1 🤮 func alertNetworking(_ error: Error?)")
-//        guard let error = error else { return }
-//        let errorDescription: String = error.localizedDescription
-//        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-//        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-//        present(alert, animated: true, completion: nil)
-//    }
-    
-    private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
-        print("🤮 SecondVC - alert2 🤮 func alertNetworking(_ error: Error?)")
-        guard let error = error else { return }
-        let errorDescription: String = error.localizedDescription
-        let alert = UIAlertController(title: "알림", message: errorDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
     }
 }
 
