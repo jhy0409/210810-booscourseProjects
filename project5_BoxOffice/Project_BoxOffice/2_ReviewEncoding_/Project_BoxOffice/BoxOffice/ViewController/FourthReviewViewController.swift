@@ -80,6 +80,12 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         userRating = Int(calculateScore(sender.value))
     }
     
+    func getWriterFromDevice() -> String? {
+        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
+        return writer
+    }
+    
+    
     func calculateScore(_ value: Float) -> Int {
         let floatValue = floor(value * 10) / 10
         
@@ -201,10 +207,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func getWriterFromDevice() -> String? {
-        guard let writer = UserDefaults.standard.value(forKey: "writer") as? String else { return nil }
-        return writer
-    }
     private func alertNetworking(_ data: Data?, _ response: URLResponse? , _ error: Error?) {
         print("🤮 fourthVC - alert1 🤮 func alertNetworking(_ error: Error?)")
         guard let error = error else { return }

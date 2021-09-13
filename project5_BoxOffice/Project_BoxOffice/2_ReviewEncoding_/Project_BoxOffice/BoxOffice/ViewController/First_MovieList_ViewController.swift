@@ -66,7 +66,6 @@ class First_MovieList_ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         // MARK: - [ㅇ] 정렬 - 초기진입 여부에 따른 분기
         if enteredNumber == nil {
             requestMoovies(SortType.reservation)
@@ -127,23 +126,6 @@ extension First_MovieList_ViewController: UITableViewDataSource {
         DispatchQueue.main.async {
             cell.posterImageView.image = movie.posterImage
         }
-        
-//        DispatchQueue.global().async {
-//            guard let imageURL: URL = URL(string: movie.thumb) else { return }
-//            guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
-//
-//            DispatchQueue.main.async {
-//                if let index: IndexPath = tableView.indexPath(for: cell) {
-//                    if index.row == indexPath.row {
-//                        cell.posterImageView.backgroundColor = .systemBackground
-//                        cell.posterImageView.image = UIImage(data: imageData)
-//                    } else {
-//                        cell.posterImageView.image = nil
-//                        cell.posterImageView.backgroundColor = .gray
-//                    }
-//                }
-//            }
-//        }
         return cell
     }
 }
@@ -151,7 +133,6 @@ extension First_MovieList_ViewController: UITableViewDataSource {
 // MARK: - [] here 👹
 extension First_MovieList_ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        connect-boxoffice.run.goorm.io/movie?id=5a54c286e8a71d136fb5378e
         guard let movies: [Movie] = shared.movieList?.movies else { return }
         let movie = movies[indexPath.item]
         guard let thirdViewController = storyboard?.instantiateViewController(identifier: "thirdVC") as? Third_MovieDetail_ViewController else { return }
