@@ -16,9 +16,10 @@ let shared = MovieShared.shared
 
 
 // MARK: - [] 🔴
-func requestMovies(_ commentsByID: String, _ completion: ((Data?, URLResponse?, Error?)->())?) {
+func requestMovies(_ commentsByID: String, _ completion: ((Data?, URLResponse?, Error?)->())?) -> [Comment]? {
     print("삐에로 1 - func requestMovies")
-    guard let url: URL = appendSubQueryForComments(commentsByID) else { return }
+    var resultCommentArray: [Comment]?
+    guard let url: URL = appendSubQueryForComments(commentsByID) else { return nil }
     print("url : \(url)")
     let session: URLSession = URLSession(configuration: .default)
     let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, urlResponse: URLResponse?, error: Error?) in
@@ -28,6 +29,7 @@ func requestMovies(_ commentsByID: String, _ completion: ((Data?, URLResponse?, 
             NotificationCenter.default.post(name: MovieCommentsNotification, object: nil, userInfo: ["movieComments":apiResponse, "comments":apiResponse.comments])
             shared.movieComments = apiResponse
             shared.movieComments?.comments = apiResponse.comments
+            resultCommentArray = apiResponse.comments
         } catch let err {
             print("\n\n---> 🤡 Request.swift / err.localizedDescription : \(err.localizedDescription)")
             //alertNetworking(err)
@@ -35,6 +37,7 @@ func requestMovies(_ commentsByID: String, _ completion: ((Data?, URLResponse?, 
         }
     }
     dataTask.resume()
+    return resultCommentArray
 }
 
 func requestMovies(movieID: String, _ completion: ((Data?, URLResponse?, Error?)->())?) {

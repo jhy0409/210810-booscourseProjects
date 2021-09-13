@@ -20,7 +20,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
     var urlFromSecondView: URL?
     let shared = MovieShared.shared
     var movie: Movie?
-    var movieComments: [Comment] = []
+//    var movieComments: [Comment] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
@@ -104,7 +104,7 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
             guard let commentsData: MovieComments = noti.userInfo?["movieComments"] as? MovieComments, let comments: [Comment] = noti.userInfo?["comments"] as? [Comment] else { return }
             self.shared.movieComments = commentsData
             self.shared.movieComments?.comments = comments
-            self.movieComments = comments
+            self.commentArr = comments
             self.tableView.reloadSections(IndexSet(0...3), with: .automatic)
             self.indicator.stopAnimating()
             self.indicator.isHidden = true
@@ -123,8 +123,8 @@ class Third_MovieDetail_ViewController: UIViewController,UITableViewDelegate {
 // MARK: - [ㅇ] 테이블별 셀 세팅 - tableViewCell data setting
 extension Third_MovieDetail_ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 3 {
-            return movieComments.count
+        if section == 3, let comments = commentArr {
+            return comments.count
         }
         return 1
     }
@@ -156,7 +156,8 @@ extension Third_MovieDetail_ViewController: UITableViewDataSource {
             
         case 3: // comments
             guard let cell: ThirdOfFourth_MovieIntro_TableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourth_MovieIntro_TableViewCell else { return UITableViewCell() }
-            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
+//            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
+            guard let comment: Comment = commentArr?[indexPath.row] else { return cell }
             
             cell.update(comment)
             return cell

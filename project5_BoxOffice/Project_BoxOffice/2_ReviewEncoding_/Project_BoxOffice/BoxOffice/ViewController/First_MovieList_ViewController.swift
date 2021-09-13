@@ -152,10 +152,10 @@ extension First_MovieList_ViewController: UITableViewDelegate {
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
-        requestMovies(movieID: movie.id) {data, response, error in
+        thirdViewController.commentArr = requestMovies(movie.id) {data, response, error in
             self.alertNetworking(data, response, error)
         }
-        requestMovies(movie.id) {data, response, error in
+        requestMovies(movieID: movie.id) {data, response, error in
             self.alertNetworking(data, response, error)
         }
         thirdViewController.title = "\(movie.title)"

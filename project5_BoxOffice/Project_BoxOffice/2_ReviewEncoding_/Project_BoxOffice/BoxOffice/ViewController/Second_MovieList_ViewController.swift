@@ -11,6 +11,7 @@ class Second_MovieList_ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     private let cellIdentifire = "secondCell"
     let shared = MovieShared.shared
+    var commentArr: [Comment]?
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     // MARK: - [ㅇ] view life cycle
@@ -131,10 +132,10 @@ extension Second_MovieList_ViewController: UICollectionViewDelegate {
         
         thirdViewController.urlFromSecondView = appendSubQueryByMovieID(movie.id)
         thirdViewController.movie = movie
-        requestMovies(movieID: movie.id) {data,response,error in
+        thirdViewController.commentArr = requestMovies(movie.id) {data, response, error in
             self.alertNetworking(data, response, error)
         }
-        requestMovies(movie.id) {data,response,error in
+        requestMovies(movieID: movie.id) {data, response, error in
             self.alertNetworking(data, response, error)
         }
         thirdViewController.title = "\(movie.title)"

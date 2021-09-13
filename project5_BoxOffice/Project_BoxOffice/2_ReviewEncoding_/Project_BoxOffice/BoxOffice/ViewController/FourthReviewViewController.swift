@@ -51,6 +51,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
      */
     let shared = MovieShared.shared
     var movie: Movie?
+    
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var gradeImageVIew: UIImageView!
     
