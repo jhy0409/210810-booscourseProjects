@@ -41,7 +41,7 @@ struct CityArea: Codable {
         return UIImage(named: tmpWeather)
     }
     
-    var rainStr: String { "강수확률 \(rainfall)%" }
+    var rainString: String { "강수확률 \(rainfall)%" }
     
     // 3번째 뷰용 - 날씨 텍스트
     var weatherStr: String {

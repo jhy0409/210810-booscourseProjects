@@ -49,6 +49,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		68875F0C26F0E407008269C1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				68A4EEB626D7B545005E899E /* ContryTableViewCell.swift */,
+				68BF903526D85B190006AF2B /* CityTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		68A4EEB826D7B9A8005E899E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,8 +89,7 @@
 			children = (
 				68BF903226D8524F0006AF2B /* Model */,
 				68A4EEB826D7B9A8005E899E /* ViewController */,
-				68A4EEB626D7B545005E899E /* ContryTableViewCell.swift */,
-				68BF903526D85B190006AF2B /* CityTableViewCell.swift */,
+				68875F0C26F0E407008269C1 /* Cell */,
 				68BB245426D3B38A0084D168 /* AppDelegate.swift */,
 				68BB245626D3B38A0084D168 /* SceneDelegate.swift */,
 				68BB245A26D3B38A0084D168 /* Main.storyboard */,

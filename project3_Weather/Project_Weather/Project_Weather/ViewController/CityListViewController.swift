@@ -12,11 +12,13 @@ class CityListViewController: UIViewController, UITableViewDataSource,UITableVie
     @IBOutlet weak var tableView: UITableView!
     var cities: [CityArea] = [] // 한국 -> '춘천', '서울', ...
     var tmpCountry: Country?    // decode용. 'kr.json, de.json'... 나라 이름 필요
+    var stringForViewTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        guard let shortName = tmpCountry?.shortName else { return } // ko, de, jp 등
+        guard let shortName = tmpCountry?.shortName, let title = stringForViewTitle else { return } // ko, de, jp 등
+        self.title = title
         
         let jsonDecoder: JSONDecoder = JSONDecoder()
         guard let dataAsset: NSDataAsset = NSDataAsset(name: shortName) else { return }
@@ -42,9 +44,8 @@ class CityListViewController: UIViewController, UITableViewDataSource,UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let areaVC = segue.destination as? AreaViewController else { return }
-        
-        guard let cell = sender as? CityTableViewCell else { return }
-        areaVC.tmpCityArea = cell.tmpCity // 세번째뷰 '춘천'(CityArea) = 두번째 뷰의 선택셀의 지역값으로 할당 ('춘천'(CityArea))
-        areaVC.title = cell.tmpCity?.cityName // 세번째 뷰 네비게이션 타이틀 = 두번째뷰 선택셀의 도시 이름
+        guard let index = tableView.indexPathForSelectedRow?.row else { return } // 세번째뷰 '춘천'(CityArea) = 두번째 뷰의 선택셀의 지역값으로 할당
+        let cityArea = cities[index]
+        areaVC.tmpCityArea = cityArea
     }
 }

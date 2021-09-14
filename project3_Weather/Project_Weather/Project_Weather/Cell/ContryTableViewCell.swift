@@ -10,12 +10,6 @@ import UIKit
 class ContryTableViewCell: UITableViewCell {
     @IBOutlet weak var ctryImg: UIImageView!      // 국기
     @IBOutlet weak var countryNameLabel: UILabel! // 국가명
-    var tmpC: Country?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
