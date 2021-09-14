@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         settingDelegate(textFieldArr)
-        imgViewSetting()
+        setImageView()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickPhoto))
         profileImageView.addGestureRecognizer(tapGesture)
@@ -52,10 +52,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkValue() {
-        if  idTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-                pwTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-                pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
-                AboutMe.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
+        if  idTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false &&
+                pwTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false &&
+                pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false &&
+                AboutMe.text?.trimmingCharacters(in: .whitespaces).isEmpty == false &&
                 pwTextField.text == pwCheckTextField.text &&
                 profileImageView.image != nil {
             nextButton.isEnabled = true
@@ -73,6 +73,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // [ㅇ] 키보드 올리고 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
 }
@@ -83,7 +84,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("\nfunc -> imagePickerControllerDidCancel")
         checkValue()
-        imgViewSetting()
+        setImageView()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -98,12 +99,12 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         }
         profileImageView.image = tmpImg
         
-        imgViewSetting()
+        setImageView()
         checkValue()
         self.dismiss(animated: true, completion: nil)
     }
     
-    func imgViewSetting() {
+    func setImageView() {
         profileImageView.layer.borderWidth = 1
         profileImageView.layer.cornerRadius = 10
         
@@ -117,7 +118,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
             profileImageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             nextButton.isEnabled = true
         }
-        print("\n\n--> imgViewSetting func")
     }
     
     func resetUserInfo() {
