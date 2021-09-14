@@ -191,7 +191,7 @@
                         <outlet property="AboutMe" destination="Sca-dK-c93" id="3EF-vp-yj0"/>
                         <outlet property="idTextField" destination="uLH-uS-lL7" id="F2Y-rb-dfS"/>
                         <outlet property="nextButton" destination="lkN-qv-SKQ" id="OhL-1x-wJ1"/>
-                        <outlet property="profileImg" destination="0Pl-Qk-p5O" id="Pym-5K-IgQ"/>
+                        <outlet property="profileImageView" destination="0Pl-Qk-p5O" id="pzr-9L-pUx"/>
                         <outlet property="pwCheckTextField" destination="PEk-Xf-SIH" id="TQT-Xw-QVy"/>
                         <outlet property="pwTextField" destination="ZJF-fq-LDX" id="pHB-YD-6Fn"/>
                     </connections>

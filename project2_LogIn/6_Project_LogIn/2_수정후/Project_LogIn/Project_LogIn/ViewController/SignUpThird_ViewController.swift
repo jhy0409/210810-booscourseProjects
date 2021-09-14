@@ -53,7 +53,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         if tellTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 && DidDateLabelchange == true {
             guard let tellStr = tellTextField.text, let birthStr = birthLabel.text else { return }
             
-            UserInformation.shared.tellNum = tellStr
+            UserInformation.shared.phoneNumber = tellStr
             UserInformation.shared.birthDay = birthStr
             joinButton.isEnabled = true
             print("\nThirdView checkValue() ----> tellTextField에 값이 있음")
@@ -69,8 +69,8 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - ImportUserInformation 유저정보 가져오기
     func ImportUserInformation() {
-        if UserInformation.shared.birthDay != nil && UserInformation.shared.tellNum != nil {
-            tellTextField.text = UserInformation.shared.tellNum
+        if UserInformation.shared.birthDay != nil && UserInformation.shared.phoneNumber != nil {
+            tellTextField.text = UserInformation.shared.phoneNumber
             dateLabel.text = UserInformation.shared.birthDay
             DidDateLabelchange = true
         } else {
@@ -99,7 +99,7 @@ class SignUpThird_ViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name("setTextField"), object: nil, userInfo: ["id" : ""])
         UserInformation.shared.userID = nil
         UserInformation.shared.birthDay = nil
-        UserInformation.shared.tellNum = nil
+        UserInformation.shared.phoneNumber = nil
     }
     
     func dismissModal() {

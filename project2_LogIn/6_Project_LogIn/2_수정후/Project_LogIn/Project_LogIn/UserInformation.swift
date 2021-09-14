@@ -12,7 +12,7 @@ class UserInformation {
     
     var userID: String?
     var birthDay: String?
-    var tellNum: String?
+    var phoneNumber: String?
     
     private init() {}
 }

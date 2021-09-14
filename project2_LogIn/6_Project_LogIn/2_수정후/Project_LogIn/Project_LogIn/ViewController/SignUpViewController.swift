@@ -12,7 +12,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
     @IBOutlet weak var pwCheckTextField: UITextField!
-    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var AboutMe: UITextField!
     lazy var textFieldArr: [UITextField] = [idTextField, pwTextField, pwCheckTextField, AboutMe]
     @IBOutlet weak var nextButton: UIButton!
@@ -22,7 +22,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.allowsEditing = true
-        // picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
 
         return picker
     }()
@@ -34,8 +33,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         imgViewSetting()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickPhoto))
-        profileImg.addGestureRecognizer(tapGesture)
-        profileImg.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(tapGesture)
+        profileImageView.isUserInteractionEnabled = true
     }
     
     @objc func pickPhoto() {
@@ -58,7 +57,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 pwCheckTextField.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
                 AboutMe.text?.trimmingCharacters(in: .whitespaces).count != 0 &&
                 pwTextField.text == pwCheckTextField.text &&
-                profileImg.image != nil {
+                profileImageView.image != nil {
             nextButton.isEnabled = true
             
             // MARK: - 아이디값 저장
@@ -97,7 +96,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         } else if let editedImg = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             tmpImg = editedImg
         }
-        profileImg.image = tmpImg
+        profileImageView.image = tmpImg
         
         imgViewSetting()
         checkValue()
@@ -105,17 +104,17 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
     
     func imgViewSetting() {
-        profileImg.layer.borderWidth = 1
-        profileImg.layer.cornerRadius = 10
+        profileImageView.layer.borderWidth = 1
+        profileImageView.layer.cornerRadius = 10
         
-        if profileImg.image == nil {
-            profileImg.backgroundColor = .systemGray6
-            profileImg.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        if profileImageView.image == nil {
+            profileImageView.backgroundColor = .systemGray6
+            profileImageView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
             nextButton.isEnabled = false
         }
         else {
-            profileImg.backgroundColor = .systemBackground
-            profileImg.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            profileImageView.backgroundColor = .systemBackground
+            profileImageView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             nextButton.isEnabled = true
         }
         print("\n\n--> imgViewSetting func")
@@ -125,6 +124,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         NotificationCenter.default.post(name: NSNotification.Name("setTextField"), object: nil, userInfo: ["id" : ""])
         UserInformation.shared.userID = nil
         UserInformation.shared.birthDay = nil
-        UserInformation.shared.tellNum = nil
+        UserInformation.shared.phoneNumber = nil
     }
 }

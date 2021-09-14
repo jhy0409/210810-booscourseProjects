@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpNUserInfoReset(_ sender: UIButton) {
         print("\n\n\n-------> signUpNUserInfoReset")
         UserInformation.shared.userID = nil
-        UserInformation.shared.tellNum = nil
+        UserInformation.shared.phoneNumber = nil
         UserInformation.shared.birthDay = nil
     }
     
