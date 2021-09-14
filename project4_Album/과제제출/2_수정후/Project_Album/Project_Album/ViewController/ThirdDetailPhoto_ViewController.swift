@@ -7,7 +7,7 @@
 
 import UIKit
 import Photos
-class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
+class ThirdDetailPhotoViewController: UIViewController,UIScrollViewDelegate {
     var stoaryboardId: String = "thirdView"
     var asset: PHAsset!
     var dateString: (String, String)!
@@ -18,6 +18,9 @@ class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
     var heartEmptyIcon = UIImage(systemName: "heart")
     var heartFillIcon = UIImage(systemName: "heart.fill")
     @IBOutlet weak var scrollViewSpaceFromBottom: NSLayoutConstraint!
+    
+    let deleveryOptions = PHImageRequestOptionsDeliveryMode.highQualityFormat
+    let option = PHImageRequestOptions()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +81,12 @@ class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
     func getImage(_ phasset: PHAsset) -> UIImage {
         let manager = PHImageManager.default()
         var resultImg = UIImage()
-        
+        let deleveryOptions = PHImageRequestOptionsDeliveryMode.highQualityFormat
+        let option = PHImageRequestOptions()
+        option.deliveryMode = deleveryOptions
+        option.isSynchronous = true
         let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
-        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _  in
+        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: option) { image, _  in
             if let img = image {
                 resultImg = img
             }
@@ -91,9 +97,13 @@ class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
     func getImages(_ phasset: PHAsset) -> [UIImage] {
         let manager = PHImageManager.default()
         var resultImg = [UIImage]()
+        let deleveryOptions = PHImageRequestOptionsDeliveryMode.highQualityFormat
+        let option = PHImageRequestOptions()
+        option.deliveryMode = deleveryOptions
+        option.isSynchronous = true
         
         let size = CGSize(width: phasset.pixelWidth, height: phasset.pixelHeight)
-        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _  in
+        manager.requestImage(for: phasset, targetSize: size, contentMode: .aspectFill, options: option) { image, _  in
             if let img = image {
                 resultImg.append(img)
             }
@@ -124,16 +134,16 @@ class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
         toolbar.setItems(items, animated: true)
     }
     
-    func getHeartFromPhoto(_ tmpBool: Bool) -> UIImage {
+    func getHeartFromPhoto(_ isHeartPhoto: Bool) -> UIImage {
         var resultIcon = UIImage()
         guard let heartFill = heartFillIcon, let heartEmpty = heartEmptyIcon else { print("\n---> ⛔️ thirdVC ⛔️ getHeartFromPhoto Fail "); return resultIcon }
-        switch tmpBool {
+        switch isHeartPhoto {
         case true:
             resultIcon = heartFill
-            print("---> 🟢 thirdVC 🟢 tmpBool True Area : \(tmpBool) - heartFill")
+            print("---> 🟢 thirdVC 🟢 tmpBool True Area : \(isHeartPhoto) - heartFill")
         default:
             resultIcon = heartEmpty
-            print("---> 🟢 thirdVC 🟢 tmpBool nil Or false? Area : \(tmpBool)- heartEmpty")
+            print("---> 🟢 thirdVC 🟢 tmpBool nil Or false? Area : \(isHeartPhoto)- heartEmpty")
         }
         return resultIcon
     }
@@ -147,8 +157,8 @@ class ThirdDetailPhoto_ViewController: UIViewController,UIScrollViewDelegate {
         }
         
         PHPhotoLibrary.shared().performChanges(change, completionHandler: nil)
-        let img = getHeartFromPhoto(!fromAssetBool)
-        heartStatus?.image = img
+        let image = getHeartFromPhoto(!fromAssetBool)
+        heartStatus?.image = image
     }
     
     // MARK: - 뷰 타이틀 제목 및 부제목
