@@ -26,8 +26,8 @@ class SecondMovieListViewController: UIViewController {
         self.title = getViewTitleFromSortType(sort)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         indicator.stopAnimating()
         indicator.isHidden = true
     }
@@ -42,12 +42,11 @@ class SecondMovieListViewController: UIViewController {
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
         shared.movieList?.movies = movies
         shared.movieList = movieList
+        guard let sort = self.shared.movieList?.order_type else { return }
         
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
-            guard let sort = self.shared.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
+            self.collectionView.reloadSections(IndexSet(0...0))
         }
     }
     

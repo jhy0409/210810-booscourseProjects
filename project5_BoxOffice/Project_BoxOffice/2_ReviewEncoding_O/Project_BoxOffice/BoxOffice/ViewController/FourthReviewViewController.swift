@@ -8,19 +8,18 @@
 import UIKit
 
 class FourthReviewViewController: UIViewController, UITextFieldDelegate {
-    
     let shared = MovieShared.shared
     var movie: Movie?
-    
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var gradeImageVIew: UIImageView!
     @IBOutlet weak var thirdImageViewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var thirdImageViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var thirdImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var ratingValueConstraintFromStars: NSLayoutConstraint!
     @IBOutlet weak var reviewTitleFromRatingContraint: NSLayoutConstraint!
     @IBOutlet weak var reviewTitleTextField: UITextField!
     @IBOutlet weak var reviewContentsTextField: UITextField!
+    
     @IBOutlet weak var starRatingFloatLabel: UILabel!
     @IBOutlet weak var sliderForRating: UISlider!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
@@ -67,10 +66,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         return Int(floatValue)
     }
     
-    
-    
     // MARK: - [ㅇ] view life cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.indicator.isHidden = true
@@ -90,6 +86,18 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         movieTitleLabel.becomeFirstResponder() // 텍스트 필드 클릭 시 키보드 띄우기
         reviewContentsTextField.becomeFirstResponder()
+        
+        if UIDevice.current.orientation.isLandscape == true { // 뷰가 가로일 때
+            thirdImageViewConstraint.constant = 20
+            thirdImageViewHeightConstraint.constant = 20
+            reviewTitleFromRatingContraint.constant = 20
+            ratingValueConstraintFromStars.constant = 10
+        } else {
+            thirdImageViewConstraint.constant = 48
+            thirdImageViewHeightConstraint.constant = 48
+            reviewTitleFromRatingContraint.constant = 50
+            ratingValueConstraintFromStars.constant = 30.5
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -100,7 +108,6 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
             thirdImageViewHeightConstraint.constant = 20
             reviewTitleFromRatingContraint.constant = 20
             ratingValueConstraintFromStars.constant = 10
-            
         } else {
             thirdImageViewConstraint.constant = 48
             thirdImageViewHeightConstraint.constant = 48
@@ -173,7 +180,7 @@ class FourthReviewViewController: UIViewController, UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        movieTitleLabel.resignFirstResponder()
+        reviewTitleTextField.resignFirstResponder()
         reviewContentsTextField.resignFirstResponder()
     }
     

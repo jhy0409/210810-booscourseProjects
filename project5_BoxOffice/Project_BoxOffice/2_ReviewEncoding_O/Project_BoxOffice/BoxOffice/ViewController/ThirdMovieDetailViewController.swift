@@ -20,7 +20,6 @@ class ThirdMovieDetailViewController: UIViewController,UITableViewDelegate {
     var urlFromSecondView: URL?
     let shared = MovieShared.shared
     var movie: Movie?
-//    var movieComments: [Comment] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
@@ -31,7 +30,6 @@ class ThirdMovieDetailViewController: UIViewController,UITableViewDelegate {
     // MARK: - [ㅇ] view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.bringSubviewToFront(indicator)
         indicatorShow(false, indicator)
         
@@ -155,7 +153,6 @@ extension ThirdMovieDetailViewController: UITableViewDataSource {
             
         case 3: // comments
             guard let cell: ThirdOfFourthMovieIntroTableViewCell = tableView.dequeueReusableCell(withIdentifier: fourthCell) as? ThirdOfFourthMovieIntroTableViewCell else { return UITableViewCell() }
-//            guard let comment: Comment = shared.movieComments?.comments[indexPath.row] else { return cell }
             guard let comment: Comment = commentArr?[indexPath.row] else { return cell }
             
             cell.update(comment)

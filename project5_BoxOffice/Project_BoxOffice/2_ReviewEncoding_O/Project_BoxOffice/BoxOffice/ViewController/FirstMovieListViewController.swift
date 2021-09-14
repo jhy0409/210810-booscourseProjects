@@ -20,7 +20,6 @@ class FirstMovieListViewController: UIViewController {
     // MARK: - [ㅇ] view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         notiAddObserber()
         refresh()
         self.view.bringSubviewToFront(indicator)
@@ -28,8 +27,8 @@ class FirstMovieListViewController: UIViewController {
         indicator.startAnimating()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // MARK: - [ㅇ] 정렬 - 초기진입 여부에 따른 분기
         if enteredNumber == nil {
             requestMoovies(SortType.reservation)
@@ -45,14 +44,15 @@ class FirstMovieListViewController: UIViewController {
         guard let movieList: MovieList = noti.userInfo?["movieList"] as? MovieList else { return }
         shared.movieList?.movies = movies
         shared.movieList = movieList
-        self.indicator.isHidden = false
         
         DispatchQueue.main.async {
+            self.indicator.isHidden = false
             self.indicator.startAnimating()
-            self.tableView.reloadData()
+            
             // MARK: - [ㅇ] 뷰타이틀 세팅 - 앱 초기진입
             guard let sort = self.shared.movieList?.order_type else { return }
             self.title = getViewTitleFromSortType(sort)
+            self.tableView.reloadSections([0], with: .automatic)
             self.indicator.stopAnimating()
             self.indicator.isHidden = true
         }
